@@ -43,7 +43,11 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation, To
                     $approved = 0;
                 }
 
-                /** update custom product */
+                /**
+                 *
+                 * update custom product
+                 *
+                 * */
                 /* $productId = Product::where('id',$row['product_id'])->update([
                     'unit_price' => $row['unit_price'] ?: 0,
                 ]);
