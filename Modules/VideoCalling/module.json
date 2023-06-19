@@ -1,0 +1,11 @@
+{
+    "name": "VideoCalling",
+    "alias": "videocalling",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\VideoCalling\\Providers\\VideoCallingServiceProvider"
+    ],
+    "files": []
+}
