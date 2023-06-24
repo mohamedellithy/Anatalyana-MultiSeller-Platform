@@ -72,69 +72,6 @@
             </div>
         </div>
 
-        <!-- Payment System -->
-        <div class="card">
-            <div class="card-header">
-                <h5 class="mb-0 h6">{{ translate('Payment Setting')}}</h5>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <label class="col-md-3 col-form-label">{{ translate('Cash Payment') }}</label>
-                    <div class="col-md-9">
-                        <label class="aiz-switch aiz-switch-success mb-3">
-                            <input value="1" name="cash_on_delivery_status" type="checkbox" @if ($user->shop->cash_on_delivery_status == 1) checked @endif>
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-                </div>
-                <div class="row">
-                    <label class="col-md-3 col-form-label">{{ translate('Bank Payment') }}</label>
-                    <div class="col-md-9">
-                        <label class="aiz-switch aiz-switch-success mb-3">
-                            <input value="1" name="bank_payment_status" type="checkbox" @if ($user->shop->bank_payment_status == 1) checked @endif>
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-                </div>
-                <div class="row">
-                    <label class="col-md-3 col-form-label" for="bank_name">{{ translate('Bank Name') }}</label>
-                    <div class="col-md-9">
-                        <input type="text" name="bank_name" value="{{ $user->shop->bank_name }}" id="bank_name" class="form-control mb-3" placeholder="{{ translate('Bank Name')}}">
-                        @error('phone')
-                            <small class="form-text text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                </div>
-                <div class="row">
-                    <label class="col-md-3 col-form-label" for="bank_acc_name">{{ translate('Bank Account Name') }}</label>
-                    <div class="col-md-9">
-                        <input type="text" name="bank_acc_name" value="{{ $user->shop->bank_acc_name }}" id="bank_acc_name" class="form-control mb-3" placeholder="{{ translate('Bank Account Name')}}">
-                        @error('bank_acc_name')
-                            <small class="form-text text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                </div>
-                <div class="row">
-                    <label class="col-md-3 col-form-label" for="bank_acc_no">{{ translate('Bank Account Number') }}</label>
-                    <div class="col-md-9">
-                        <input type="text" name="bank_acc_no" value="{{ $user->shop->bank_acc_no }}" id="bank_acc_no" class="form-control mb-3" placeholder="{{ translate('Bank Account Number')}}">
-                        @error('bank_acc_no')
-                            <small class="form-text text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                </div>
-                <div class="row">
-                    <label class="col-md-3 col-form-label" for="bank_routing_no">{{ translate('Bank Routing Number') }}</label>
-                    <div class="col-md-9">
-                        <input type="number" name="bank_routing_no" value="{{ $user->shop->bank_routing_no }}" id="bank_routing_no" lang="en" class="form-control mb-3" placeholder="{{ translate('Bank Routing Number')}}">
-                        @error('bank_routing_no')
-                            <small class="form-text text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="form-group mb-0 text-right">
             <button type="submit" class="btn btn-primary">{{translate('Update Profile')}}</button>
         </div>
@@ -281,7 +218,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col-md-2">
                                     <label>{{ translate('State')}}</label>
@@ -334,7 +271,7 @@
                                     </div>
                                 </div>
                             @endif
-                            
+
                             <div class="row">
                                 <div class="col-md-2">
                                     <label>{{ translate('Postal code')}}</label>
@@ -371,7 +308,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                
+
                 <div class="modal-body" id="edit_modal_body">
 
                 </div>
@@ -383,7 +320,7 @@
 
 @section('script')
     <script type="text/javascript">
-        
+
         $('.new-email-verification').on('click', function() {
             $(this).find('.loading').removeClass('d-none');
             $(this).find('.default').addClass('d-none');
@@ -409,7 +346,7 @@
         function edit_address(address) {
             var url = '{{ route("seller.addresses.edit", ":id") }}';
             url = url.replace(':id', address);
-            
+
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -435,7 +372,7 @@
                 }
             });
         }
-        
+
         $(document).on('change', '[name=country_id]', function() {
             var country_id = $(this).val();
             get_states(country_id);
@@ -445,7 +382,7 @@
             var state_id = $(this).val();
             get_city(state_id);
         });
-        
+
         function get_states(country_id) {
             $('[name="state"]').html("");
             $.ajax({
@@ -491,9 +428,9 @@
     </script>
 
     @if (get_setting('google_map') == 1)
-        
+
         @include('frontend.partials.google_map')
-        
+
     @endif
 
 @endsection

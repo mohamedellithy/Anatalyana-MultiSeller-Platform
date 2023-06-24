@@ -1,5 +1,9 @@
 @extends('seller.layouts.app')
 
+@section('sub_menu')
+   @include('seller.sub_menus.messages')
+@endsection
+
 @section('panel_content')
     <div class="aiz-titlebar mt-2 mb-4">
       <div class="row align-items-center">

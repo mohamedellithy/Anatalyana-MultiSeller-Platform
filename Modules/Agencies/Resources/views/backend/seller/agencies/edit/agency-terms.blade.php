@@ -1,5 +1,9 @@
 @extends('seller.layouts.app')
 
+@section('sub_menu')
+   @include('agencies::sub_menus.agencies')
+@endsection
+
 @section('panel_content')
     <div class="aiz-titlebar mt-2 mb-4">
         <div class="row align-items-center">
@@ -128,11 +132,11 @@
                                         @endif
                                     </td>
                                     <td>
-                                        
+
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('seller.edit-agency-term', ['agency_country_id'=>$agency_term->agency_country_id,'term_id'=>$agency_term->agency_term_id, 'lang'=>env('DEFAULT_LANGUAGE')] )}}" title="{{ translate('Edit') }}">
                                             <i class="las la-edit"></i>
                                         </a>
-                                        
+
                                         <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="{{route('seller.delete-agency-term', $agency_term->agency_term_id)}}" title="{{ translate('Delete') }}">
                                             <i class="las la-trash"></i>
                                         </a>

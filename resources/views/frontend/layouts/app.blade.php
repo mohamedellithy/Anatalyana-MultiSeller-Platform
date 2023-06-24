@@ -113,7 +113,7 @@
             font-family: 'Public Sans', sans-serif;
             font-weight: 400;
         }
-        
+
         .pagination .page-link,
         .page-item.disabled .page-link {
             min-width: 32px;
@@ -156,8 +156,21 @@
 
         .pac-container { z-index: 100000; }
     </style>
-    
+
     @yield('style')
+
+    {{-- @if(Auth::check() && Auth::user()->user_type == 'seller') --}}
+        {{-- @if(app()->getLocale() == 'sa')
+            <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200&display=swap" rel="stylesheet">
+        @else
+        @endif --}}
+        <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+        <!-- google font -->
+	    {{-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"> --}}
+        <link rel="stylesheet" href="{{ static_asset('assets/css/aiz-seller.css') }}">
+        <link rel="stylesheet" href="{{ static_asset('assets/css/aiz-modern-seller.css') }}">
+
+    {{-- @endif --}}
 
 @if (get_setting('google_analytics') == 1)
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -200,6 +213,25 @@
     <!-- aiz-main-wrapper -->
     <div class="aiz-main-wrapper d-flex flex-column bg-white">
 
+        <!-- Header seller navbar-->
+        @if(Auth::check() && Auth::user()->user_type == 'seller')
+            <div class="aiz-content-wrapper">
+                @include('seller.inc.seller_nav')
+                @include('seller.inc.seller_top_menu')
+                <!-- .aiz-main-content -->
+            </div>
+        @else
+            @include('frontend.inc.nav')
+        @endif
+
+        @yield('content')
+        @include('frontend.inc.footer')
+
+    </div>
+
+     {{-- <!-- aiz-main-wrapper -->
+     <div class="aiz-main-wrapper d-flex flex-column bg-white">
+
         <!-- Header -->
         @include('frontend.inc.nav')
 
@@ -207,7 +239,7 @@
 
         @include('frontend.inc.footer')
 
-    </div>
+    </div> --}}
 
     <!-- cookies agreement -->
     @if (get_setting('show_cookies_agreement') == 'on')
@@ -256,7 +288,7 @@
     @endif
 
     @include('frontend.partials.modal')
-    
+
     @include('frontend.partials.account_delete_modal')
 
     <div class="modal fade" id="addToCart">
@@ -403,7 +435,7 @@
             if($trigger !== event.target && !$trigger.has(event.target).length){
                 $("#click-category-menu").slideUp("fast");;
                 $("#category-menu-bar-icon").removeClass('show');
-            }   
+            }
         });
 
         function updateNavCart(view,count){
@@ -559,7 +591,7 @@
                 AIZ.plugins.notify('warning', "{{ translate('Please Login as a customer to add products to the Cart.') }}");
                 return false;
             @endif
-            
+
             if(checkAddToCartValidity()) {
                 $('#addToCart-modal-body').html(null);
                 $('#addToCart').modal();
@@ -601,7 +633,7 @@
                 $('#login_modal').modal('show');
             @endif
         }
-        
+
         function clickToSlide(btn,id){
             $('#'+id+' .aiz-carousel').find('.'+btn).trigger('click');
             $('#'+id+' .slide-arrow').removeClass('link-disable');
@@ -635,7 +667,7 @@
             setTimeout(function(){
                 $('.cart-ok').css({ fill: '#d43533' });
             }, 2000);
-            
+
         });
     </script>
 
@@ -702,11 +734,11 @@
                     panel.style.maxHeight = null;
                 } else {
                     panel.style.maxHeight = panel.scrollHeight + "px";
-                } 
+                }
             });
         }
-        
-       
+
+
     </script>
 
     @yield('script')
@@ -714,6 +746,23 @@
     @php
         echo get_setting('footer_script');
     @endphp
+
+    <!-- menu hover by using js -->
+    <script>
+    jQuery('document').ready(function(){
+        let self = null;
+        jQuery('.icon-menu-topbar').mouseover(function(){
+            self = this;
+            let color = jQuery(this).attr('data-color');
+            jQuery(this).parents('li').addClass('active');
+            jQuery('.list-menu-topbar.active:not(.main) .icon-menu-topbar label').css('border-color',color);
+        });
+        jQuery('.icon-menu-topbar').mouseout(function(){
+            jQuery(self).parents('li.active:not(.main)').removeClass('active');
+            jQuery('.list-menu-topbar:not(.active) .icon-menu-topbar label').css('border-color','transparent');
+        });
+    });
+    </script>
 
 </body>
 </html>

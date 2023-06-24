@@ -17,7 +17,7 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $addresses = $user->addresses; 
+        $addresses = $user->addresses;
         return view('seller.profile.index', compact('user','addresses'));
     }
 
@@ -42,21 +42,8 @@ class ProfileController extends Controller
         if($request->new_password != null && ($request->new_password == $request->confirm_password)){
             $user->password = Hash::make($request->new_password);
         }
-        
+
         $user->avatar_original = $request->photo;
-
-        $shop = $user->shop;
-
-        if($shop){
-            $shop->cash_on_delivery_status = $request->cash_on_delivery_status;
-            $shop->bank_payment_status = $request->bank_payment_status;
-            $shop->bank_name = $request->bank_name;
-            $shop->bank_acc_name = $request->bank_acc_name;
-            $shop->bank_acc_no = $request->bank_acc_no;
-            $shop->bank_routing_no = $request->bank_routing_no;
-
-            $shop->save();
-        }
 
         $user->save();
 

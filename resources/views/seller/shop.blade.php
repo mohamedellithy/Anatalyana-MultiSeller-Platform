@@ -1,5 +1,9 @@
 @extends('seller.layouts.app')
 
+@section('sub_menu')
+   @include('seller.sub_menus.settings')
+@endsection
+
 @section('panel_content')
 
     <div class="aiz-titlebar mt-2 mb-4">
@@ -64,7 +68,7 @@
                             <input type="number" lang="en" min="0" class="form-control mb-3" placeholder="{{ translate('Shipping Cost')}}" name="shipping_cost" value="{{ $shop->shipping_cost }}" required>
                         </div>
                     </div>
-                @endif 
+                @endif
                 <div class="row">
                     <label class="col-md-2 col-form-label">{{ translate('Meta Title') }}<span class="text-danger text-danger">*</span></label>
                     <div class="col-md-10">
@@ -302,7 +306,7 @@
 @section('script')
 
     @if (addon_is_activated('delivery_boy') && get_setting('google_map') == 1)
-            
+
     <script>
         function initialize(id_format = '') {
             let default_longtitude = '';

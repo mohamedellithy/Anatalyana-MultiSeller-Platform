@@ -1,5 +1,9 @@
 @extends('seller.layouts.app')
 
+@section('sub_menu')
+   @include('agencies::sub_menus.agencies')
+@endsection
+
 @section('panel_content')
     <div class="aiz-titlebar mt-2 mb-4">
         <div class="row align-items-center">
@@ -57,7 +61,7 @@
                         </div>
                     </div>
                 </form>
-                
+
                 {{-- <div class="card">
                     <div class="card-header">
                         <h5 class="mb-0 h6">{{ translate('SEO Meta Tags') }}</h5>
@@ -101,7 +105,7 @@
 
 @section('script')
     <script type="text/javascript">
-        
+
     </script>
 @endsection
 

@@ -1,5 +1,9 @@
 @extends('seller.layouts.app')
 
+@section('sub_menu')
+   @include('agencies::sub_menus.agencies')
+@endsection
+
 @section('panel_content')
     <div class="aiz-titlebar mt-2 mb-4">
         <div class="row align-items-center">
@@ -26,7 +30,7 @@
             <div class="col-lg-8">
                 <input type="hidden" name="lang" value="{{ $lang }}">
                 <input type="hidden" name="agency_id" value="{{ $campany_info->agency_id ?: $campany_info->id }}">
-                
+
                 @csrf
                 <div class="card">
                     <ul class="nav nav-tabs nav-fill border-light">

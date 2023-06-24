@@ -1,5 +1,9 @@
 @extends('seller.layouts.app')
 
+@section('sub_menu')
+   @include('agencies::sub_menus.agencies')
+@endsection
+
 @section('panel_content')
     <div class="aiz-titlebar mt-2 mb-4">
         <div class="row align-items-center">
@@ -28,7 +32,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h5 class="mb-0 h6">
-                                {{ translate('Country\'s Agency Terms') }} 
+                                {{ translate('Country\'s Agency Terms') }}
                                 @if($agency_country)
                                     (
                                     <img src="{{ static_asset('assets/img/flags/'.strtolower($agency_country->country->code).'.png') }}" height="11" class="mr-1">
@@ -131,7 +135,7 @@
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('seller.edit-agency-term', ['agency_country_id'=>$agency_term->agency_country_id,'term_id'=>$agency_term->id, 'lang'=>env('DEFAULT_LANGUAGE')] )}}"  title="{{ translate('Edit') }}">
                                             <i class="las la-edit"></i>
                                         </a>
-            
+
                                         <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="{{route('seller.create-agency-country', $agency_term->id)}}" title="{{ translate('Delete') }}">
                                             <i class="las la-trash"></i>
                                         </a>

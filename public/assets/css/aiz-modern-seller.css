@@ -1,0 +1,489 @@
+    .logo-anatalyana {
+        width: 33%;
+    }
+    
+    .aiz-content-wrapper {
+        min-height: auto;
+    }
+    
+    .aiz-main-content {
+        padding: 1% 6%;
+    }
+    
+    .top_menu_icons {
+        width: 100%;
+    }
+    
+    .content-menu-icons {
+        display: block !important;
+    }
+    
+    .content-menu-icons ul {
+        list-style: none;
+        text-align: center;
+    }
+    
+    .list-menu-topbar {
+        padding: 18px;
+        /*background-color: red;*/
+        display: inline-block;
+    }
+    
+    .icon-menu-topbar div {
+        padding: 12px 13px;
+        border-radius: 50%;
+        border: 5px solid;
+    }
+    
+    .icon-menu-topbar div svg {
+        width: 35px !important;
+        height: 35px;
+    }
+    
+    .list-menu-topbar .icon-menu-topbar label {
+        border-bottom: 5px solid transparent;
+    }
+    
+    .list-menu-topbar:not(.active) .icon-menu-topbar div.private-size {
+        width: 95%;
+        height: 72px;
+    }
+    
+    .list-menu-topbar:not(.active) .icon-menu-topbar div svg.private-size {
+        width: 33px !important;
+    }
+    
+    .list-menu-topbar.active .icon-menu-topbar div {
+        animation: zoomIn .1s ease-in-out forwards;
+    }
+    
+    @keyframes zoomIn {
+        to {
+            padding: 18px 20px;
+        }
+    }
+    
+    .list-menu-topbar.active .icon-menu-topbar div svg {
+        animation: zoomInIcon .1s ease-in-out forwards;
+    }
+    
+    @keyframes zoomInIcon {
+        to {
+            width: 45px !important;
+            height: 40px;
+        }
+    }
+    
+    .list-menu-topbar.active .icon-menu-topbar label {
+        line-height: 1.8em;
+        font-weight: 600 !important;
+        border-radius: 5px;
+    }
+    /*****************************************/
+    
+    .content-sub-menu {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-content: baseline;
+        justify-content: center;
+    }
+    
+    .content-sub-menu ul {
+        list-style: none;
+        background: rgba(241, 241, 241, 0.47);
+        border-radius: 20px;
+        padding: 8px;
+    }
+    
+    .content-sub-menu ul li {
+        display: inline-block;
+    }
+    
+    .content-sub-menu ul li a {
+        background: rgba(71, 92, 199, 0.05);
+        border-radius: 15px;
+        padding: 11px 23px;
+        cursor: pointer;
+        display: inline-block;
+    }
+    
+    .content-sub-menu ul li a label {
+        cursor: pointer;
+    }
+    
+    .content-sub-menu ul li a.active {
+        border-radius: 15px;
+        border: 3px solid rgba(255, 255, 255, 0.50);
+        /* background-color: #F97600; */
+    }
+    
+    .avatar-sm {
+        border: 1px solid #F97600;
+    }
+    
+    .user-info-topbar {
+        padding: 12px;
+    }
+    /*
+   Home Page
+*/
+    
+    .aiz-carousel .slick-arrow {
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+    }
+    
+    .slick-slider {
+        height: 100%;
+    }
+    
+    .aiz-carousel .slick-next {
+        right: 50px;
+    }
+    
+    .aiz-carousel .slick-prev {
+        left: 50px;
+    }
+    
+    .aiz-carousel .slick-dots button {
+        width: 36px;
+        border-radius: 16%;
+        height: 5px;
+        background-color: white;
+    }
+    
+    .aiz-carousel .slick-dots li.slick-active button {
+        background-color: #F97600;
+    }
+    
+    .inner-carousel-sections {
+        height: 100%;
+        padding: 0% 6%;
+    }
+    
+    .carousel-box {
+        padding: 2%;
+    }
+    
+    .carousel-box .section-side {
+        height: 440px;
+    }
+    
+    .slick-slide img {
+        height: 100%;
+    }
+    
+    .inner-slide-right {
+        padding: 9% 10%;
+        text-align: right;
+    }
+    
+    .inner-slide-right h4 {
+        line-height: 1.7em;
+        text-align: right;
+        margin-bottom: 20px;
+    }
+    
+    .inner-slide-right a {
+        margin-top: 40px;
+        border-radius: 15px;
+        background: #F97600;
+        color: white;
+    }
+    
+    .container-flash-bg {
+        background-color: #f97600;
+        padding: 20px;
+        border-radius: 14px;
+    }
+    
+    .container-flash-bg .flash-image {
+        height: 500px;
+        margin: auto;
+    }
+    
+    .countdown-circles {
+        background: transparent;
+        position: absolute;
+        top: 10px;
+        right: 83px;
+    }
+    
+    .aiz-count-down-circle {
+        background-color: transparent;
+        box-shadow: 0px 0px;
+    }
+    
+    .aiz-count-down-circle #time div {
+        font-size: 20px;
+    }
+    
+    .aiz-count-down-circle #time div span {
+        font-size: 9px;
+        font-weight: bold;
+    }
+    
+    .countdown-circles p {
+        text-align: center;
+        font-size: 19px;
+        margin-bottom: 0px;
+    }
+    
+    .container-flash {
+        padding: 11% 5% 5% 5%;
+        text-align: center;
+    }
+    
+    .container-flash .Heading-Flash {
+        text-align: center;
+    }
+    
+    .container-flash .short-description-Flash {
+        padding: 15px;
+    }
+    
+    .go-to-product-flash {
+        border-radius: 15px;
+        background: #FFF;
+        font-size: 18px;
+        font-weight: 500;
+    }
+    
+    .go-to-product-flash svg {
+        margin-right: 14px;
+    }
+    
+    .container-flash .after-discount-price {
+        font-size: 25px;
+        font-weight: bold;
+    }
+    
+    .container-flash .before-discount-price {
+        font-size: 15px;
+        font-weight: bold;
+        color: black !important;
+    }
+    /*
+  product box
+**/
+    
+    .aiz-card-product {
+        padding: 25px 5px;
+    }
+    
+    .aiz-card-add-to-favorit {
+        position: absolute;
+        top: 20px !important;
+        z-index: 10;
+        left: 13px;
+    }
+    
+    .aiz-card-add-to-favorit svg {
+        width: 19px;
+    }
+    
+    .aiz-card-box {
+        background: #FFFFFF;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+        border-radius: 22px;
+        padding: 15px;
+        padding-bottom: 0px !important;
+        position: relative !important;
+        padding-top: 50px !important;
+    }
+    /*
+  circule style
+*/
+    
+    .section-circles {
+        padding: 45px;
+    }
+    
+    .circle-info {
+        border-radius: 50%;
+        height: 300px;
+        width: 300px;
+        margin: auto;
+        padding: 60px 5px;
+        background-color: white;
+        box-shadow: 1px 10px 9px 0px lightgray;
+    }
+    
+    .circle-info .icon-draw {
+        padding: 10px;
+    }
+    
+    .circle-info .icon-draw .icon {
+        width: 48px;
+        display: inline-block;
+        border-radius: 27px;
+        padding: 11px;
+        background: rgba(249, 118, 0, 0.10);
+    }
+    
+    .aiz-search-form {
+        padding-right: 60px;
+    }
+    
+    .aiz-search-form input {
+        width: 500px;
+        border-radius: 35px;
+        padding-left: 40px;
+    }
+    
+    .circle-info p.description {
+        padding: 8px 14px;
+        color: gray;
+        font-size: 15px;
+        font-weight: 400;
+    }
+    
+    .aiz-topbar {
+        background-color: #F1F1F1;
+        border-bottom: 2px solid #efeded;
+    }
+    
+    .container-notifications-topbar {
+        background-color: white;
+        margin: 10px;
+        padding: 15px;
+        border-radius: 40px;
+    }
+    
+    .container-notifications-topbar .aiz-topbar-item {
+        margin-left: 2px !important;
+        margin-right: 5px !important;
+    }
+    
+    .circle-languages {
+        padding: 0px 7px;
+        background-color: black;
+        color: white;
+        border-radius: 33px;
+        z-index: 10;
+    }
+    
+    .aiz-pull-notify {
+        padding-left: 11px;
+    }
+    
+    .dropdown-menu.show {
+        top: 15px !important;
+    }
+    
+    .dropdown-toggle.active svg path {
+        fill: #F97600;
+    }
+    
+    .svg-circle-languages {
+        background-color: #dedada;
+        border-radius: 9px;
+        right: -13px;
+        padding: 1px 2px;
+        z-index: 1;
+        width: 24px;
+    }
+    
+    .content-menu-icons .icon-menu-topbar label {
+        max-width: 55px;
+        /*overflow: hidden;*/
+    }
+    
+    .content-sub-menu ul li {
+        margin: 5px;
+    }
+    
+    @media (min-width: 1200px) {
+        .home-slider {
+            max-width: 100% !important;
+            height: 500px;
+            background-color: #F5F5F5;
+            border-radius: 20px;
+        }
+        .inner-carousel-sections {
+            height: 500px;
+            overflow: hidden;
+        }
+        .aiz-topbar {
+            width: 100%;
+            left: 0;
+        }
+        .aiz-content-wrapper {
+            padding-left: 0;
+        }
+        .aiz-topbar {
+            padding-left: 72px;
+            padding-right: 72px;
+        }
+        .aiz-search-icon {
+            position: absolute!important;
+            top: 7px;
+            left: 13px;
+            right: auto;
+        }
+    }
+    
+    @media (max-width:900px) {
+        .aiz-search-form {
+            display: none;
+        }
+        .logo-anatalyana {
+            width: 109px;
+            margin-right: 9px;
+        }
+        .container-notifications-topbar .aiz-topbar-item {
+            margin-left: 0px !important;
+            margin-right: 0px !important;
+        }
+        .container-notifications-topbar {
+            margin: 9px 0px;
+            padding: 1px;
+        }
+        .aiz-topbar-item svg {
+            width: 20px;
+        }
+        .avatar-sm {
+            width: 33px;
+            height: 33px;
+        }
+        .icon-menu-topbar div svg {
+            width: 21px !important;
+            height: 20px;
+        }
+        .list-menu-topbar {
+            padding: 2px;
+        }
+        .icon-menu-topbar div {
+            padding: 13px 13px;
+        }
+        .content-menu-icons ul {
+            width: 90%;
+            display: flex;
+            align-content: flex-start;
+            justify-content: center;
+            align-items: baseline;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        @keyframes zoomIn {
+            to {
+                padding: 7px 16px;
+            }
+        }
+        .carousel-box .section-side {
+            height: 280px;
+        }
+        .inner-slide-right a {
+            margin-top: 1px;
+        }
+        .container-flash-bg .flash-image {
+            margin-top: 62px;
+        }
+        .countdown-circles {
+            right: 0px;
+            left: 0px;
+        }
+        .circle-info {
+            margin-bottom: 24px;
+        }
+    }

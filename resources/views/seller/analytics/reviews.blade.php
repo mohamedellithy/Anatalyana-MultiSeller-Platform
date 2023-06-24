@@ -1,5 +1,9 @@
 @extends('seller.layouts.app')
 
+@section('sub_menu')
+   @include('seller.sub_menus.analytics')
+@endsection
+
 @section('panel_content')
     <div class="aiz-titlebar mt-2 mb-4">
         <div class="row align-items-center">
@@ -179,7 +183,7 @@
                     $date = date('Y-m-d');
                     $days_ago_30 = date('Y-m-d', strtotime('-30 days', strtotime($date)));
                     $days_ago_60 = date('Y-m-d', strtotime('-60 days', strtotime($date)));
-                    
+
                     $orderTotal = \App\Models\Order::where('seller_id', Auth::user()->id)
                         ->where('payment_status', 'paid')
                         ->where('created_at', '>=', $days_ago_30)

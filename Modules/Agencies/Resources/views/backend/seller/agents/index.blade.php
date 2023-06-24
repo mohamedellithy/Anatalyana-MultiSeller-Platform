@@ -1,5 +1,9 @@
 @extends('seller.layouts.app')
 
+@section('sub_menu')
+   @include('agencies::sub_menus.agencies')
+@endsection
+
 @section('panel_content')
     <div class="card">
         <form id="sort_orders" action="" method="GET">

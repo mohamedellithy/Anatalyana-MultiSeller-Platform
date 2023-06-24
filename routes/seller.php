@@ -15,10 +15,14 @@ Route::group(['prefix' => 'seller', 'middleware' => ['seller', 'verified', 'user
 
 Route::group(['namespace' => 'App\Http\Controllers\Seller', 'prefix' => 'seller', 'middleware' => ['seller', 'verified', 'user', 'prevent-back-history'], 'as' => 'seller.'], function () {
     Route::controller(DashboardController::class)->group(function () {
-        Route::get('/dashboard', 'index')->name('dashboard');
+        ini_set('memory_limit', '-1');
+        Route::get('dashboard', 'index')->name('dashboard');
+        Route::get('analytics-orders', 'analytics_orders')->name('analytics-orders');
+        Route::get('analytics-sales', 'analytics_sales')->name('analytics-sales');
+        Route::get('analytics-products', 'analytics_products')->name('analytics-products');
     });
-    
-    // Product 
+
+    // Product
     Route::controller(ProductController::class)->group(function () {
         Route::get('/products', 'index')->name('products');
         Route::get('/product/create', 'create')->name('products.create');
@@ -61,6 +65,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Seller', 'prefix' => 'seller'
         Route::post('/coupon/get_form', 'get_coupon_form')->name('coupon.get_coupon_form');
         Route::post('/coupon/get_form_edit', 'get_coupon_form_edit')->name('coupon.get_coupon_form_edit');
         Route::get('/coupon/destroy/{id}', 'destroy')->name('coupon.destroy');
+        Route::get('/products-discounts','products_discounts')->name('products-discounts');
     });
 
     //Order
@@ -91,6 +96,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Seller', 'prefix' => 'seller'
     //Payments
     Route::resource('payments', PaymentController::class);
 
+    Route::controller(PaymentController::class)->group(function () {
+        Route::get('/settings-payment', 'setting_payment')->name('setting_payment');
+        Route::put('/settings-payment/update/{id}', 'update_setting_payment')->name('setting_payment.update');
+    });
+
     // Profile Settings
     Route::controller(ProfileController::class)->group(function () {
         Route::get('/profile', 'index')->name('profile.index');
@@ -118,7 +128,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Seller', 'prefix' => 'seller'
         Route::get('/commission-history', 'index')->name('commission-history.index');
     });
 
-    //Conversations 
+    //Conversations
     Route::controller(ConversationController::class)->group(function () {
         Route::get('/conversations', 'index')->name('conversations.index');
         Route::get('/conversations/show/{id}', 'show')->name('conversations.show');
@@ -144,6 +154,19 @@ Route::group(['namespace' => 'App\Http\Controllers\Seller', 'prefix' => 'seller'
     // Notifications
     Route::controller(NotificationController::class)->group(function () {
         Route::get('/all-notification', 'index')->name('all-notification');
+    });
+
+    // Shipping System
+    Route::controller(ShippingController::class)->group(function(){
+        Route::get('/all-products-shipping', 'all_products_shipping')->name('all-products-shipping');
+        Route::get('/landing-shipping', 'all_products_shipping')->name('landing-shipping');
+        Route::get('/air-shipping', 'all_products_shipping')->name('air-shipping');
+        Route::get('/sea-shipping', 'all_products_shipping')->name('sea-shipping');
+        Route::get('/working-on-shipping', 'all_products_shipping')->name('working-on-shipping');
+        Route::get('/all-shippings', 'all_products_shipping')->name('all-shippings');
+        Route::get('/shippings-to-your-place', 'all_products_shipping')->name('shippings-to-your-place');
+        Route::get('/pay-on-delivery', 'all_products_shipping')->name('pay-on-delivery');
+
     });
 
 });

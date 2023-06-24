@@ -29,8 +29,8 @@ class CouponController extends Controller
     public function create()
     {
         return view('seller.coupons.create');
-    } 
-    
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -82,7 +82,7 @@ class CouponController extends Controller
     public function update(CouponRequest $request, Coupon $coupon)
     {
         $coupon->update($request->validated());
-        
+
         flash(translate('Coupon has been updated successfully'))->success();
         return redirect()->route('seller.coupon.index');
     }
@@ -122,5 +122,9 @@ class CouponController extends Controller
             $coupon = Coupon::findOrFail($request->id);
             return view('partials.coupons.cart_base_coupon_edit',compact('coupon'));
         }
+    }
+
+    public function products_discounts(){
+        return view('seller.coupons.products-discount');
     }
 }

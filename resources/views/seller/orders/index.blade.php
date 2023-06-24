@@ -1,5 +1,9 @@
 @extends('seller.layouts.app')
 
+@section('sub_menu')
+   @include('seller.sub_menus.orders')
+@endsection
+
 @section('panel_content')
 
     <div class="card">
@@ -14,16 +18,6 @@
                       <option value="paid" @isset($payment_status) @if($payment_status == 'paid') selected @endif @endisset>{{ translate('Paid')}}</option>
                       <option value="unpaid" @isset($payment_status) @if($payment_status == 'unpaid') selected @endif @endisset>{{ translate('Unpaid')}}</option>
                   </select>
-              </div>
-
-              <div class="col-md-3 ml-auto">
-                <select class="form-control aiz-selectpicker" data-placeholder="{{ translate('Filter by Payment Status')}}" name="delivery_status" onchange="sort_orders()">
-                    <option value="">{{ translate('Filter by Deliver Status')}}</option>
-                    <option value="pending" @isset($delivery_status) @if($delivery_status == 'pending') selected @endif @endisset>{{ translate('Pending')}}</option>
-                    <option value="confirmed" @isset($delivery_status) @if($delivery_status == 'confirmed') selected @endif @endisset>{{ translate('Confirmed')}}</option>
-                    <option value="on_delivery" @isset($delivery_status) @if($delivery_status == 'on_delivery') selected @endif @endisset>{{ translate('On delivery')}}</option>
-                    <option value="delivered" @isset($delivery_status) @if($delivery_status == 'delivered') selected @endif @endisset>{{ translate('Delivered')}}</option>
-                </select>
               </div>
               <div class="col-md-3">
                 <div class="from-group mb-0">
@@ -88,7 +82,7 @@
                                         @endif
                                     </td>
                                     <td class="text-right">
-                                        <a href="{{ route('seller.orders.show', encrypt($order->id)) }}" class="btn btn-soft-info btn-icon btn-circle btn-sm" title="{{ translate('Order Details') }}">
+                                        <a href="{{ route('seller.orders.show', ['id' => encrypt($order->id) ,'delivery_status' =>request()->query('delivery_status')]) }}" class="btn btn-soft-info btn-icon btn-circle btn-sm" title="{{ translate('Order Details') }}">
                                             <i class="las la-eye"></i>
                                         </a>
                                         <a href="{{ route('seller.invoice.download', $order->id) }}" class="btn btn-soft-warning btn-icon btn-circle btn-sm" title="{{ translate('Download Invoice') }}">

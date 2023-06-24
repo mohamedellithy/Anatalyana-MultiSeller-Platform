@@ -1,11 +1,15 @@
 @extends('seller.layouts.app')
 
+@section('sub_menu')
+   @include('seller.sub_menus.wallet')
+@endsection
+
 @section('panel_content')
 
     <div class="aiz-titlebar mt-2 mb-4">
       <div class="row align-items-center">
         <div class="col-md-6">
-            <h1 class="h3">{{ translate('Money Withdraw') }}</h1>
+            <h1 class="h3">{{ translate('Total Balance') }}</h1>
         </div>
       </div>
     </div>
@@ -82,7 +86,7 @@
                     <h5 class="modal-title" id="exampleModalLabel">{{ translate('Send A Withdraw Request') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
-                @if (Auth::user()->shop->admin_to_pay > 5) 
+                @if (Auth::user()->shop->admin_to_pay > 5)
                     <form class="" action="{{ route('seller.money_withdraw_request.store') }}" method="post">
                         @csrf
                         <div class="modal-body gry-bg px-3 pt-3">

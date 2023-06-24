@@ -1,5 +1,9 @@
 @extends('seller.layouts.app')
 
+@section('sub_menu')
+   @include('seller.sub_menus.orders')
+@endsection
+
 @section('panel_content')
 
     <div class="card">

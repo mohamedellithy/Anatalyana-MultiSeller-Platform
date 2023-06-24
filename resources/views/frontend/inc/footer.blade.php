@@ -1,5 +1,5 @@
 <!-- footer top Bar -->
-<section class="bg-light border-top mt-auto">
+{{-- <section class="bg-light border-top mt-auto">
     <div class="container px-xs-0">
         <div class="row no-gutters border-left border-soft-light">
             <!-- Terms & conditions -->
@@ -11,7 +11,7 @@
                     <h4 class="text-dark fs-14 fw-700 mt-3">{{ translate('Terms & conditions') }}</h4>
                 </a>
             </div>
-            
+
             <!-- Return Policy -->
             <div class="col-lg-3 col-6 policy-file">
                 <a class="text-reset h-100  border-right border-bottom border-soft-light text-center p-2 p-md-4 d-block hov-ls-1" href="{{ route('returnpolicy') }}">
@@ -56,73 +56,112 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 
 <!-- footer subscription & icons -->
-<section class="py-3 text-light footer-widget border-bottom" style="border-color: #3d3d46 !important; background-color: #212129 !important;">
+<section class="py-3 text-light footer-widget" style="border-color: #3d3d46 !important;background: #FCFCFC;">
     <div class="container">
         <!-- footer logo -->
         <div class="mt-3 mb-4">
             <a href="{{ route('home') }}" class="d-block">
                 @if(get_setting('footer_logo') != null)
-                    <img class="lazyload" src="{{ static_asset('assets/img/placeholder-rect.jpg') }}" data-src="{{ uploaded_asset(get_setting('footer_logo')) }}" alt="{{ env('APP_NAME') }}" height="44" style="height: 44px;">
+                    <img class="lazyload" src="{{ static_asset('assets/img/anatalyana.png') }}" data-src="{{ static_asset('assets/img/anatalyana.png') }}" alt="{{ env('APP_NAME') }}" height="44" style="height: 44px;">
                 @else
-                    <img class="lazyload" src="{{ static_asset('assets/img/placeholder-rect.jpg') }}" data-src="{{ static_asset('assets/img/logo.png') }}" alt="{{ env('APP_NAME') }}" height="44" style="height: 44px;">
+                    <img class="lazyload" src="{{ static_asset('assets/img/anatalyana.png') }}" data-src="{{ static_asset('assets/img/anatalyana.png') }}" alt="{{ env('APP_NAME') }}" height="44" style="height: 44px;">
                 @endif
             </a>
         </div>
         <div class="row">
             <!-- about & subscription -->
-            <div class="col-xl-6 col-lg-7">
+            <div class="col-md-6">
                 <div class="mb-4 text-secondary text-justify">
                     {!! get_setting('about_us_description',null,App::getLocale()) !!}
                 </div>
                 <h5 class="fs-14 fw-700 text-soft-light mt-1 mb-3">{{ translate('Subscribe to our newsletter for regular updates about Offers, Coupons & more') }}</h5>
+            </div>
+
+            <!-- Follow & Apps -->
+            <div class="col-md-6">
                 <div class="mb-3">
                     <form method="POST" action="{{ route('subscribers.store') }}">
                         @csrf
                         <div class="row gutters-10">
                             <div class="col-8">
-                                <input type="email" class="form-control border-secondary rounded-0 text-white w-100 bg-transparent" placeholder="{{ translate('Your Email Address') }}" name="email" required>
+                                <input type="email" class="form-control border-secondary rounded-0 text-white w-100 bg-transparent" style="border-radius: 25px !important;" placeholder="{{ translate('Your Email Address') }}" name="email" required>
                             </div>
                             <div class="col-4">
-                                <button type="submit" class="btn btn-primary rounded-0 w-100">{{ translate('Subscribe') }}</button>
+                                <button type="submit" class="btn btn-primary rounded-0 w-100" style="background-color: #f97600;border: 1px solid #f97600;border-radius: 50px !important;">{{ translate('Subscribe') }}</button>
                             </div>
                         </div>
                     </form>
                 </div>
-            </div>
-            
-            <div class="col d-none d-lg-block"></div>
-
-            <!-- Follow & Apps -->
-            <div class="col-xxl-3 col-xl-4 col-lg-4">
                 <!-- Social -->
                 @if ( get_setting('show_social_links') )
-                    <h5 class="fs-14 fw-700 text-secondary text-uppercase mt-3 mt-lg-0">{{ translate('Follow Us') }}</h5>
-                    <ul class="list-inline social colored mb-4">
+                    <ul class="list-inline social colored mb-4" style="padding: 26px 0px;">
                         @if (!empty(get_setting('facebook_link')))
                             <li class="list-inline-item ml-2 mr-2">
                                 <a href="{{ get_setting('facebook_link') }}" target="_blank"
-                                    class="facebook"><i class="lab la-facebook-f"></i></a>
+                                    class="facebook">
+                                    <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g id="Social Media / Facebook">
+                                        <rect width="50" height="50" rx="25" fill="#F97600" fill-opacity="0.05"/>
+                                        <g id="Capa 2">
+                                        <g id="ELEMENTS">
+                                        <path id="Vector" d="M30.8495 26.5614L31.5619 22.039H27.1735V19.0995C27.1735 17.863 27.7862 16.6546 29.7453 16.6546H31.7685V12.8036C30.5903 12.6159 29.3997 12.5143 28.2065 12.4998C24.5946 12.4998 22.2366 14.6691 22.2366 18.5908V22.039H18.2329V26.5614H22.2366V37.4998H27.1735V26.5614H30.8495Z" fill="#F97600"/>
+                                        </g>
+                                        </g>
+                                        </g>
+                                    </svg>
+                                </a>
                             </li>
                         @endif
                         @if (!empty(get_setting('twitter_link')))
                             <li class="list-inline-item ml-2 mr-2">
                                 <a href="{{ get_setting('twitter_link') }}" target="_blank"
-                                    class="twitter"><i class="lab la-twitter"></i></a>
+                                    class="twitter">
+                                    <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g id="Social Media / Twitter">
+                                        <rect width="50" height="50" rx="25" fill="#F97600" fill-opacity="0.05"/>
+                                        <g id="Capa 2">
+                                        <g id="ELEMENTS">
+                                        <path id="Vector" d="M37.6473 17.008C36.8217 17.3633 35.9538 17.6107 35.0649 17.7441C35.4805 17.6729 36.0919 16.9249 36.3353 16.6222C36.7051 16.1655 36.9869 15.6441 37.1664 15.0846C37.1664 15.0431 37.208 14.9837 37.1664 14.954C37.1455 14.9426 37.122 14.9366 37.0981 14.9366C37.0743 14.9366 37.0508 14.9426 37.0299 14.954C36.0647 15.4767 35.0376 15.8756 33.9726 16.1413C33.9355 16.1526 33.896 16.1537 33.8584 16.1442C33.8207 16.1348 33.7863 16.1153 33.7589 16.0879C33.676 15.9892 33.5868 15.896 33.4918 15.8089C33.0574 15.4197 32.5646 15.1012 32.0314 14.865C31.3117 14.5697 30.5342 14.4418 29.7578 14.491C29.0044 14.5386 28.2689 14.7406 27.5969 15.0846C26.9353 15.4473 26.3537 15.94 25.8873 16.5331C25.3966 17.1436 25.0424 17.852 24.8484 18.6108C24.6884 19.3326 24.6703 20.0786 24.795 20.8073C24.795 20.932 24.795 20.9498 24.6881 20.932C20.4555 20.3087 16.9827 18.8067 14.1451 15.5833C14.0204 15.4408 13.9551 15.4408 13.8542 15.5833C12.6194 17.4592 13.219 20.4274 14.7625 21.8937C14.9702 22.0896 15.1839 22.2795 15.4095 22.4576C14.7018 22.4074 14.0115 22.2156 13.3793 21.8937C13.2605 21.8165 13.1952 21.8581 13.1893 22.0005C13.1725 22.1981 13.1725 22.3966 13.1893 22.5942C13.3132 23.5408 13.6862 24.4375 14.2703 25.1927C14.8544 25.9478 15.6286 26.5343 16.5137 26.8921C16.7295 26.9845 16.9543 27.0542 17.1845 27.0999C16.5294 27.2289 15.8575 27.2489 15.1958 27.1593C15.0533 27.1296 14.9999 27.2067 15.0533 27.3433C15.926 29.7178 17.8197 30.4421 19.2088 30.8458C19.3988 30.8754 19.5887 30.8754 19.8025 30.9229C19.8025 30.9229 19.8025 30.9229 19.7668 30.9586C19.3572 31.7065 17.701 32.2111 16.9411 32.4723C15.5542 32.9705 14.0754 33.1609 12.6075 33.0304C12.376 32.9947 12.3226 33.0007 12.2632 33.0304C12.2039 33.06 12.2632 33.1253 12.3285 33.1847C12.6253 33.3806 12.9222 33.5528 13.2309 33.719C14.1498 34.2202 15.1214 34.6184 16.1278 34.9063C21.34 36.3429 27.2051 35.2862 31.1172 31.3978C34.1923 28.3465 35.2727 24.1376 35.2727 19.9228C35.2727 19.7625 35.4686 19.6675 35.5814 19.5844C36.3594 18.9782 37.0452 18.2624 37.6176 17.4592C37.7167 17.3395 37.7675 17.187 37.7601 17.0318C37.7601 16.9427 37.7601 16.9605 37.6473 17.008Z" fill="#F97600"/>
+                                        </g>
+                                        </g>
+                                        </g>
+                                    </svg>
+                                </a>
                             </li>
                         @endif
                         @if (!empty(get_setting('instagram_link')))
                             <li class="list-inline-item ml-2 mr-2">
                                 <a href="{{ get_setting('instagram_link') }}" target="_blank"
-                                    class="instagram"><i class="lab la-instagram"></i></a>
+                                    class="instagram">
+                                    <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g id="Social Media / Instagram">
+                                        <rect width="50" height="50" rx="25" fill="#F97600" fill-opacity="0.05"/>
+                                        <g id="Logo 2">
+                                        <path id="Vector" d="M20.4483 24.9999C20.4483 22.4867 22.4862 20.4489 25.0009 20.4489C27.5156 20.4489 29.5547 22.4867 29.5547 24.9999C29.5547 27.513 27.5156 29.5509 25.0009 29.5509C22.4862 29.5509 20.4483 27.513 20.4483 24.9999ZM17.9866 24.9999C17.9866 28.8716 21.1269 32.01 25.0009 32.01C28.8749 32.01 32.0152 28.8716 32.0152 24.9999C32.0152 21.1282 28.8749 17.9898 25.0009 17.9898C21.1269 17.9898 17.9866 21.1282 17.9866 24.9999ZM30.6537 17.7118C30.6536 18.0358 30.7496 18.3526 30.9296 18.6221C31.1096 18.8915 31.3655 19.1016 31.665 19.2257C31.9645 19.3499 32.2941 19.3824 32.6121 19.3193C32.9301 19.2563 33.2222 19.1003 33.4516 18.8713C33.6809 18.6423 33.8371 18.3505 33.9005 18.0327C33.9639 17.7149 33.9316 17.3855 33.8076 17.0861C33.6837 16.7867 33.4737 16.5308 33.2042 16.3507C32.9347 16.1706 32.6178 16.0743 32.2936 16.0742H32.2929C31.8584 16.0744 31.4416 16.247 31.1343 16.554C30.8269 16.8611 30.6541 17.2775 30.6537 17.7118ZM19.4822 36.1123C18.1504 36.0517 17.4265 35.8299 16.9455 35.6426C16.3077 35.3945 15.8526 35.099 15.3742 34.6215C14.8958 34.144 14.5996 33.6896 14.3524 33.0523C14.1649 32.5717 13.9431 31.848 13.8825 30.517C13.8163 29.078 13.8031 28.6457 13.8031 25C13.8031 21.3543 13.8174 20.9232 13.8825 19.483C13.9432 18.1519 14.1667 17.4297 14.3524 16.9477C14.6007 16.3103 14.8964 15.8556 15.3742 15.3774C15.852 14.8993 16.3066 14.6033 16.9455 14.3563C17.4263 14.1688 18.1504 13.9471 19.4822 13.8866C20.9221 13.8204 21.3546 13.8072 25.0009 13.8072C28.6472 13.8072 29.0802 13.8215 30.5213 13.8866C31.8531 13.9472 32.5758 14.1706 33.058 14.3563C33.6958 14.6033 34.1508 14.8999 34.6293 15.3774C35.1077 15.8549 35.4028 16.3103 35.651 16.9477C35.8386 17.4283 36.0604 18.1519 36.1209 19.483C36.1872 20.9232 36.2004 21.3543 36.2004 25C36.2004 28.6457 36.1872 29.0768 36.1209 30.517C36.0603 31.848 35.8374 32.5715 35.651 33.0523C35.4028 33.6896 35.107 34.1444 34.6293 34.6215C34.1515 35.0985 33.6958 35.3945 33.058 35.6426C32.5772 35.8301 31.8531 36.0518 30.5213 36.1123C29.0814 36.1785 28.6488 36.1917 25.0009 36.1917C21.353 36.1917 20.9217 36.1785 19.4822 36.1123ZM19.3691 11.4306C17.9149 11.4968 16.9212 11.7272 16.0534 12.0647C15.1547 12.4132 14.3938 12.8807 13.6336 13.6394C12.8733 14.398 12.4067 15.1595 12.058 16.0577C11.7203 16.9256 11.4897 17.9181 11.4235 19.3714C11.3562 20.8271 11.3407 21.2924 11.3407 24.9999C11.3407 28.7073 11.3562 29.1727 11.4235 30.6283C11.4897 32.0818 11.7203 33.0742 12.058 33.942C12.4067 34.8397 12.8734 35.6021 13.6336 36.3604C14.3937 37.1187 15.1547 37.5856 16.0534 37.9351C16.9228 38.2726 17.9149 38.503 19.3691 38.5692C20.8264 38.6354 21.2912 38.6519 25.0009 38.6519C28.7106 38.6519 29.1762 38.6365 30.6327 38.5692C32.087 38.503 33.0801 38.2726 33.9484 37.9351C34.8466 37.5856 35.608 37.119 36.3683 36.3604C37.1285 35.6018 37.5942 34.8397 37.9439 33.942C38.2816 33.0742 38.5132 32.0817 38.5784 30.6283C38.6446 29.1716 38.66 28.7073 38.66 24.9999C38.66 21.2924 38.6446 20.8271 38.5784 19.3714C38.5121 17.918 38.2816 16.925 37.9439 16.0577C37.5942 15.1601 37.1273 14.3992 36.3683 13.6394C35.6092 12.8795 34.8466 12.4132 33.9495 12.0647C33.0801 11.7272 32.0869 11.4957 30.6338 11.4306C29.1773 11.3644 28.7117 11.3479 25.002 11.3479C21.2923 11.3479 20.8264 11.3633 19.3691 11.4306Z" fill="#F97600"/>
+                                        <path id="Vector_2" d="M20.4483 24.9999C20.4483 22.4867 22.4862 20.4489 25.0009 20.4489C27.5156 20.4489 29.5547 22.4867 29.5547 24.9999C29.5547 27.513 27.5156 29.5509 25.0009 29.5509C22.4862 29.5509 20.4483 27.513 20.4483 24.9999ZM17.9866 24.9999C17.9866 28.8716 21.1269 32.01 25.0009 32.01C28.8749 32.01 32.0152 28.8716 32.0152 24.9999C32.0152 21.1282 28.8749 17.9898 25.0009 17.9898C21.1269 17.9898 17.9866 21.1282 17.9866 24.9999ZM30.6537 17.7118C30.6536 18.0358 30.7496 18.3526 30.9296 18.6221C31.1096 18.8915 31.3655 19.1016 31.665 19.2257C31.9645 19.3499 32.2941 19.3824 32.6121 19.3193C32.9301 19.2563 33.2222 19.1003 33.4516 18.8713C33.6809 18.6423 33.8371 18.3505 33.9005 18.0327C33.9639 17.7149 33.9316 17.3855 33.8076 17.0861C33.6837 16.7867 33.4737 16.5308 33.2042 16.3507C32.9347 16.1706 32.6178 16.0743 32.2936 16.0742H32.2929C31.8584 16.0744 31.4416 16.247 31.1343 16.554C30.8269 16.8611 30.6541 17.2775 30.6537 17.7118ZM19.4822 36.1123C18.1504 36.0517 17.4265 35.8299 16.9455 35.6426C16.3077 35.3945 15.8526 35.099 15.3742 34.6215C14.8958 34.144 14.5996 33.6896 14.3524 33.0523C14.1649 32.5717 13.9431 31.848 13.8825 30.517C13.8163 29.078 13.8031 28.6457 13.8031 25C13.8031 21.3543 13.8174 20.9232 13.8825 19.483C13.9432 18.1519 14.1667 17.4297 14.3524 16.9477C14.6007 16.3103 14.8964 15.8556 15.3742 15.3774C15.852 14.8993 16.3066 14.6033 16.9455 14.3563C17.4263 14.1688 18.1504 13.9471 19.4822 13.8866C20.9221 13.8204 21.3546 13.8072 25.0009 13.8072C28.6472 13.8072 29.0802 13.8215 30.5213 13.8866C31.8531 13.9472 32.5758 14.1706 33.058 14.3563C33.6958 14.6033 34.1508 14.8999 34.6293 15.3774C35.1077 15.8549 35.4028 16.3103 35.651 16.9477C35.8386 17.4283 36.0604 18.1519 36.1209 19.483C36.1872 20.9232 36.2004 21.3543 36.2004 25C36.2004 28.6457 36.1872 29.0768 36.1209 30.517C36.0603 31.848 35.8374 32.5715 35.651 33.0523C35.4028 33.6896 35.107 34.1444 34.6293 34.6215C34.1515 35.0985 33.6958 35.3945 33.058 35.6426C32.5772 35.8301 31.8531 36.0518 30.5213 36.1123C29.0814 36.1785 28.6488 36.1917 25.0009 36.1917C21.353 36.1917 20.9217 36.1785 19.4822 36.1123ZM19.3691 11.4306C17.9149 11.4968 16.9212 11.7272 16.0534 12.0647C15.1547 12.4132 14.3938 12.8807 13.6336 13.6394C12.8733 14.398 12.4067 15.1595 12.058 16.0577C11.7203 16.9256 11.4897 17.9181 11.4235 19.3714C11.3562 20.8271 11.3407 21.2924 11.3407 24.9999C11.3407 28.7073 11.3562 29.1727 11.4235 30.6283C11.4897 32.0818 11.7203 33.0742 12.058 33.942C12.4067 34.8397 12.8734 35.6021 13.6336 36.3604C14.3937 37.1187 15.1547 37.5856 16.0534 37.9351C16.9228 38.2726 17.9149 38.503 19.3691 38.5692C20.8264 38.6354 21.2912 38.6519 25.0009 38.6519C28.7106 38.6519 29.1762 38.6365 30.6327 38.5692C32.087 38.503 33.0801 38.2726 33.9484 37.9351C34.8466 37.5856 35.608 37.119 36.3683 36.3604C37.1285 35.6018 37.5942 34.8397 37.9439 33.942C38.2816 33.0742 38.5132 32.0817 38.5784 30.6283C38.6446 29.1716 38.66 28.7073 38.66 24.9999C38.66 21.2924 38.6446 20.8271 38.5784 19.3714C38.5121 17.918 38.2816 16.925 37.9439 16.0577C37.5942 15.1601 37.1273 14.3992 36.3683 13.6394C35.6092 12.8795 34.8466 12.4132 33.9495 12.0647C33.0801 11.7272 32.0869 11.4957 30.6338 11.4306C29.1773 11.3644 28.7117 11.3479 25.002 11.3479C21.2923 11.3479 20.8264 11.3633 19.3691 11.4306Z" fill="#F97600"/>
+                                        </g>
+                                        </g>
+                                        </svg>
+
+                                </a>
                             </li>
                         @endif
                         @if (!empty(get_setting('youtube_link')))
                             <li class="list-inline-item ml-2 mr-2">
                                 <a href="{{ get_setting('youtube_link') }}" target="_blank"
-                                    class="youtube"><i class="lab la-youtube"></i></a>
+                                    class="youtube">
+                                    <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g id="Social Media / Whatsapp">
+                                        <rect width="50" height="50" rx="25" fill="#F97600" fill-opacity="0.05"/>
+                                        <path id="Vector" d="M12.5001 36.5002L14.2938 29.8368C12.8472 27.241 12.3876 24.212 12.9994 21.3055C13.6111 18.3991 15.2531 15.8101 17.6241 14.0138C19.995 12.2174 22.936 11.3341 25.9071 11.5261C28.8783 11.718 31.6804 12.9722 33.7994 15.0585C35.9183 17.1449 37.2118 19.9234 37.4427 22.8843C37.6735 25.8452 36.8261 28.7898 35.056 31.1778C33.2859 33.5658 30.7118 35.237 27.8061 35.8847C24.9004 36.5324 21.8579 36.1132 19.237 34.7041L12.5001 36.5002ZM19.5619 32.2106L19.9785 32.4571C21.8769 33.5794 24.0941 34.0439 26.2847 33.778C28.4754 33.5122 30.5163 32.531 32.0895 30.9874C33.6627 29.4438 34.6797 27.4245 34.9822 25.2441C35.2847 23.0637 34.8556 20.8448 33.7617 18.9331C32.6679 17.0214 30.9708 15.5243 28.9348 14.6751C26.8989 13.8259 24.6385 13.6723 22.506 14.2383C20.3734 14.8043 18.4884 16.058 17.1448 17.8041C15.8012 19.5502 15.0744 21.6907 15.0776 23.8918C15.0759 25.7169 15.5819 27.5067 16.5394 29.062L16.8007 29.4916L15.7979 33.2108L19.5619 32.2106Z" fill="#F97600"/>
+                                        <path id="Vector_2" fill-rule="evenodd" clip-rule="evenodd" d="M29.6742 25.6027C29.4299 25.4062 29.1439 25.2679 28.838 25.1983C28.532 25.1287 28.2142 25.1297 27.9087 25.2012C27.4497 25.3914 27.1531 26.1099 26.8565 26.4691C26.794 26.5552 26.7021 26.6156 26.598 26.639C26.494 26.6623 26.3851 26.647 26.2916 26.5959C24.6111 25.9394 23.2025 24.7354 22.2946 23.1796C22.2172 23.0825 22.1805 22.9593 22.1924 22.8358C22.2042 22.7123 22.2636 22.5982 22.3581 22.5175C22.6889 22.1909 22.9318 21.7863 23.0643 21.3412C23.0937 20.8503 22.981 20.3612 22.7395 19.9324C22.5528 19.3313 22.1975 18.796 21.7155 18.3898C21.4669 18.2783 21.1913 18.2409 20.9219 18.2822C20.6525 18.3234 20.4008 18.4415 20.1972 18.6223C19.8438 18.9265 19.5632 19.3059 19.3762 19.7325C19.1892 20.1592 19.1006 20.6223 19.1168 21.0876C19.1179 21.349 19.1511 21.6092 19.2157 21.8624C19.3796 22.471 19.6318 23.0523 19.9642 23.5882C20.204 23.9986 20.4657 24.396 20.7481 24.7786C21.6658 26.0352 22.8194 27.1021 24.1448 27.9201C24.8099 28.3358 25.5207 28.6738 26.2633 28.9274C27.0347 29.2762 27.8864 29.41 28.7279 29.3148C29.2073 29.2424 29.6616 29.0536 30.0507 28.7649C30.4399 28.4763 30.7519 28.0967 30.9594 27.6595C31.0813 27.3954 31.1183 27.1001 31.0653 26.8142C30.9382 26.2296 30.1544 25.8845 29.6742 25.6027Z" fill="#F97600"/>
+                                        </g>
+                                        </svg>
+
+                                </a>
                             </li>
                         @endif
                         @if (!empty(get_setting('linkedin_link')))
@@ -133,30 +172,12 @@
                         @endif
                     </ul>
                 @endif
-
-                <!-- Apps link -->
-                @if((get_setting('play_store_link') != null) || (get_setting('app_store_link') != null))
-                    <h5 class="fs-14 fw-700 text-secondary text-uppercase mt-3">{{ translate('Mobile Apps') }}</h5>
-                    <div class="d-flex mt-3">
-                        <div class="">
-                            <a href="{{ get_setting('play_store_link') }}" target="_blank" class="mr-2 mb-2 overflow-hidden hov-scale-img">
-                                <img class="lazyload has-transition" src="{{ static_asset('assets/img/placeholder-rect.jpg') }}" data-src="{{ static_asset('assets/img/play.png') }}" alt="{{ env('APP_NAME') }}" height="44">
-                            </a>
-                        </div>
-                        <div class="">
-                            <a href="{{ get_setting('app_store_link') }}" target="_blank" class="overflow-hidden hov-scale-img">
-                                <img class="lazyload has-transition" src="{{ static_asset('assets/img/placeholder-rect.jpg') }}" data-src="{{ static_asset('assets/img/app.png') }}" alt="{{ env('APP_NAME') }}" height="44">
-                            </a>
-                        </div>
-                    </div>
-                @endif
-
             </div>
         </div>
     </div>
 </section>
 
-@php
+{{-- @php
     $col_values = ((get_setting('vendor_system_activation') == 1) || addon_is_activated('delivery_boy')) ? "col-lg-3 col-md-6 col-sm-6" : "col-md-4 col-sm-6";
 @endphp
 <section class="py-lg-3 text-light footer-widget" style="background-color: #212129 !important;">
@@ -266,7 +287,7 @@
                         <ul class="list-unstyled">
                             <li class="mb-2">
                                 <p class="fs-13 text-soft-light mb-0">
-                                    {{ translate('Become A Seller') }} 
+                                    {{ translate('Become A Seller') }}
                                     <a href="{{ route('shops.create') }}" class="fs-13 fw-700 text-warning ml-2">{{ translate('Apply Now') }}</a>
                                 </p>
                             </li>
@@ -298,7 +319,7 @@
                                     </a>
                                 </li>
                             @endguest
-                            
+
                             @if(get_setting('delivery_boy_app_link'))
                                 <li class="mb-2">
                                     <a class="fs-13 text-soft-light animate-underline-white" target="_blank" href="{{ get_setting('delivery_boy_app_link')}}">
@@ -343,7 +364,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Contacts -->
         <div class="aiz-accordion-wrap bg-black">
             <div class="aiz-accordion-heading container bg-black">
@@ -430,7 +451,7 @@
                     <ul class="list-unstyled mt-3">
                         <li class="mb-2 pb-2 {{ areActiveRoutes(['shops.create'],' active')}}">
                             <p class="fs-13 text-soft-light text-sm-secondary mb-0">
-                                {{ translate('Become A Seller') }} 
+                                {{ translate('Become A Seller') }}
                                 <a href="{{ route('shops.create') }}" class="fs-13 fw-700 text-warning ml-2">{{ translate('Apply Now') }}</a>
                             </p>
                         </li>
@@ -483,31 +504,16 @@
         </div>
         @endif
     </div>
-</section>
+</section> --}}
 
 <!-- FOOTER -->
-<footer class="pt-3 pb-7 pb-xl-3 bg-black text-soft-light">
+<footer class="pt-3 pb-7 pb-xl-3 bg-black text-soft-light" style="background-color: #fcfcfc !important;">
     <div class="container">
         <div class="row align-items-center py-3">
             <!-- Copyright -->
-            <div class="col-lg-6 order-1 order-lg-0">
+            <div class="col-lg-6 order-1 order-lg-0" style="color: black;">
                 <div class="text-center text-lg-left fs-14" current-verison="{{get_setting("current_version")}}">
                     {!! get_setting('frontend_copyright_text', null, App::getLocale()) !!}
-                </div>
-            </div>
-
-            <!-- Payment Method Images -->
-            <div class="col-lg-6 mb-4 mb-lg-0">
-                <div class="text-center text-lg-right">
-                    <ul class="list-inline mb-0">
-                        @if ( get_setting('payment_method_images') !=  null )
-                            @foreach (explode(',', get_setting('payment_method_images')) as $key => $value)
-                                <li class="list-inline-item mr-3">
-                                    <img src="{{ uploaded_asset($value) }}" height="20" class="mw-100 h-auto" style="max-height: 20px">
-                                </li>
-                            @endforeach
-                        @endif
-                    </ul>
                 </div>
             </div>
         </div>

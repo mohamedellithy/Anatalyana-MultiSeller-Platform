@@ -18,14 +18,15 @@
 	<title>{{ get_setting('website_name').' | '.get_setting('site_motto') }}</title>
 
 	<!-- google font -->
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
-
+	{{-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"> --}}
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 	<!-- aiz core css -->
 	<link rel="stylesheet" href="{{ static_asset('assets/css/vendors.css') }}">
     @if(\App\Models\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->rtl == 1)
     <link rel="stylesheet" href="{{ static_asset('assets/css/bootstrap-rtl.min.css') }}">
     @endif
 	<link rel="stylesheet" href="{{ static_asset('assets/css/aiz-seller.css') }}">
+    <link rel="stylesheet" href="{{ static_asset('assets/css/aiz-modern-seller.css') }}">
 
     <style>
         body {
@@ -74,9 +75,10 @@
 <body class="">
 
 	<div class="aiz-main-wrapper">
-        @include('seller.inc.seller_sidenav')
 		<div class="aiz-content-wrapper">
             @include('seller.inc.seller_nav')
+            @include('seller.inc.seller_top_menu')
+            @yield('sub_menu')
 			<div class="aiz-main-content">
 				<div class="px-15px px-lg-25px">
                     @yield('panel_content')
@@ -144,5 +146,26 @@
         }
     </script>
 
+    <!-- menu hover by using js -->
+    <script>
+        jQuery('document').ready(function(){
+            let self = null;
+            jQuery('.icon-menu-topbar').mouseover(function(){
+                self = this;
+                let color = jQuery(this).attr('data-color');
+                jQuery(this).parents('li').addClass('active');
+                jQuery('.list-menu-topbar.active:not(.main) .icon-menu-topbar label').css('border-color',color);
+            });
+            jQuery('.icon-menu-topbar').mouseout(function(){
+                jQuery(self).parents('li.active:not(.main)').removeClass('active');
+                jQuery('.list-menu-topbar:not(.active) .icon-menu-topbar label').css('border-color','transparent');
+            });
+
+            let SectionColor = jQuery('.list-menu-topbar.active.main a').attr('data-color') || '#F97600';
+            jQuery('.content-sub-menu ul li a.active').css('background-color',SectionColor);
+            jQuery('.content-sub-menu ul li a.active label').css('color','#ffffff');
+        });
+
+    </script>
 </body>
 </html>

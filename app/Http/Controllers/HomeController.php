@@ -207,6 +207,11 @@ class HomeController extends Controller
         return view('frontend.partials.best_selling_section');
     }
 
+    public function load_best_offers_section()
+    {
+        return view('frontend.partials.best_offers_section');
+    }
+
     public function load_auction_products_section()
     {
         if (!addon_is_activated('auction')) {

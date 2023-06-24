@@ -1,5 +1,9 @@
 @extends('seller.layouts.app')
 
+@section('sub_menu')
+   @include('agencies::sub_menus.agencies')
+@endsection
+
 @section('panel_content')
 
     <div class="aiz-titlebar mt-2 mb-4">
@@ -43,7 +47,7 @@
             </div>
         @endif
         <div class="col-md-4 mx-auto mb-3" >
-            <a href="{{ route('seller.create-agency-country')}}">
+            <a href="{{ route('seller.create-agency-country') }}">
               <div class="p-3 rounded mb-3 c-pointer text-center bg-white shadow-sm hov-shadow-lg has-transition">
                   <span class="size-60px rounded-circle mx-auto bg-secondary d-flex align-items-center justify-content-center mb-3">
                       <i class="las la-plus la-3x text-white"></i>

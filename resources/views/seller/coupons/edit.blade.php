@@ -1,4 +1,10 @@
 @extends('seller.layouts.app')
+
+@section('sub_menu')
+   @include('seller.sub_menus.discounts')
+@endsection
+
+
 @section('panel_content')
 
     <div class="aiz-titlebar mt-2 mb-4">

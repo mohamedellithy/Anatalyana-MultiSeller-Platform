@@ -1,181 +1,45 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-
     <!-- Sliders & Today's deal -->
     <div class="home-banner-area mb-3" style="">
         <div class="container">
             <div class="d-flex flex-wrap position-relative">
-                <div class="col-md-12">
-                    <a href="{{ url('agencies') }}" class="row services">
-                        <div class="col-md-2 col-4">
-                            <div class="service-card text-center">
-                                <div class="img-card-container text-center">
-                                    <img src="{{ static_asset('assets/img/front/marketing-agency-2.png') }}" />
+                <!-- Sliders -->
+                <div class="home-slider">
+                    @if (get_setting('home_slider_images') != null)
+                        <div class="aiz-carousel d dots-inside-bottom mobile-img-auto-height" data-arrows="true" data-dots="true" data-autoplay="true" data-infinite="true">
+                            @php $slider_images = json_decode(get_setting('home_slider_images'), true);  @endphp
+                            @foreach ($slider_images as $key => $value)
+                                <div class="carousel-box">
+                                    <div class="row inner-carousel-sections">
+                                        <div class="col-md-6 section-side">
+                                            <a href="{{ json_decode(get_setting('home_slider_links'), true)[$key] }}">
+                                                <!-- Image -->
+                                                <img class="d-block mw-100 overflow-hidden "
+                                                    src="{{ uploaded_asset($slider_images[$key]) }}"
+                                                    alt="{{ env('APP_NAME')}} promo"
+                                                    onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder-rect.jpg') }}';">
+                                            </a>
+                                        </div>
+                                        <div class="col-md-6 section-side inner-slide-right">
+                                            <h4>
+                                                اشتر من موردين  مميزين
+                                                انضم لاكتشاف المنتجات الجديدة والرائجة
+                                            </h4>
+                                            <a class="btn" href="#">
+                                                معرفة المزيد
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <h5>{{ translate('Agencies') }}</h5>
-                            </div>
+                            @endforeach
                         </div>
-
-                    </a>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Flash Deal -->
-    @php
-        $flash_deal = \App\Models\FlashDeal::where('status', 1)->where('featured', 1)->first();
-    @endphp
-    @if($flash_deal != null && strtotime(date('Y-m-d H:i:s')) >= $flash_deal->start_date && strtotime(date('Y-m-d H:i:s')) <= $flash_deal->end_date)
-    <section class="mb-2 mb-md-3 mt-2 mt-md-3">
-        <div class="container">
-            <!-- Top Section -->
-            <div class="d-flex flex-wrap mb-2 mb-md-3 align-items-baseline justify-content-between">
-                <!-- Title -->
-                <h3 class="fs-16 fs-md-20 fw-700 mb-2 mb-sm-0">
-                    <span class="d-inline-block">{{ translate('Flash Sale') }}</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 16 24" class="ml-3">
-                        <path id="Path_28795" data-name="Path 28795" d="M30.953,13.695a.474.474,0,0,0-.424-.25h-4.9l3.917-7.81a.423.423,0,0,0-.028-.428.477.477,0,0,0-.4-.207H21.588a.473.473,0,0,0-.429.263L15.041,18.151a.423.423,0,0,0,.034.423.478.478,0,0,0,.4.2h4.593l-2.229,9.683a.438.438,0,0,0,.259.5.489.489,0,0,0,.571-.127L30.9,14.164a.425.425,0,0,0,.054-.469Z" transform="translate(-15 -5)" fill="#fcc201"/>
-                    </svg>
-                </h3>
-                <!-- Links -->
-                <div>
-                    <div class="text-dark d-flex align-items-center mb-0">
-                        <a href="{{ route('flash-deals') }}" class="fs-10 fs-md-12 fw-700 text-reset has-transition opacity-60 hov-opacity-100 hov-text-primary animate-underline-primary mr-3">{{ translate('View All Flash Sale') }}</a>
-                        <span class=" border-left border-soft-light border-width-2 pl-3">
-                            <a href="{{ route('flash-deal-details', $flash_deal->slug) }}" class="fs-10 fs-md-12 fw-700 text-reset has-transition opacity-60 hov-opacity-100 hov-text-primary animate-underline-primary">{{ translate('View All Products from This Flash Sale') }}</a>
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Countdown for small device -->
-            <div class="bg-white mb-3 d-md-none">
-                <div class="aiz-count-down-circle" end-date="{{ date('Y/m/d H:i:s', $flash_deal->end_date) }}"></div>
-            </div>
-
-            <div class="row gutters-5 gutters-md-16">
-                <!-- Flash Deals Baner & Countdown -->
-                <div class="col-xxl-4 col-lg-5 col-6 h-200px h-md-400px h-lg-475px">
-                    <div class="h-100 w-100 w-xl-auto" style="background-image: url('{{ uploaded_asset($flash_deal->banner) }}'); background-size: cover; background-position: center center;">
-                        <div class="py-5 px-md-3 px-xl-5 d-none d-md-block">
-                            <div class="bg-white">
-                                <div class="aiz-count-down-circle" end-date="{{ date('Y/m/d H:i:s', $flash_deal->end_date) }}"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Flash Deals Products -->
-                <div class="col-xxl-8 col-lg-7 col-6">
-                    @php
-                        $flash_deals = $flash_deal->flash_deal_products->take(10);
-                    @endphp
-                    <div class="aiz-carousel border-top @if(count($flash_deals)>8) border-right @endif arrow-inactive-none arrow-x-0" data-items="5" data-xxl-items="5" data-xl-items="3.5" data-lg-items="3" data-md-items="2" data-sm-items="2.5" data-xs-items="2" data-arrows="true" data-dots="false">
-                        @php
-                            $init = 0 ;
-                            $end = 1 ;
-                        @endphp
-                        @for ($i = 0; $i < 5; $i++)
-                            <div class="carousel-box  @if($i==0) border-left @endif">
-                            @foreach ($flash_deals as $key => $flash_deal_product)
-                                @if ($key >= $init && $key <= $end)
-                                    @php
-                                        $product = \App\Models\Product::find($flash_deal_product->product_id);
-                                    @endphp
-                                    @if ($product != null && $product->published != 0)
-                                        @php
-                                            $product_url = route('product', $product->slug);
-                                            if($product->auction_product == 1) {
-                                                $product_url = route('auction-product', $product->slug);
-                                            }
-                                        @endphp
-                                        <div class="h-100px h-md-200px h-lg-auto flash-deal-item position-relative text-center border-bottom @if($i!=4) border-right @endif has-transition hov-shadow-out z-1">
-                                            <a href="{{ $product_url }}" class="d-block py-md-3 overflow-hidden hov-scale-img" title="{{  $product->getTranslation('name')  }}">
-                                                <!-- Image -->
-                                                <img src="{{ uploaded_asset($product->thumbnail_img) }}" class="lazyload h-60px h-md-100px h-lg-140px mw-100 mx-auto has-transition"
-                                                    alt="{{  $product->getTranslation('name')  }}" onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder.jpg') }}';">
-                                                <!-- Price -->
-                                                <div class="fs-10 fs-md-14 mt-md-3 text-center h-md-48px has-transition overflow-hidden pt-md-4 flash-deal-price">
-                                                    <span class="d-block text-primary fw-700">{{ home_discounted_base_price($product) }}</span>
-                                                    @if(home_base_price($product) != home_discounted_base_price($product))
-                                                        <del class="d-block fw-400 text-secondary">{{ home_base_price($product) }}</del>
-                                                    @endif
-                                                </div>
-                                            </a>
-                                        </div>
-                                    @endif
-                                @endif
-                            @endforeach
-
-                            @php
-                                $init += 2;
-                                $end += 2;
-                            @endphp
-                            </div>
-                        @endfor
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    @endif
-
-    <!-- Today's deal -->
-    @if(count($todays_deal_products) > 0)
-    <section class="mb-2 mb-md-3 mt-2 mt-md-3">
-        <div class="container">
-            <!-- Banner -->
-            @if (get_setting('todays_deal_banner') != null || get_setting('todays_deal_banner_small') != null)
-                <div class="overflow-hidden d-none d-md-block">
-                    <img src="{{ static_asset('assets/img/placeholder-rect.jpg') }}"
-                        data-src="{{ uploaded_asset(get_setting('todays_deal_banner')) }}"
-                        alt="{{ env('APP_NAME') }} promo" class="lazyload img-fit h-100 has-transition"
-                        onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder-rect.jpg') }}';">
-                </div>
-                <div class="overflow-hidden d-md-none">
-                    <img src="{{ static_asset('assets/img/placeholder-rect.jpg') }}"
-                        data-src="{{ get_setting('todays_deal_banner_small') != null ? uploaded_asset(get_setting('todays_deal_banner_small')) : uploaded_asset(get_setting('todays_deal_banner')) }}"
-                        alt="{{ env('APP_NAME') }} promo" class="lazyload img-fit h-100 has-transition"
-                        onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder-rect.jpg') }}';">
-                </div>
-            @endif
-            <!-- Products -->
-            <div class="" style="background-color: {{ get_setting('todays_deal_bg_color', '#3d4666') }}">
-                <div class="text-right px-4 px-xl-5 pt-4 pt-md-3">
-                    <a href="{{ route('todays-deal') }}" class="fs-12 fw-700 text-white has-transition hov-text-warning">{{ translate('View All') }}</a>
-                </div>
-                <div class="c-scrollbar-light overflow-hidden pl-5 pr-5 pb-3 pt-2 pb-md-5 pt-md-3">
-                    <div class="h-100 d-flex flex-column justify-content-center">
-                        <div class="todays-deal aiz-carousel" data-items="7" data-xxl-items="7" data-xl-items="6" data-lg-items="5" data-md-items="4" data-sm-items="3" data-xs-items="2" data-arrows="true" data-dots="false" data-autoplay="true" data-infinite="true">
-                            @foreach ($todays_deal_products as $key => $product)
-                                <div class="carousel-box h-100 px-3 px-lg-0">
-                                    <a href="{{ route('product', $product->slug) }}" class="h-100 overflow-hidden hov-scale-img mx-auto" title="{{  $product->getTranslation('name')  }}">
-                                        <!-- Image -->
-                                        <div class="img h-80px w-80px rounded-content overflow-hidden mx-auto">
-                                            <img class="lazyload img-fit m-auto has-transition"
-                                                src="{{ static_asset('assets/img/placeholder.jpg') }}"
-                                                data-src="{{ uploaded_asset($product->thumbnail_img) }}"
-                                                alt="{{ $product->getTranslation('name') }}"
-                                                onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder.jpg') }}';">
-                                        </div>
-                                        <!-- Price -->
-                                        <div class="fs-14 mt-3 text-center">
-                                            <span class="d-block text-white fw-700">{{ home_discounted_base_price($product) }}</span>
-                                            @if(home_base_price($product) != home_discounted_base_price($product))
-                                                <del class="d-block text-secondary fw-400">{{ home_base_price($product) }}</del>
-                                            @endif
-                                        </div>
-                                    </a>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    @endif
 
     <!-- Featured Products -->
     <div id="section_featured">
@@ -207,42 +71,6 @@
     </div>
     @endif
 
-    <!-- Featured Categories -->
-    @if (count($featured_categories) > 0)
-        <section class="mb-2 mb-md-3 mt-2 mt-md-3">
-            <div class="container">
-                <div class="bg-white">
-                    <!-- Top Section -->
-                    <div class="d-flex mb-2 mb-md-3 align-items-baseline justify-content-between">
-                        <!-- Title -->
-                        <h3 class="fs-16 fs-md-20 fw-700 mb-2 mb-sm-0">
-                            <span class="">{{ translate('Featured Categories') }}</span>
-                        </h3>
-                        <!-- Links -->
-                        <div class="d-flex">
-                            <a class="text-blue fs-10 fs-md-12 fw-700 hov-text-primary animate-underline-primary" href="{{ route('categories.all') }}">{{ translate('View All Categories') }}</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Categories -->
-                <div class="bg-white px-sm-3">
-                    <div class="aiz-carousel sm-gutters-17" data-items="8" data-xxl-items="8" data-xl-items="6" data-lg-items="5" data-md-items="4" data-sm-items="3" data-xs-items="2" data-arrows="true" data-dots="false" data-autoplay="true" data-infinite="true">
-                        @foreach ($featured_categories as $key => $category)
-                            <div class="carousel-box position-relative text-center has-transition hov-scale-img hov-animate-outline border-right border-top border-bottom @if($key == 0) border-left @endif">
-                                <a href="{{ route('products.category', $category->slug) }}" class="d-block">
-                                    <img src="{{ uploaded_asset($category->banner) }}" class="lazyload h-130px mx-auto has-transition p-2 p-sm-4 mw-100"
-                                        alt="{{ $category->getTranslation('name') }}" onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder.jpg') }}';">
-                                </a>
-                                <h6 class="text-dark mb-3 h-40px text-truncate-2">
-                                    <a class="text-reset fw-700 fs-14 hov-text-primary" href="{{ route('products.category', $category->slug) }}" title="{{  $category->getTranslation('name')  }}">{{ $category->getTranslation('name') }}</a>
-                                </h6>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </section>
-    @endif
 
     <!-- Banner Section 2 -->
     @if (get_setting('home_banner2_images') != null)
@@ -267,42 +95,10 @@
     @endif
 
     <!-- Best Selling  -->
-    <div id="section_best_selling">
+    <div id="section_best_selling"></div>
 
-    </div>
-
-    <!-- New Products -->
-    <div id="section_newest">
-        @if (count($newest_products) > 0)
-            <section class="mb-2 mb-md-3 mt-2 mt-md-3">
-                <div class="container">
-                    <!-- Top Section -->
-                    <div class="d-flex mb-2 mb-md-3 align-items-baseline justify-content-between">
-                        <!-- Title -->
-                        <h3 class="fs-16 fs-md-20 fw-700 mb-2 mb-sm-0">
-                            <span class="">{{ translate('New Products') }}</span>
-                        </h3>
-                        <!-- Links -->
-                        <div class="d-flex">
-                            <a type="button" class="arrow-prev slide-arrow link-disable text-secondary mr-2" onclick="clickToSlide('slick-prev','section_newest')"><i class="las la-angle-left fs-20 fw-600"></i></a>
-                            <a class="text-blue fs-10 fs-md-12 fw-700 hov-text-primary animate-underline-primary" href="{{ route('search',['sort_by'=>'newest']) }}">{{ translate('View All') }}</a>
-                            <a type="button" class="arrow-next slide-arrow text-secondary ml-2" onclick="clickToSlide('slick-next','section_newest')"><i class="las la-angle-right fs-20 fw-600"></i></a>
-                        </div>
-                    </div>
-                    <!-- Products Section -->
-                    <div class="px-sm-3">
-                        <div class="aiz-carousel arrow-none sm-gutters-16" data-items="6" data-xl-items="5" data-lg-items="4"  data-md-items="3" data-sm-items="2" data-xs-items="2" data-arrows='true' data-infinite='false'>
-                            @foreach ($newest_products as $key => $new_product)
-                            <div class="carousel-box px-3 position-relative has-transition border-right border-top border-bottom @if($key == 0) border-left @endif hov-animate-outline">
-                                @include('frontend.partials.product_box_1',['product' => $new_product])
-                            </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </section>
-        @endif
-    </div>
+     <!-- Best Selling  -->
+     <div id="section_best_offers"></div>
 
     <!-- Banner Section 3 -->
     @if (get_setting('home_banner3_images') != null)
@@ -326,328 +122,155 @@
     </div>
     @endif
 
-    <!-- Auction Product -->
-    @if(addon_is_activated('auction'))
-        <div id="auction_products">
-
-        </div>
-    @endif
-
-    <!-- Cupon -->
-    @if(get_setting('coupon_system') == 1)
-    <div class="mb-2 mb-md-3 mt-2 mt-md-3" style="background-color: {{ get_setting('cupon_background_color', '#292933') }}">
-        <div class="container">
-            <div class="row py-5">
-                <div class="col-xl-8 text-center text-xl-left">
-                    <div class="d-lg-flex">
-                        <div class="mb-3 mb-lg-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="109.602" height="93.34" viewBox="0 0 109.602 93.34">
-                                <defs>
-                                  <clipPath id="clip-pathcup">
-                                    <path id="Union_10" data-name="Union 10" d="M12263,13778v-15h64v-41h12v56Z" transform="translate(-11966 -8442.865)" fill="none" stroke="#fff" stroke-width="2"/>
-                                  </clipPath>
-                                </defs>
-                                <g id="Group_24326" data-name="Group 24326" transform="translate(-274.201 -5254.611)">
-                                  <g id="Mask_Group_23" data-name="Mask Group 23" transform="translate(-3652.459 1785.452) rotate(-45)" clip-path="url(#clip-pathcup)">
-                                    <g id="Group_24322" data-name="Group 24322" transform="translate(207 18.136)">
-                                      <g id="Subtraction_167" data-name="Subtraction 167" transform="translate(-12177 -8458)" fill="none">
-                                        <path d="M12335,13770h-56a8.009,8.009,0,0,1-8-8v-8a8,8,0,0,0,0-16v-8a8.009,8.009,0,0,1,8-8h56a8.009,8.009,0,0,1,8,8v8a8,8,0,0,0,0,16v8A8.009,8.009,0,0,1,12335,13770Z" stroke="none"/>
-                                        <path d="M 12335.0009765625 13768.0009765625 C 12338.3095703125 13768.0009765625 12341.0009765625 13765.30859375 12341.0009765625 13762 L 12341.0009765625 13755.798828125 C 12336.4423828125 13754.8701171875 12333.0009765625 13750.8291015625 12333.0009765625 13746 C 12333.0009765625 13741.171875 12336.4423828125 13737.130859375 12341.0009765625 13736.201171875 L 12341.0009765625 13729.9990234375 C 12341.0009765625 13726.6904296875 12338.3095703125 13723.9990234375 12335.0009765625 13723.9990234375 L 12278.9990234375 13723.9990234375 C 12275.6904296875 13723.9990234375 12272.9990234375 13726.6904296875 12272.9990234375 13729.9990234375 L 12272.9990234375 13736.201171875 C 12277.5576171875 13737.1298828125 12280.9990234375 13741.1708984375 12280.9990234375 13746 C 12280.9990234375 13750.828125 12277.5576171875 13754.869140625 12272.9990234375 13755.798828125 L 12272.9990234375 13762 C 12272.9990234375 13765.30859375 12275.6904296875 13768.0009765625 12278.9990234375 13768.0009765625 L 12335.0009765625 13768.0009765625 M 12335.0009765625 13770.0009765625 L 12278.9990234375 13770.0009765625 C 12274.587890625 13770.0009765625 12270.9990234375 13766.412109375 12270.9990234375 13762 L 12270.9990234375 13754 C 12275.4111328125 13753.9990234375 12278.9990234375 13750.4111328125 12278.9990234375 13746 C 12278.9990234375 13741.5888671875 12275.41015625 13738 12270.9990234375 13738 L 12270.9990234375 13729.9990234375 C 12270.9990234375 13725.587890625 12274.587890625 13721.9990234375 12278.9990234375 13721.9990234375 L 12335.0009765625 13721.9990234375 C 12339.412109375 13721.9990234375 12343.0009765625 13725.587890625 12343.0009765625 13729.9990234375 L 12343.0009765625 13738 C 12338.5888671875 13738.0009765625 12335.0009765625 13741.5888671875 12335.0009765625 13746 C 12335.0009765625 13750.4111328125 12338.58984375 13754 12343.0009765625 13754 L 12343.0009765625 13762 C 12343.0009765625 13766.412109375 12339.412109375 13770.0009765625 12335.0009765625 13770.0009765625 Z" stroke="none" fill="#fff"/>
-                                      </g>
-                                    </g>
-                                  </g>
-                                  <g id="Group_24321" data-name="Group 24321" transform="translate(-3514.477 1653.317) rotate(-45)">
-                                    <g id="Subtraction_167-2" data-name="Subtraction 167" transform="translate(-12177 -8458)" fill="none">
-                                      <path d="M12335,13770h-56a8.009,8.009,0,0,1-8-8v-8a8,8,0,0,0,0-16v-8a8.009,8.009,0,0,1,8-8h56a8.009,8.009,0,0,1,8,8v8a8,8,0,0,0,0,16v8A8.009,8.009,0,0,1,12335,13770Z" stroke="none"/>
-                                      <path d="M 12335.0009765625 13768.0009765625 C 12338.3095703125 13768.0009765625 12341.0009765625 13765.30859375 12341.0009765625 13762 L 12341.0009765625 13755.798828125 C 12336.4423828125 13754.8701171875 12333.0009765625 13750.8291015625 12333.0009765625 13746 C 12333.0009765625 13741.171875 12336.4423828125 13737.130859375 12341.0009765625 13736.201171875 L 12341.0009765625 13729.9990234375 C 12341.0009765625 13726.6904296875 12338.3095703125 13723.9990234375 12335.0009765625 13723.9990234375 L 12278.9990234375 13723.9990234375 C 12275.6904296875 13723.9990234375 12272.9990234375 13726.6904296875 12272.9990234375 13729.9990234375 L 12272.9990234375 13736.201171875 C 12277.5576171875 13737.1298828125 12280.9990234375 13741.1708984375 12280.9990234375 13746 C 12280.9990234375 13750.828125 12277.5576171875 13754.869140625 12272.9990234375 13755.798828125 L 12272.9990234375 13762 C 12272.9990234375 13765.30859375 12275.6904296875 13768.0009765625 12278.9990234375 13768.0009765625 L 12335.0009765625 13768.0009765625 M 12335.0009765625 13770.0009765625 L 12278.9990234375 13770.0009765625 C 12274.587890625 13770.0009765625 12270.9990234375 13766.412109375 12270.9990234375 13762 L 12270.9990234375 13754 C 12275.4111328125 13753.9990234375 12278.9990234375 13750.4111328125 12278.9990234375 13746 C 12278.9990234375 13741.5888671875 12275.41015625 13738 12270.9990234375 13738 L 12270.9990234375 13729.9990234375 C 12270.9990234375 13725.587890625 12274.587890625 13721.9990234375 12278.9990234375 13721.9990234375 L 12335.0009765625 13721.9990234375 C 12339.412109375 13721.9990234375 12343.0009765625 13725.587890625 12343.0009765625 13729.9990234375 L 12343.0009765625 13738 C 12338.5888671875 13738.0009765625 12335.0009765625 13741.5888671875 12335.0009765625 13746 C 12335.0009765625 13750.4111328125 12338.58984375 13754 12343.0009765625 13754 L 12343.0009765625 13762 C 12343.0009765625 13766.412109375 12339.412109375 13770.0009765625 12335.0009765625 13770.0009765625 Z" stroke="none" fill="#fff"/>
-                                    </g>
-                                    <g id="Group_24325" data-name="Group 24325">
-                                      <rect id="Rectangle_18578" data-name="Rectangle 18578" width="8" height="2" transform="translate(120 5287)" fill="#fff"/>
-                                      <rect id="Rectangle_18579" data-name="Rectangle 18579" width="8" height="2" transform="translate(132 5287)" fill="#fff"/>
-                                      <rect id="Rectangle_18581" data-name="Rectangle 18581" width="8" height="2" transform="translate(144 5287)" fill="#fff"/>
-                                      <rect id="Rectangle_18580" data-name="Rectangle 18580" width="8" height="2" transform="translate(108 5287)" fill="#fff"/>
-                                    </g>
-                                  </g>
-                                </g>
-                            </svg>
-                        </div>
-                        <div class="ml-lg-3">
-                            <h5 class="fs-36 fw-400 text-white mb-3">{{ translate(get_setting('cupon_title')) }}</h5>
-                            <h5 class="fs-20 fw-400 text-gray">{{ translate(get_setting('cupon_subtitle')) }}</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 text-center text-xl-right mt-4">
-                    <a href="{{ route('coupons.all') }}" class="btn text-white hov-bg-white hov-text-dark border border-width-2 fs-16 px-4" style="border-radius: 28px;background: rgba(255, 255, 255, 0.2);box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.16);">{{ translate('View All Coupons') }}</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    @endif
-
-    <!-- Category wise Products -->
-    <div id="section_home_categories" class="mb-2 mb-md-3 mt-2 mt-md-3">
-
-    </div>
-
-    <!-- Classified Product -->
-    @if(get_setting('classified_product') == 1)
+    @php
+        $flash_deal = \App\Models\FlashDeal::where('status', 1)->where('featured', 1)->first();
+    @endphp
+    @if($flash_deal != null && strtotime(date('Y-m-d H:i:s')) >= $flash_deal->start_date && strtotime(date('Y-m-d H:i:s')) <= $flash_deal->end_date)
         @php
-            $classified_products = \App\Models\CustomerProduct::where('status', '1')->where('published', '1')->take(6)->get();
+            $flash_deals = $flash_deal->flash_deal_products->take(10);
         @endphp
-        @if (count($classified_products) > 0)
+        @foreach ($flash_deals as $key => $flash_deal_product)
             <section class="mb-2 mb-md-3 mt-2 mt-md-3">
-                <div class="container">
-                    <!-- Top Section -->
-                    <div class="d-flex mb-2 mb-md-3 align-items-baseline justify-content-between">
-                        <!-- Title -->
-                        <h3 class="fs-16 fs-md-20 fw-700 mb-2 mb-sm-0">
-                            <span class="">{{ translate('Classified Ads') }}</span>
-                        </h3>
-                        <!-- Links -->
-                        <div class="d-flex">
-                            <a class="text-blue fs-10 fs-md-12 fw-700 hov-text-primary animate-underline-primary" href="{{ route('customer.products') }}">{{ translate('View All Products') }}</a>
+                <div class="container position-relative container-flash-bg">
+                    <div class="row ">
+                        <div class="col-md-6 flash-image">
+                            <img class="img-fit" style="object-fit: contain;" src="{{ uploaded_asset($flash_deal->banner) }}" />
+                        </div>
+                        <div class="col-md-6 container-flash">
+                            @php
+                                $product = \App\Models\Product::find($flash_deal_product->product_id);
+                            @endphp
+                            @if ($product != null && $product->published != 0)
+                                @php
+                                    $product_url = route('product', $product->slug);
+                                    if($product->auction_product == 1) {
+                                        $product_url = route('auction-product', $product->slug);
+                                    }
+                                @endphp
+                                <h4 class="Heading-Flash">
+                                    {{ $product->getTranslation('name')  }}
+                                </h4>
+                                <h6 class="short-description-Flash">
+                                    {{ $flash_deal->getTranslation('title') }}
+                                </h6>
+                                <!-- Price -->
+                                <div class="fs-10 text-center flash-deal-price">
+                                    <span class="d-block text-primary after-discount-price fw-700">{{ home_discounted_base_price($product) }}</span>
+                                    @if(home_base_price($product) != home_discounted_base_price($product))
+                                        <del class="d-block fw-400 before-discount-price">{{ home_base_price($product) }}</del>
+                                    @endif
+                                </div>
+                                <br/>
+                                <a href="{{ $product_url }}" class="btn go-to-product-flash">
+                                    اطلبها الأن
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M14.1213 11.2331H16.8891C17.3088 11.2331 17.6386 10.8861 17.6386 10.4677C17.6386 10.0391 17.3088 9.70236 16.8891 9.70236H14.1213C13.7016 9.70236 13.3719 10.0391 13.3719 10.4677C13.3719 10.8861 13.7016 11.2331 14.1213 11.2331ZM20.1766 5.92749C20.7861 5.92749 21.1858 6.1418 21.5855 6.61123C21.9852 7.08067 22.0551 7.7542 21.9652 8.36549L21.0159 15.06C20.8361 16.3469 19.7569 17.2949 18.4879 17.2949H7.58639C6.25742 17.2949 5.15828 16.255 5.04837 14.908L4.12908 3.7834L2.62026 3.51807C2.22057 3.44664 1.94079 3.04864 2.01073 2.64043C2.08068 2.22305 2.47038 1.94649 2.88006 2.00874L5.2632 2.3751C5.60293 2.43735 5.85274 2.72207 5.88272 3.06905L6.07257 5.35499C6.10254 5.68257 6.36234 5.92749 6.68209 5.92749H20.1766ZM7.42631 18.9079C6.58697 18.9079 5.9075 19.6018 5.9075 20.459C5.9075 21.3061 6.58697 22 7.42631 22C8.25567 22 8.93514 21.3061 8.93514 20.459C8.93514 19.6018 8.25567 18.9079 7.42631 18.9079ZM18.6676 18.9079C17.8282 18.9079 17.1487 19.6018 17.1487 20.459C17.1487 21.3061 17.8282 22 18.6676 22C19.4969 22 20.1764 21.3061 20.1764 20.459C20.1764 19.6018 19.4969 18.9079 18.6676 18.9079Z" fill="black"/>
+                                    </svg>
+                                </a>
+                            @endif
                         </div>
                     </div>
-                    <!-- Banner -->
-                    @if (get_setting('classified_banner_image') != null || get_setting('classified_banner_image_small') != null)
-                        <div class="mb-3 overflow-hidden hov-scale-img d-none d-md-block">
-                            <img src="{{ static_asset('assets/img/placeholder-rect.jpg') }}"
-                                data-src="{{ uploaded_asset(get_setting('classified_banner_image')) }}"
-                                alt="{{ env('APP_NAME') }} promo" class="lazyload img-fit h-100 has-transition"
-                                onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder-rect.jpg') }}';">
-                        </div>
-                        <div class="mb-3 overflow-hidden hov-scale-img d-md-none">
-                            <img src="{{ static_asset('assets/img/placeholder-rect.jpg') }}"
-                                data-src="{{ get_setting('classified_banner_image_small') != null ? uploaded_asset(get_setting('classified_banner_image_small')) : uploaded_asset(get_setting('classified_banner_image')) }}"
-                                alt="{{ env('APP_NAME') }} promo" class="lazyload img-fit h-100 has-transition"
-                                onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder-rect.jpg') }}';">
-                        </div>
-                    @endif
-                    <!-- Products Section -->
-                    <div class="bg-white">
-                        <div class="row no-gutters border-top border-left">
-                            @foreach ($classified_products as $key => $classified_product)
-                                <div class="col-xl-4 col-md-6 border-right border-bottom has-transition hov-shadow-out z-1">
-                                    <div class="aiz-card-box p-2 has-transition bg-white">
-                                        <div class="row hov-scale-img">
-                                            <div class="col-4 col-md-5 mb-3 mb-md-0">
-                                                <a href="{{ route('customer.product', $classified_product->slug) }}" class="d-block overflow-hidden h-auto h-md-150px text-center">
-                                                    <img class="img-fluid lazyload mx-auto has-transition"
-                                                        src="{{ static_asset('assets/img/placeholder.jpg') }}"
-                                                        data-src="{{ uploaded_asset($classified_product->thumbnail_img) }}"
-                                                        alt="{{ $classified_product->getTranslation('name') }}"
-                                                        onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder.jpg') }}';">
-                                                </a>
-                                            </div>
-                                            <div class="col">
-                                                <h3 class="fw-400 fs-14 text-dark text-truncate-2 lh-1-4 mb-3 h-35px d-none d-sm-block">
-                                                    <a href="{{ route('customer.product', $classified_product->slug) }}" class="d-block text-reset hov-text-primary">{{ $classified_product->getTranslation('name') }}</a>
-                                                </h3>
-                                                <div class="fs-14 mb-3">
-                                                    <span class="text-secondary">{{ $classified_product->user ? $classified_product->user->name : '' }}</span><br>
-                                                    <span class="fw-700 text-primary">{{ single_price($classified_product->unit_price) }}</span>
-                                                </div>
-                                                @if($classified_product->conditon == 'new')
-                                                    <span class="badge badge-inline badge-soft-info fs-13 fw-700 p-3 text-info" style="border-radius: 20px;">{{translate('New')}}</span>
-                                                @elseif($classified_product->conditon == 'used')
-                                                    <span class="badge badge-inline badge-soft-warning fs-13 fw-700 p-3 text-danger" style="border-radius: 20px;">{{translate('Used')}}</span>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
+                    <div class=" position-absolute countdown-circles">
+                        <p>
+                            The Rest of Time's Offer
+                        </p>
+                        <div class="aiz-count-down-circle" end-date="{{ date('Y/m/d H:i:s', $flash_deal->end_date) }}"></div>
                     </div>
                 </div>
             </section>
-        @endif
+        @endforeach
     @endif
 
-    <!-- Top Sellers -->
-    @php
-        $best_selers = Cache::remember('best_selers', 86400, function () {
-            return \App\Models\Shop::where('verification_status', 1)->orderBy('num_of_sale', 'desc')->take(5)->get();
-        });
-    @endphp
-    @if (get_setting('vendor_system_activation') == 1)
-        <section class="mb-2 mb-md-3 mt-2 mt-md-3">
-            <div class="container">
-                <!-- Top Section -->
-                <div class="d-flex mb-2 mb-md-3 align-items-baseline justify-content-between">
-                    <!-- Title -->
-                    <h3 class="fs-16 fs-md-20 fw-700 mb-2 mb-sm-0">
-                        <span class="pb-3">{{ translate('Top Sellers') }}</span>
-                    </h3>
-                    <!-- Links -->
-                    <div class="d-flex">
-                        <a class="text-blue fs-10 fs-md-12 fw-700 hov-text-primary animate-underline-primary" href="{{ route('sellers') }}">{{ translate('View All Sellers') }}</a>
+
+    <section class="container section-circles">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="circle-info">
+                    <div class="icon-draw text-center">
+                        <svg class="icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.8875 23.4378H12.8894C12.8909 23.4378 12.8925 23.4375 12.894 23.4375H34.1406C34.3953 23.4374 34.643 23.3545 34.8462 23.2011C35.0495 23.0478 35.1973 22.8324 35.2673 22.5876L39.9548 6.18133C40.0047 6.00696 40.0133 5.8234 39.9802 5.64511C39.947 5.46682 39.873 5.29865 39.7638 5.15383C39.6546 5.009 39.5132 4.8915 39.3508 4.81059C39.1885 4.72967 39.0095 4.68753 38.8281 4.6875H10.1849L9.34727 0.917656C9.28938 0.657367 9.14447 0.424594 8.93646 0.25776C8.72845 0.0909262 8.46977 3.60131e-06 8.20312 0L1.17188 0C0.524609 0 0 0.524609 0 1.17188C0 1.81914 0.524609 2.34375 1.17188 2.34375H7.2632C7.41148 3.01172 11.272 20.3842 11.4941 21.3836C10.2487 21.925 9.375 23.1669 9.375 24.6094C9.375 26.5478 10.9522 28.125 12.8906 28.125H34.1406C34.7879 28.125 35.3125 27.6004 35.3125 26.9531C35.3125 26.3059 34.7879 25.7812 34.1406 25.7812H12.8906C12.2445 25.7812 11.7188 25.2555 11.7188 24.6094C11.7188 23.9642 12.2427 23.4393 12.8875 23.4378ZM37.2745 7.03125L33.2566 21.0938H13.8306L10.7056 7.03125H37.2745ZM11.7188 31.6406C11.7188 33.5791 13.2959 35.1562 15.2344 35.1562C17.1728 35.1562 18.75 33.5791 18.75 31.6406C18.75 29.7022 17.1728 28.125 15.2344 28.125C13.2959 28.125 11.7188 29.7022 11.7188 31.6406ZM15.2344 30.4688C15.8805 30.4688 16.4062 30.9945 16.4062 31.6406C16.4062 32.2867 15.8805 32.8125 15.2344 32.8125C14.5883 32.8125 14.0625 32.2867 14.0625 31.6406C14.0625 30.9945 14.5883 30.4688 15.2344 30.4688ZM28.2812 31.6406C28.2812 33.5791 29.8584 35.1562 31.7969 35.1562C33.7353 35.1562 35.3125 33.5791 35.3125 31.6406C35.3125 29.7022 33.7353 28.125 31.7969 28.125C29.8584 28.125 28.2812 29.7022 28.2812 31.6406ZM31.7969 30.4688C32.443 30.4688 32.9688 30.9945 32.9688 31.6406C32.9688 32.2867 32.443 32.8125 31.7969 32.8125C31.1508 32.8125 30.625 32.2867 30.625 31.6406C30.625 30.9945 31.1508 30.4688 31.7969 30.4688Z" fill="#F97600"/>
+                        </svg>
                     </div>
-                </div>
-                <!-- Sellers Section -->
-                <div class="aiz-carousel arrow-x-0 arrow-inactive-none" data-items="5" data-xxl-items="5" data-xl-items="4" data-lg-items="3.4" data-md-items="2.5" data-sm-items="2" data-xs-items="1.4" data-arrows="true" data-dots="false">
-                    @foreach ($best_selers as $key => $seller)
-                        @if ($seller->user != null)
-                            <div class="carousel-box h-100 position-relative text-center border-right border-top border-bottom @if($key==0) border-left @endif has-transition hov-animate-outline">
-                                <div class="position-relative px-3" style="padding-top: 2rem; padding-bottom:2rem;">
-                                    <!-- Shop logo & Verification Status -->
-                                    <div class="position-relative mx-auto size-100px size-md-120px">
-                                        <a href="{{ route('shop.visit', $seller->slug) }}" class="d-flex mx-auto justify-content-center align-item-center size-100px size-md-120px border overflow-hidden hov-scale-img" tabindex="0" style="border: 1px solid #e5e5e5; border-radius: 50%; box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.06);">
-                                            <img src="{{ static_asset('assets/img/placeholder-rect.jpg') }}"
-                                                data-src="{{ uploaded_asset($seller->logo) }}"
-                                                alt="{{ $seller->name }}"
-                                                class="img-fit lazyload has-transition"
-                                                onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder-rect.jpg') }}';">
-                                        </a>
-                                        <div class="absolute-top-right z-1 mr-md-2 mt-1 rounded-content bg-white">
-                                            @if ($seller->verification_status == 1)
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24.001" height="24" viewBox="0 0 24.001 24">
-                                                    <g id="Group_25929" data-name="Group 25929" transform="translate(-480 -345)">
-                                                        <circle id="Ellipse_637" data-name="Ellipse 637" cx="12" cy="12" r="12" transform="translate(480 345)" fill="#fff"/>
-                                                        <g id="Group_25927" data-name="Group 25927" transform="translate(480 345)">
-                                                        <path id="Union_5" data-name="Union 5" d="M0,12A12,12,0,1,1,12,24,12,12,0,0,1,0,12Zm1.2,0A10.8,10.8,0,1,0,12,1.2,10.812,10.812,0,0,0,1.2,12Zm1.2,0A9.6,9.6,0,1,1,12,21.6,9.611,9.611,0,0,1,2.4,12Zm5.115-1.244a1.083,1.083,0,0,0,0,1.529l3.059,3.059a1.081,1.081,0,0,0,1.529,0l5.1-5.1a1.084,1.084,0,0,0,0-1.53,1.081,1.081,0,0,0-1.529,0L11.339,13.05,9.045,10.756a1.082,1.082,0,0,0-1.53,0Z" transform="translate(0 0)" fill="#3490f3"/>
-                                                        </g>
-                                                    </g>
-                                                </svg>
-                                            @else
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24.001" height="24" viewBox="0 0 24.001 24">
-                                                    <g id="Group_25929" data-name="Group 25929" transform="translate(-480 -345)">
-                                                        <circle id="Ellipse_637" data-name="Ellipse 637" cx="12" cy="12" r="12" transform="translate(480 345)" fill="#fff"/>
-                                                        <g id="Group_25927" data-name="Group 25927" transform="translate(480 345)">
-                                                        <path id="Union_5" data-name="Union 5" d="M0,12A12,12,0,1,1,12,24,12,12,0,0,1,0,12Zm1.2,0A10.8,10.8,0,1,0,12,1.2,10.812,10.812,0,0,0,1.2,12Zm1.2,0A9.6,9.6,0,1,1,12,21.6,9.611,9.611,0,0,1,2.4,12Zm5.115-1.244a1.083,1.083,0,0,0,0,1.529l3.059,3.059a1.081,1.081,0,0,0,1.529,0l5.1-5.1a1.084,1.084,0,0,0,0-1.53,1.081,1.081,0,0,0-1.529,0L11.339,13.05,9.045,10.756a1.082,1.082,0,0,0-1.53,0Z" transform="translate(0 0)" fill="red"/>
-                                                        </g>
-                                                    </g>
-                                                </svg>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <!-- Shop name -->
-                                    <h2 class="fs-14 fw-700 text-dark text-truncate-2 h-40px mt-3 mt-md-4 mb-0 mb-md-3">
-                                        <a href="{{ route('shop.visit', $seller->slug) }}" class="text-reset hov-text-primary" tabindex="0">{{ $seller->name }}</a>
-                                    </h2>
-                                    <!-- Shop Rating -->
-                                    <div class="rating rating-mr-1 text-dark mb-3">
-                                        {{ renderStarRating($seller->rating) }}
-                                        <span class="opacity-60 fs-14">({{ $seller->num_of_reviews }}
-                                            {{ translate('Reviews') }})</span>
-                                    </div>
-                                    <!-- Visit Button -->
-                                    <a href="{{ route('shop.visit', $seller->slug) }}" class="btn-visit">
-                                        <span class="circle" aria-hidden="true">
-                                            <span class="icon arrow"></span>
-                                        </span>
-                                        <span class="button-text">{{ translate('Visit Store') }}</span>
-                                    </a>
-                                </div>
-                            </div>
-                        @endif
-                    @endforeach
+                    <h4 class="text-center">
+                        تسوق بثقة
+                    </h4>
+                    <p class="description text-center">
+                        تسوق واطلب عرضك باسعار متعددة اطلب مباشر مع ارسال سريع
+                    </p>
                 </div>
             </div>
-        </section>
-    @endif
-
-    <!-- Top Brands -->
-    @if (get_setting('top_brands') != null)
-        <section class="mb-2 mb-md-3 mt-2 mt-md-3">
-            <div class="container">
-                <!-- Top Section -->
-                <div class="d-flex mb-2 mb-md-3 align-items-baseline justify-content-between">
-                    <!-- Title -->
-                    <h3 class="fs-16 fs-md-20 fw-700 mb-2 mb-sm-0">{{ translate('Top Brands') }}</h3>
-                    <!-- Links -->
-                    <div class="d-flex">
-                        <a class="text-blue fs-10 fs-md-12 fw-700 hov-text-primary animate-underline-primary" href="{{ route('brands.all') }}">{{ translate('View All Brands') }}</a>
+            <div class="col-md-4">
+                <div class="circle-info">
+                    <div class="icon-draw text-center">
+                        <svg class="icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M38.75 24.9995C38.06 24.9995 37.5 25.5595 37.5 26.2495V34.9995H2.5V19.9995H16.25C16.94 19.9995 17.5 19.4395 17.5 18.7495C17.5 18.0595 16.94 17.4995 16.25 17.4995H2.5V12.4995H16.25C16.94 12.4995 17.5 11.9395 17.5 11.2495C17.5 10.5595 16.94 9.99951 16.25 9.99951H2.5C1.12 9.99951 0 11.1195 0 12.4995V34.9995C0 36.3795 1.12 37.4995 2.5 37.4995H37.5C38.88 37.4995 40 36.3795 40 34.9995V26.2495C40 25.5595 39.44 24.9995 38.75 24.9995Z" fill="#F97600"/>
+                            <path d="M11.25 24.9996H6.25C5.56 24.9996 5 25.5596 5 26.2496C5 26.9396 5.56 27.4996 6.25 27.4996H11.25C11.94 27.4996 12.5 26.9396 12.5 26.2496C12.5 25.5596 11.94 24.9996 11.25 24.9996ZM39.2425 6.34962L30.4925 2.59962C30.3361 2.53403 30.1683 2.50024 29.9988 2.50024C29.8292 2.50024 29.6614 2.53403 29.505 2.59962L20.755 6.34962C20.5307 6.44677 20.3397 6.60741 20.2056 6.81174C20.0714 7.01607 20 7.25518 20 7.49962V12.4996C20 19.3771 22.5425 23.3971 29.3775 27.3346C29.57 27.4446 29.785 27.4996 30 27.4996C30.215 27.4996 30.43 27.4446 30.6225 27.3346C37.4575 23.4071 40 19.3871 40 12.4996V7.49962C40 6.99962 39.7025 6.54712 39.2425 6.34962ZM37.5 12.4996C37.5 18.2721 35.59 21.4496 30 24.7996C24.41 21.4421 22.5 18.2646 22.5 12.4996V8.32462L30 5.10962L37.5 8.32462V12.4996Z" fill="#F97600"/>
+                            <path d="M34.5325 10.2721C33.995 9.84714 33.21 9.92964 32.775 10.4671L28.845 15.3821L27.29 13.0571C26.9025 12.4821 26.125 12.3296 25.5575 12.7096C24.985 13.0921 24.8275 13.8696 25.21 14.4421L27.71 18.1921C27.9325 18.5246 28.2975 18.7296 28.6975 18.7496H28.75C29.1275 18.7496 29.4875 18.5796 29.7275 18.2796L34.7275 12.0296C35.1575 11.4896 35.0725 10.7046 34.5325 10.2721Z" fill="#F97600"/>
+                        </svg>
                     </div>
-                </div>
-                <!-- Brands Section -->
-                <div class="bg-white px-3">
-                    <div class="row row-cols-xxl-6 row-cols-xl-6 row-cols-lg-4 row-cols-md-4 row-cols-3 gutters-16 border-top border-left">
-                        @php $top_brands = json_decode(get_setting('top_brands')); @endphp
-                        @foreach ($top_brands as $value)
-                            @php $brand = \App\Models\Brand::find($value); @endphp
-                            @if ($brand != null)
-                                <div class="col text-center border-right border-bottom hov-scale-img has-transition hov-shadow-out z-1">
-                                    <a href="{{ route('products.brand', $brand->slug) }}" class="d-block p-sm-3">
-                                        <img src="{{ uploaded_asset($brand->logo) }}" class="lazyload h-md-100px mx-auto has-transition p-2 p-sm-4 mw-100"
-                                            alt="{{ $brand->getTranslation('name') }}" onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder.jpg') }}';">
-                                        <p class="text-center text-dark fs-12 fs-md-14 fw-700 mt-2">{{ $brand->getTranslation('name') }}</p>
-                                    </a>
-                                </div>
-                            @endif
-                        @endforeach
-                    </div>
+                    <h4 class="text-center">
+                        تسوق بثقة
+                    </h4>
+                    <p class="description text-center">
+                        تسوق واطلب عرضك باسعار متعددة اطلب مباشر مع ارسال سريع
+                    </p>
                 </div>
             </div>
-        </section>
-    @endif
+            <div class="col-md-4">
+                <div class="circle-info">
+                    <div class="icon-draw text-center">
+                        <svg class="icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_100_419)">
+                            <path d="M39.5659 19.1357L37.1426 16.8879C36.9774 16.7347 36.8506 16.5447 36.7727 16.3332L34.8697 11.1656C34.5975 10.4374 34.1099 9.80934 33.4718 9.36525C32.8336 8.92115 32.0753 8.6821 31.2978 8.67994H28.4145V7.87104C28.4145 7.52317 28.2763 7.18955 28.0303 6.94357C27.7843 6.69759 27.4507 6.5594 27.1028 6.5594H9.67727C9.418 6.55634 9.16775 6.65453 8.97973 6.83308C8.7917 7.01163 8.68073 7.25648 8.6704 7.51557C8.66798 7.64508 8.6914 7.77377 8.73928 7.89413C8.78717 8.01449 8.85857 8.1241 8.9493 8.21654C9.04003 8.30899 9.14828 8.38243 9.26772 8.43257C9.38716 8.4827 9.51539 8.50853 9.64493 8.50854H26.4652V16.9653C26.4652 17.3132 26.6034 17.6468 26.8494 17.8928C27.0954 18.1388 27.429 18.277 27.7769 18.277H35.6981L38.0507 20.3942V28.2919H35.9179C35.7055 27.3625 35.1839 26.5328 34.4385 25.9385C33.6931 25.3442 32.768 25.0206 31.8147 25.0206C30.8614 25.0206 29.9363 25.3442 29.1909 25.9385C28.4455 26.5328 27.9239 27.3625 27.7115 28.2919H21.1484C20.9361 27.3625 20.4145 26.5328 19.6691 25.9385C18.9236 25.3442 17.9986 25.0206 17.0452 25.0206C16.0919 25.0206 15.1668 25.3442 14.4214 25.9385C13.676 26.5328 13.1544 27.3625 12.942 28.2919H9.67719C9.41789 28.2888 9.16761 28.3871 8.9796 28.5657C8.79158 28.7443 8.68065 28.9892 8.6704 29.2483C8.66798 29.3778 8.6914 29.5065 8.73929 29.6269C8.78717 29.7472 8.85857 29.8568 8.94931 29.9493C9.04004 30.0417 9.14829 30.1151 9.26773 30.1653C9.38717 30.2154 9.5154 30.2412 9.64493 30.2412H12.9584C13.1842 31.1544 13.7093 31.9657 14.45 32.5456C15.1907 33.1255 16.1043 33.4405 17.045 33.4405C17.9857 33.4405 18.8992 33.1255 19.6399 32.5456C20.3806 31.9657 20.9057 31.1544 21.1315 30.2412H27.7281C27.9538 31.1544 28.4789 31.9657 29.2196 32.5456C29.9603 33.1255 30.8739 33.4405 31.8146 33.4405C32.7553 33.4405 33.6689 33.1255 34.4095 32.5456C35.1502 31.9657 35.6754 31.1544 35.9011 30.2412H38.6884C39.0362 30.2412 39.3698 30.103 39.6158 29.857C39.8618 29.6111 40 29.2775 40 28.9296V20.1106C39.9999 19.9267 39.9612 19.745 39.8864 19.5771C39.8116 19.4092 39.7024 19.2588 39.5659 19.1357ZM28.4145 16.3281V10.629H31.2978C31.6774 10.63 32.0477 10.7468 32.3593 10.9636C32.6709 11.1804 32.9089 11.4871 33.0418 11.8427L34.7031 16.3281H28.4145ZM17.045 31.4911C16.5979 31.4911 16.1608 31.3585 15.789 31.1101C15.4172 30.8617 15.1275 30.5086 14.9564 30.0955C14.7853 29.6824 14.7405 29.2279 14.8277 28.7893C14.915 28.3508 15.1303 27.948 15.4465 27.6318C15.7626 27.3157 16.1655 27.1004 16.604 27.0131C17.0426 26.9259 17.4971 26.9707 17.9102 27.1418C18.3233 27.3129 18.6764 27.6027 18.9248 27.9745C19.1732 28.3463 19.3057 28.7834 19.3057 29.2305C19.305 29.8298 19.0666 30.4045 18.6428 30.8283C18.219 31.2521 17.6444 31.4905 17.045 31.4911ZM31.8146 31.4911C31.3675 31.4911 30.9304 31.3586 30.5586 31.1101C30.1868 30.8617 29.8971 30.5087 29.7259 30.0956C29.5548 29.6825 29.51 29.2279 29.5973 28.7894C29.6845 28.3508 29.8998 27.948 30.216 27.6319C30.5322 27.3157 30.935 27.1004 31.3735 27.0131C31.8121 26.9259 32.2666 26.9707 32.6797 27.1418C33.0928 27.3129 33.4459 27.6027 33.6943 27.9745C33.9427 28.3463 34.0753 28.7834 34.0752 29.2305C34.0746 29.8298 33.8362 30.4044 33.4124 30.8282C32.9886 31.252 32.414 31.4904 31.8146 31.4911Z" fill="#F97600"/>
+                            <path d="M5.48304 13.9608H16.5357C16.7942 13.9608 17.0421 13.8582 17.2249 13.6754C17.4077 13.4926 17.5104 13.2447 17.5104 12.9862C17.5104 12.7277 17.4077 12.4797 17.2249 12.297C17.0421 12.1142 16.7942 12.0115 16.5357 12.0115H5.48304C5.22454 12.0115 4.97663 12.1142 4.79384 12.297C4.61105 12.4797 4.50836 12.7277 4.50836 12.9862C4.50836 13.2447 4.61105 13.4926 4.79384 13.6754C4.97663 13.8582 5.22454 13.9608 5.48304 13.9608ZM17.5104 18.4003C17.5104 18.1418 17.4077 17.8939 17.2249 17.7111C17.0421 17.5283 16.7942 17.4256 16.5357 17.4256H0.974686C0.845959 17.4245 0.718279 17.4488 0.599018 17.4973C0.479757 17.5457 0.371277 17.6174 0.279843 17.708C0.18841 17.7986 0.115832 17.9064 0.0663027 18.0253C0.016773 18.1441 -0.00872803 18.2715 -0.00872803 18.4003C-0.00872803 18.529 0.016773 18.6565 0.0663027 18.7753C0.115832 18.8941 0.18841 19.0019 0.279843 19.0926C0.371277 19.1832 0.479757 19.2548 0.599018 19.3032C0.718279 19.3517 0.845959 19.3761 0.974686 19.3749H16.5357C16.7942 19.3749 17.0421 19.2722 17.2249 19.0895C17.4077 18.9067 17.5104 18.6588 17.5104 18.4003ZM11.3389 23.8144C11.3389 23.6865 11.3137 23.5597 11.2647 23.4415C11.2157 23.3232 11.1439 23.2158 11.0534 23.1253C10.9629 23.0348 10.8555 22.963 10.7373 22.914C10.619 22.865 10.4923 22.8398 10.3643 22.8398H3.59C3.33302 22.8421 3.08734 22.9458 2.90644 23.1284C2.72553 23.3109 2.62404 23.5575 2.62404 23.8145C2.62404 24.0715 2.72553 24.3181 2.90644 24.5006C3.08734 24.6831 3.33302 24.7868 3.59 24.7891H10.3643C10.6228 24.7891 10.8707 24.6864 11.0535 24.5036C11.2362 24.3208 11.3389 24.0729 11.3389 23.8144Z" fill="#F97600"/>
+                            </g>
+                            <defs>
+                            <clipPath id="clip0_100_419">
+                            <rect width="40" height="40" fill="white"/>
+                            </clipPath>
+                            </defs>
+                        </svg>
+                    </div>
+                    <h4 class="text-center">
+                        تسوق بثقة
+                    </h4>
+                    <p class="description text-center">
+                        تسوق واطلب عرضك باسعار متعددة اطلب مباشر مع ارسال سريع
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-@endsection
-
-@section('style')
-    <style>
-         .service-card{
-            text-align: center;
-        }
-        .img-card-container{
-            padding: 25px;
-            text-align: center;
-            border-radius:10px;
-            padding: 0px 25px;
-        }
-        .img-card-container img
-        {
-            border-radius: 0px;
-            max-width: 100%;
-            height: auto;
-        }
-        .services{
-                padding: 36px 0px;
-        }
-        .services h5
-        {
-            padding: 13px
-        }
-        @media(max-width:1000px){
-            .services h5
-            {
-                font-size:13px;
-                padding: 13px
-            }   
-            .img-card-container
-            {
-               padding: 0px 10px;
-            }
-        }
-        
-    </style>
 @endsection
 
 @section('script')
-    
     <script>
         $(document).ready(function(){
-            $.post('{{ route('home.section.featured') }}', {_token:'{{ csrf_token() }}'}, function(data){
-                $('#section_featured').html(data);
-                AIZ.plugins.slickCarousel();
-            });
+            // $.post('{{ route('home.section.featured') }}', {_token:'{{ csrf_token() }}'}, function(data){
+            //     $('#section_featured').html(data);
+            //     AIZ.plugins.slickCarousel();
+            // });
             $.post('{{ route('home.section.best_selling') }}', {_token:'{{ csrf_token() }}'}, function(data){
                 $('#section_best_selling').html(data);
                 AIZ.plugins.slickCarousel();
             });
-            $.post('{{ route('home.section.auction_products') }}', {_token:'{{ csrf_token() }}'}, function(data){
-                $('#auction_products').html(data);
+            $.post('{{ route('home.section.best_offers') }}', {_token:'{{ csrf_token() }}'}, function(data){
+                $('#section_best_offers').html(data);
                 AIZ.plugins.slickCarousel();
             });
-            $.post('{{ route('home.section.home_categories') }}', {_token:'{{ csrf_token() }}'}, function(data){
-                $('#section_home_categories').html(data);
-                AIZ.plugins.slickCarousel();
-            });
-            $.post('{{ route('home.section.best_sellers') }}', {_token:'{{ csrf_token() }}'}, function(data){
-                $('#section_best_sellers').html(data);
-                AIZ.plugins.slickCarousel();
-            });
+            // $.post('{{ route('home.section.auction_products') }}', {_token:'{{ csrf_token() }}'}, function(data){
+            //     $('#auction_products').html(data);
+            //     AIZ.plugins.slickCarousel();
+            // });
+            // $.post('{{ route('home.section.home_categories') }}', {_token:'{{ csrf_token() }}'}, function(data){
+            //     $('#section_home_categories').html(data);
+            //     AIZ.plugins.slickCarousel();
+            // });
+            // $.post('{{ route('home.section.best_sellers') }}', {_token:'{{ csrf_token() }}'}, function(data){
+            //     $('#section_best_sellers').html(data);
+            //     AIZ.plugins.slickCarousel();
+            // });
         });
     </script>
 @endsection

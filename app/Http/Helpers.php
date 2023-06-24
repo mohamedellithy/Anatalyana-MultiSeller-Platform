@@ -42,7 +42,7 @@ if (!function_exists('sendSMS')) {
 
 //highlights the selected navigation on admin panel
 if (!function_exists('areActiveRoutes')) {
-    function areActiveRoutes(array $routes, $output = "active")
+    function areActiveRoutes(array $routes, $output = "active main")
     {
         foreach ($routes as $route) {
             if (Route::currentRouteName() == $route) return $output;
@@ -65,6 +65,14 @@ if (!function_exists('default_language')) {
     function default_language()
     {
         return env("DEFAULT_LANGUAGE");
+    }
+}
+
+//
+if(!function_exists('StyleActiveMenu')){
+    function StyleActiveMenu(array $routes, $color = "")
+    {
+        if(areActiveRoutes($routes) == "active main") return $color;
     }
 }
 
@@ -98,7 +106,7 @@ if (!function_exists('filter_products')) {
         if (!addon_is_activated('wholesale')) {
             $products = $products->where('wholesale_product', 0);
         }
-        
+
         $verified_sellers = verified_sellers_id();
         if (get_setting('vendor_system_activation') == 1) {
             return $products->where(function ($p) use ($verified_sellers) {
@@ -109,7 +117,7 @@ if (!function_exists('filter_products')) {
         } else {
             return $products->where('added_by', 'admin');
         }
-        
+
     }
 }
 
