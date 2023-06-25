@@ -2,7 +2,7 @@
     <div class="content-sub-menu d-flex">
         <ul class="">
             <li class="sub_menu_titles">
-                <a class="icon-menu-topbar mb-0 {{ areActiveRoutes(['seller.products']) }}" href="{{ route('seller.products') }}">
+                <a class="icon-menu-topbar mb-0 {{ areActiveRoutes(['seller.products','seller.products.edit']) }}" href="{{ route('seller.products') }}">
                     <label class="fs-14  fw-400 mb-0">
                         {{ translate('all Products') }}
                     </label>

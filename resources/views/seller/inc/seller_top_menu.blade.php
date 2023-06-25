@@ -45,7 +45,7 @@
                 </a>
             </li>
             @if(Module::isModuleEnabled('Agencies'))
-                <li class="list-menu-topbar {{ areActiveRoutes(['seller.agencies','seller.create-agency-country','seller.agency-info','seller.agents-show']) }} ">
+                <li class="list-menu-topbar {{ areActiveRoutes(['seller.agencies','seller.create-agency-country','seller.agency-info','seller.agents-show','seller.edit-agency-country','seller.agent-details']) }} ">
                     <a class="icon-menu-topbar mb-2" href="{{ route('seller.agencies') }}" data-color="#732459">
                         <div class="mb-1" style="background-color:#732459;border-color:rgba(255, 255, 255, 0.5">
                             <svg viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -58,7 +58,7 @@
                     </a>
                 </li>
             @endif
-            <li class="list-menu-topbar {{ areActiveRoutes(['seller.products','seller.products.create','seller.digitalproducts.create','seller.reviews','seller.product_bulk_upload.index']) }}">
+            <li class="list-menu-topbar {{ areActiveRoutes(['seller.products','seller.products.create','seller.digitalproducts.create','seller.reviews','seller.product_bulk_upload.index','seller.products.edit']) }}">
                 <a class="icon-menu-topbar mb-2" href="{{ route('seller.products') }}" data-color="#475CC7">
                     <div class="mb-1" style="background-color:#475CC7;border-color:rgba(255, 255, 255, 0.5">
                         <svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
