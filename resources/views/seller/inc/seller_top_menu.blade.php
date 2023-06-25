@@ -9,7 +9,7 @@
                         </svg>
                     </div>
                     <label class="fs-14 text-dark fw-400" style="border-color: {{  StyleActiveMenu(['seller.orders.index'],'#878787') }}">
-                        {{ translate('Orders') }}
+                        {{ translate('Order') }}
                     </label>
                 </a>
             </li>

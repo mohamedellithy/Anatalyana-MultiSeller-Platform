@@ -75,9 +75,10 @@
     }
     
     .list-menu-topbar.active .icon-menu-topbar label {
-        line-height: 1.8em;
+        line-height: 1.3em;
         font-weight: 600 !important;
         border-radius: 5px;
+        padding-bottom: 5px;
     }
     /*****************************************/
     
@@ -221,6 +222,8 @@
     .aiz-count-down-circle #time div span {
         font-size: 9px;
         font-weight: bold;
+        margin: auto;
+        position: relative;
     }
     
     .countdown-circles p {
@@ -386,11 +389,53 @@
     
     .content-menu-icons .icon-menu-topbar label {
         max-width: 55px;
+        font-weight: 500 !important;
         /*overflow: hidden;*/
     }
     
     .content-sub-menu ul li {
         margin: 5px;
+    }
+    
+    [dir="rtl"] .aiz-topbar {
+        left: auto;
+        right: 0px;
+    }
+    
+    [dir="rtl"] .aiz-content-wrapper {
+        padding-left: 0;
+        padding-right: 0px
+    }
+    
+    [dir="rtl"] .countdown-circles {
+        top: 10px;
+        left: 83px;
+        right: auto;
+    }
+    
+    [dir="rtl"] .aiz-search-icon {
+        right: 7px;
+        left: auto;
+    }
+    
+    [dir="rtl"] .aiz-search-form {
+        padding-left: 60px;
+        padding-right: 0px;
+    }
+    
+    [dir="rtl"] .aiz-search-form input {
+        padding-right: 35px;
+        padding-left: 0px;
+    }
+    
+    [dir="rtl"] .svg-circle-languages {
+        left: -13px;
+        right: auto;
+    }
+    
+    [dir="rtl"] .aiz-pull-notify {
+        padding-right: 11px;
+        padding-left: 0px;
     }
     
     @media (min-width: 1200px) {

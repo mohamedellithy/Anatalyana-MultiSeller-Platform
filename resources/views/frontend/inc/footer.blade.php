@@ -77,7 +77,9 @@
                 <div class="mb-4 text-secondary text-justify">
                     {!! get_setting('about_us_description',null,App::getLocale()) !!}
                 </div>
-                <h5 class="fs-14 fw-700 text-soft-light mt-1 mb-3">{{ translate('Subscribe to our newsletter for regular updates about Offers, Coupons & more') }}</h5>
+                {{-- <h5 class="fs-14 fw-700 text-soft-light mt-1 mb-3" style="
+                    color: #747373 !important;width: 50%;line-height: 2em;">{{ translate('موقع للتجارة الإلكترونية، والموقع متخصص في تداول المبيعات على شبكة الإنترنت للشركات من جميع أنحاء العالم
+                    ') }}</h5> --}}
             </div>
 
             <!-- Follow & Apps -->

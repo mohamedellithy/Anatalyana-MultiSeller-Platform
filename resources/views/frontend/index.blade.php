@@ -13,15 +13,6 @@
                             @foreach ($slider_images as $key => $value)
                                 <div class="carousel-box">
                                     <div class="row inner-carousel-sections">
-                                        <div class="col-md-6 section-side">
-                                            <a href="{{ json_decode(get_setting('home_slider_links'), true)[$key] }}">
-                                                <!-- Image -->
-                                                <img class="d-block mw-100 overflow-hidden "
-                                                    src="{{ uploaded_asset($slider_images[$key]) }}"
-                                                    alt="{{ env('APP_NAME')}} promo"
-                                                    onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder-rect.jpg') }}';">
-                                            </a>
-                                        </div>
                                         <div class="col-md-6 section-side inner-slide-right">
                                             <h4>
                                                 اشتر من موردين  مميزين
@@ -31,6 +22,16 @@
                                                 معرفة المزيد
                                             </a>
                                         </div>
+                                        <div class="col-md-6 section-side">
+                                            <a href="{{ json_decode(get_setting('home_slider_links'), true)[$key] }}">
+                                                <!-- Image -->
+                                                <img class="d-block mw-100 overflow-hidden "
+                                                    src="{{ uploaded_asset($slider_images[$key]) }}"
+                                                    alt="{{ env('APP_NAME')}} promo"
+                                                    onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder-rect.jpg') }}';">
+                                            </a>
+                                        </div>
+
                                     </div>
                                 </div>
                             @endforeach
@@ -209,10 +210,10 @@
                         </svg>
                     </div>
                     <h4 class="text-center">
-                        تسوق بثقة
+                        طرق دفع أمنة
                     </h4>
                     <p class="description text-center">
-                        تسوق واطلب عرضك باسعار متعددة اطلب مباشر مع ارسال سريع
+                        يمكنك شحن رصيد ودفع الاموال بكل موثقيقة و أمن
                     </p>
                 </div>
             </div>
@@ -232,10 +233,10 @@
                         </svg>
                     </div>
                     <h4 class="text-center">
-                        تسوق بثقة
+                        تسوق أسرع
                     </h4>
                     <p class="description text-center">
-                        تسوق واطلب عرضك باسعار متعددة اطلب مباشر مع ارسال سريع
+                        طلب عرض بأسرع وقت وطرق شحن بعتمد عليه برا وبحرا
                     </p>
                 </div>
             </div>
