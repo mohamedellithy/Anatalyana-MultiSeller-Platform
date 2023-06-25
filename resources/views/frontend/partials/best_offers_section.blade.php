@@ -1,7 +1,7 @@
 @php
     $best_selling_products = Cache::remember('best_offers_products', 86400, function () {
         return filter_products(\App\Models\Product::orderBy('unit_price', 'asc'))->limit(4)->get();
-    });   
+    });
 @endphp
 
 @if (get_setting('best_selling') == 1 && count($best_selling_products) > 0)
@@ -32,7 +32,7 @@
                 </div> --}}
                 <div class="row">
                     @foreach ($best_selling_products as $key => $product)
-                        <div class="aiz-card-product  col-md-3 px-4 position-relative has-transition">
+                        <div class="aiz-card-product  col-md-3 col-6 px-4 position-relative has-transition">
                             @include('frontend.partials.product_box_1',['product' => $product])
                         </div>
                     @endforeach

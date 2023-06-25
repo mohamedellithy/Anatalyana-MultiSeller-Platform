@@ -532,4 +532,28 @@
         .circle-info {
             margin-bottom: 24px;
         }
+        .aiz-card-product {
+            padding: 23px 0px;
+            padding-right: 13px !important;
+            padding-left: 10px !important;
+        }
+        .aiz-card-box {
+            padding: 5px;
+            padding-top: 35px !important;
+        }
+        .aiz-card-add-to-favorit {
+            top: 10px !important;
+        }
+        .aiz-inner-card-box {
+            height: 94px;
+        }
+        .product-info-section {
+            display: block !important;
+            text-align: center;
+        }
+        .product-rate-section {
+            display: block;
+            text-align: center !important;
+            padding-top: 10px;
+        }
     }
