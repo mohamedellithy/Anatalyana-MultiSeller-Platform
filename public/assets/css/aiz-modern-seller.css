@@ -556,4 +556,7 @@
             text-align: center !important;
             padding-top: 10px;
         }
+        .circle-languages {
+            padding: 1px 7px;
+        }
     }
