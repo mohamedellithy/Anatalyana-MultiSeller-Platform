@@ -28,6 +28,7 @@
         "lcobucci/jwt": "^4.0",
         "league/flysystem-aws-s3-v3": "^3.12",
         "maatwebsite/excel": "^3.1",
+        "macsidigital/laravel-zoom": "^7.0",
         "mehedi-iitdu/core-component-repository": "^2.2",
         "myfatoorah/laravel-package": "^2.1",
         "niklasravnsborg/laravel-pdf": "^4.1",

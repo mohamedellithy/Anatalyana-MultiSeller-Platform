@@ -15,9 +15,14 @@ class Shop extends Model
   }
   
   public function seller_package(){
-    return $this->belongsTo(SellerPackage::class);
+      return $this->belongsTo(SellerPackage::class);
   }
   public function followers(){
-    return $this->hasMany(FollowSeller::class);
+      return $this->hasMany(FollowSeller::class);
+  }
+
+   // meetings modules
+  public function appointments(){
+      return $this->hasMany(\Modules\Meetings\Entities\Appointment::class,'shop_id','id');
   }
 }

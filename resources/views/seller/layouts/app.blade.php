@@ -70,7 +70,7 @@
             files: '{{ translate('Files') }}',
         }
 	</script>
-
+    @yield('custom_style')
 </head>
 <body class="">
 

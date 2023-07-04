@@ -122,9 +122,11 @@
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M3.50083 13.7871V13.5681C3.53295 12.9202 3.7406 12.2925 4.10236 11.7496C4.7045 11.0975 5.1167 10.2983 5.29571 9.43598C5.29571 8.7695 5.29571 8.0935 5.35393 7.42703C5.65469 4.21842 8.82728 2 11.9611 2H12.0387C15.1725 2 18.345 4.21842 18.6555 7.42703C18.7137 8.0935 18.6555 8.7695 18.704 9.43598C18.8854 10.3003 19.2972 11.1019 19.8974 11.7591C20.2618 12.2972 20.4698 12.9227 20.4989 13.5681V13.7776C20.5206 14.648 20.2208 15.4968 19.6548 16.1674C18.907 16.9515 17.8921 17.4393 16.8024 17.5384C13.607 17.8812 10.383 17.8812 7.18762 17.5384C6.09914 17.435 5.08576 16.9479 4.33521 16.1674C3.778 15.4963 3.48224 14.6526 3.50083 13.7871Z" stroke="#878787" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M9.55493 20.8518C10.0542 21.4784 10.7874 21.884 11.5922 21.9787C12.3971 22.0734 13.2072 21.8495 13.8433 21.3564C14.0389 21.2106 14.2149 21.041 14.3672 20.8518" stroke="#878787" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
-                                @if(Auth::user()->unreadNotifications->count() > 0)
-                                    <span class="badge badge-sm badge-dot badge-circle badge-primary position-absolute absolute-top-right"></span>
-                                @endif
+                                @auth
+                                    @if(Auth::user()->unreadNotifications->count() > 0)
+                                        <span class="badge badge-sm badge-dot badge-circle badge-primary position-absolute absolute-top-right"></span>
+                                    @endif
+                                @endauth
                             </span>
                         </span>
                     </a>
@@ -134,30 +136,32 @@
                         </div>
                         <div class="px-3 c-scrollbar-light overflow-auto " style="max-height:300px;">
                             <ul class="list-group list-group-flush">
-                                @forelse(Auth::user()->unreadNotifications->take(20) as $notification)
-                                    <li class="list-group-item d-flex justify-content-between align-items- py-3">
-                                        <div class="media text-inherit">
-                                            <div class="media-body">
-                                                @if($notification->type == 'App\Notifications\OrderNotification')
-                                                    <p class="mb-1 text-truncate-2">
-                                                        <a href="{{ route('seller.orders.show', encrypt($notification->data['order_id'])) }}">
-                                                            {{translate('Order code: ')}} {{$notification->data['order_code']}} {{ translate('has been '. ucfirst(str_replace('_', ' ', $notification->data['status'])))}}
-                                                        </a>
-                                                    </p>
-                                                    <small class="text-muted">
-                                                        {{ date("F j Y, g:i a", strtotime($notification->created_at)) }}
-                                                    </small>
-                                                @endif
+                                @auth
+                                    @forelse(Auth::user()->unreadNotifications->take(20) as $notification)
+                                        <li class="list-group-item d-flex justify-content-between align-items- py-3">
+                                            <div class="media text-inherit">
+                                                <div class="media-body">
+                                                    @if($notification->type == 'App\Notifications\OrderNotification')
+                                                        <p class="mb-1 text-truncate-2">
+                                                            <a href="{{ route('seller.orders.show', encrypt($notification->data['order_id'])) }}">
+                                                                {{translate('Order code: ')}} {{$notification->data['order_code']}} {{ translate('has been '. ucfirst(str_replace('_', ' ', $notification->data['status'])))}}
+                                                            </a>
+                                                        </p>
+                                                        <small class="text-muted">
+                                                            {{ date("F j Y, g:i a", strtotime($notification->created_at)) }}
+                                                        </small>
+                                                    @endif
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                @empty
-                                    <li class="list-group-item">
-                                        <div class="py-4 text-center fs-16">
-                                            {{ translate('No notification found') }}
-                                        </div>
-                                    </li>
-                                @endforelse
+                                        </li>
+                                    @empty
+                                        <li class="list-group-item">
+                                            <div class="py-4 text-center fs-16">
+                                                {{ translate('No notification found') }}
+                                            </div>
+                                        </li>
+                                    @endforelse
+                                @endauth
                             </ul>
                         </div>
                         <div class="text-center border-top">
@@ -172,32 +176,48 @@
         <div class="d-flex justify-content-around align-items-center align-items-stretch">
             <div class="aiz-topbar-item ml-2">
                 <div class="align-items-stretch d-flex dropdown">
-                    <a class="dropdown-toggle no-arrow text-dark" data-toggle="dropdown" href="javascript:void(0);" role="button" aria-haspopup="false" aria-expanded="false">
-                        <span class="d-flex align-items-center">
-
-                            <span class="d-none d-md-block user-info-topbar">
-                                <span class="d-block fw-500">{{Auth::user()->name}}</span>
-                                <span class="d-block small opacity-60">{{Auth::user()->user_type}}</span>
+                    @auth
+                        <a class="dropdown-toggle no-arrow text-dark" data-toggle="dropdown" href="javascript:void(0);" role="button" aria-haspopup="false" aria-expanded="false">
+                            <span class="d-flex align-items-center">
+                                <span class="d-none d-md-block user-info-topbar">
+                                    <span class="d-block fw-500">{{Auth::user()->name}}</span>
+                                    <span class="d-block small opacity-60">{{Auth::user()->user_type}}</span>
+                                </span>
+                                <span class="avatar avatar-sm mr-md-2">
+                                    <img
+                                        src="{{ uploaded_asset(Auth::user()->avatar_original) }}"
+                                        onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';"
+                                    >
+                                </span>
                             </span>
-                            <span class="avatar avatar-sm mr-md-2">
-                                <img
-                                    src="{{ uploaded_asset(Auth::user()->avatar_original) }}"
-                                    onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';"
-                                >
-                            </span>
-                        </span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated dropdown-menu-md">
-                        <a href="{{ route('seller.profile.index') }}" class="dropdown-item">
-                            <i class="las la-user-circle"></i>
-                            <span>{{translate('Profile')}}</span>
                         </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated dropdown-menu-md">
+                            <a href="{{ route('seller.profile.index') }}" class="dropdown-item">
+                                <i class="las la-user-circle"></i>
+                                <span>{{translate('Profile')}}</span>
+                            </a>
 
-                        <a href="{{ route('logout')}}" class="dropdown-item">
-                            <i class="las la-sign-out-alt"></i>
-                            <span>{{translate('Logout')}}</span>
+                            <a href="{{ route('logout')}}" class="dropdown-item">
+                                <i class="las la-sign-out-alt"></i>
+                                <span>{{translate('Logout')}}</span>
+                            </a>
+                        </div>
+                    @else
+                        <a class="dropdown-toggle no-arrow text-dark"  href="{{ route('user.login') }}">
+                            <span class="d-flex align-items-center">
+                                <span class="d-none d-md-block user-info-topbar">
+                                    <span class="d-block fw-500">{{ translate('Login') }}</span>
+                                </span>
+                                <span class="avatar avatar-sm mr-md-2">
+                                    <span class="size-40px rounded-circle overflow-hidden border d-flex align-items-center justify-content-center nav-user-img">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="19.902" height="20.012" viewBox="0 0 19.902 20.012">
+                                            <path id="fe2df171891038b33e9624c27e96e367" d="M15.71,12.71a6,6,0,1,0-7.42,0,10,10,0,0,0-6.22,8.18,1.006,1.006,0,1,0,2,.22,8,8,0,0,1,15.9,0,1,1,0,0,0,1,.89h.11a1,1,0,0,0,.88-1.1,10,10,0,0,0-6.25-8.19ZM12,12a4,4,0,1,1,4-4A4,4,0,0,1,12,12Z" transform="translate(-2.064 -1.995)" fill="#91919b"/>
+                                        </svg>
+                                    </span>
+                                </span>
+                            </span>
                         </a>
-                    </div>
+                    @endauth
                 </div>
             </div>
         </div>

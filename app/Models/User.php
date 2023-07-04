@@ -161,4 +161,5 @@ class User extends Authenticatable implements MustVerifyEmail
     public function agency_join_requests(){
         return $this->hasOne(\Modules\Agencies\Entities\AgencyJoin::class,'customer_id','id');
     }
+
 }

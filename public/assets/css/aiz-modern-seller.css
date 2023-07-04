@@ -388,7 +388,7 @@
     }
     
     .content-menu-icons .icon-menu-topbar label {
-        max-width: 55px;
+        max-width: 100px;
         font-weight: 500 !important;
         /*overflow: hidden;*/
     }
@@ -558,6 +558,11 @@
         }
         .circle-languages {
             padding: 1px 7px;
+        }
+        .content-menu-icons .icon-menu-topbar label {
+            max-width: 55px;
+            font-weight: 500 !important;
+            /*overflow: hidden;*/
         }
     }
     

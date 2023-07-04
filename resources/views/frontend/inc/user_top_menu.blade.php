@@ -113,19 +113,29 @@
                     </label>
                 </a>
             </li>
-            <li class="list-menu-topbar {{ areActiveRoutes(['seller.all-products-shipping','seller.landing-shipping','seller.air-shipping','seller.sea-shipping','seller.working-on-shipping','seller.all-shippings','seller.shippings-to-your-place','pay-on-delivery']) }}">
-                <a class="icon-menu-topbar mb-2" href="{{ route('seller.air-shipping') }}" data-color="#1E5864">
+            <li class="list-menu-topbar {{ areActiveRoutes(['dashboard','seller.landing-shipping','seller.air-shipping','seller.sea-shipping','seller.working-on-shipping','seller.all-shippings','seller.shippings-to-your-place','pay-on-delivery']) }}">
+                <a class="icon-menu-topbar mb-2" href="{{ route('dashboard') }}" data-color="#1E5864">
                     <div class="mb-1" style="background-color:#1E5864;border-color:rgba(255, 255, 255, 0.5">
-                        <svg viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20.4167 4.25832V16.3771C20.4167 17.8646 19.2063 19.075 17.7188 19.075H4.37508C3.573 19.075 2.91675 18.4187 2.91675 17.6167V8.29791C2.91675 5.32291 5.323 2.91666 8.298 2.91666H19.0605C19.8188 2.91666 20.4167 3.51457 20.4167 4.25832Z" fill="white" fill-opacity="0.8"/>
-                            <path d="M31.3542 22.6042C31.7626 22.6042 32.0834 22.925 32.0834 23.3333V24.7917C32.0834 27.2125 30.1292 29.1667 27.7084 29.1667C27.7084 26.7604 25.7397 24.7917 23.3334 24.7917C20.9272 24.7917 18.9584 26.7604 18.9584 29.1667H16.0417C16.0417 26.7604 14.073 24.7917 11.6667 24.7917C9.2605 24.7917 7.29175 26.7604 7.29175 29.1667C4.87091 29.1667 2.91675 27.2125 2.91675 24.7917V21.875C2.91675 21.0729 3.573 20.4167 4.37508 20.4167H18.2292C20.2417 20.4167 21.8751 18.7833 21.8751 16.7708V8.74999C21.8751 7.94791 22.5313 7.29166 23.3334 7.29166H24.5584C25.6084 7.29166 26.5709 7.86041 27.0959 8.76457L28.0292 10.3979C28.1605 10.6312 27.9855 10.9375 27.7084 10.9375C25.6959 10.9375 24.0626 12.5708 24.0626 14.5833V18.9583C24.0626 20.9708 25.6959 22.6042 27.7084 22.6042H31.3542Z" fill="white" fill-opacity="0.8"/>
-                            <path d="M11.6667 32.0833C13.2775 32.0833 14.5833 30.7775 14.5833 29.1667C14.5833 27.5558 13.2775 26.25 11.6667 26.25C10.0558 26.25 8.75 27.5558 8.75 29.1667C8.75 30.7775 10.0558 32.0833 11.6667 32.0833Z" fill="white" fill-opacity="0.8"/>
-                            <path d="M23.3334 32.0833C24.9442 32.0833 26.2501 30.7775 26.2501 29.1667C26.2501 27.5558 24.9442 26.25 23.3334 26.25C21.7226 26.25 20.4167 27.5558 20.4167 29.1667C20.4167 30.7775 21.7226 32.0833 23.3334 32.0833Z" fill="white" fill-opacity="0.8"/>
-                            <path d="M32.0833 18.2729V20.4167H27.7083C26.9062 20.4167 26.25 19.7604 26.25 18.9583V14.5833C26.25 13.7812 26.9062 13.125 27.7083 13.125H29.5896L31.7042 16.8292C31.9521 17.2667 32.0833 17.7625 32.0833 18.2729Z" fill="white" fill-opacity="0.8"/>
+                        <svg class="" viewBox="0 0 38 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g filter="url(#filter0_d_139_713)">
+                            <path d="M30.725 10.4459L22.325 4.56877C20.0354 2.9646 16.5209 3.0521 14.3188 4.75835L7.01252 10.4604C5.55418 11.5979 4.4021 13.9313 4.4021 15.7688V25.8313C4.4021 29.55 7.42085 32.5834 11.1396 32.5834H26.8604C30.5792 32.5834 33.5979 29.5646 33.5979 25.8459V15.9584C33.5979 13.9896 32.3292 11.5688 30.725 10.4459ZM20.0938 26.75C20.0938 27.3479 19.5979 27.8438 19 27.8438C18.4021 27.8438 17.9063 27.3479 17.9063 26.75V22.375C17.9063 21.7771 18.4021 21.2813 19 21.2813C19.5979 21.2813 20.0938 21.7771 20.0938 22.375V26.75Z" fill="white" fill-opacity="0.8" shape-rendering="crispEdges"/>
+                            </g>
+                            <defs>
+                            <filter id="filter0_d_139_713" x="0.4021" y="3.41998" width="37.1958" height="37.1634" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                            <feOffset dy="4"/>
+                            <feGaussianBlur stdDeviation="2"/>
+                            <feComposite in2="hardAlpha" operator="out"/>
+                            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0"/>
+                            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_139_713"/>
+                            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_139_713" result="shape"/>
+                            </filter>
+                            </defs>
                         </svg>
                     </div>
                     <label class="fs-14 text-dark fw-400" style="border-color: {{  StyleActiveMenu(['seller.index'],'#1E5864') }}">
-                        {{ translate('Shipping') }}
+                        {{ translate('Dashboard') }}
                     </label>
                 </a>
             </li>
@@ -145,8 +155,8 @@
                 </li>
             @endif
             @if(Module::isModuleEnabled('Meetings'))
-                <li class="list-menu-topbar {{ areActiveRoutes(['seller.meetings.appointments.index','seller.meetings.appointments.create','seller.meetings.appointments.edit','seller.meetings.appointments.booking_requests','seller.meetings.appointments.booking.edit','seller.meetings.appointments.lists_expired_booked']) }}">
-                    <a class="icon-menu-topbar mb-2" href="{{ route('seller.meetings.appointments.index') }}" data-color="#2A5E98">
+                <li class="list-menu-topbar {{ areActiveRoutes(['meetings.appointments.index','meetings.appointments.create','meetings.appointments.edit','meetings.appointments.shop','meetings.appointments.booked','meetings.appointments.ended_booked']) }}">
+                    <a class="icon-menu-topbar mb-2" href="{{ route('meetings.appointments.index') }}" data-color="#2A5E98">
                         <div class="mb-1" style="background-color:#2A5E98;border-color:rgba(255, 255, 255, 0.5">
                             <svg  viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M30.8437 8.99793C30.2458 8.67709 28.9916 8.34168 27.2853 9.53751L25.1416 11.0542C24.9812 6.51876 23.0124 4.73959 18.2291 4.73959H9.47909C4.49159 4.73959 2.552 6.67918 2.552 11.6667V23.3333C2.552 26.6875 4.37492 30.2604 9.47909 30.2604H18.2291C23.0124 30.2604 24.9812 28.4813 25.1416 23.9458L27.2853 25.4625C28.1895 26.1042 28.977 26.3083 29.6041 26.3083C30.1437 26.3083 30.5666 26.1479 30.8437 26.0021C31.4416 25.6958 32.4478 24.8646 32.4478 22.7792V12.2208C32.4478 10.1354 31.4416 9.30418 30.8437 8.99793ZM16.0416 16.5958C14.5395 16.5958 13.2999 15.3708 13.2999 13.8542C13.2999 12.3375 14.5395 11.1125 16.0416 11.1125C17.5437 11.1125 18.7833 12.3375 18.7833 13.8542C18.7833 15.3708 17.5437 16.5958 16.0416 16.5958Z" fill="white" fill-opacity="0.8"/>
