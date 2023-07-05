@@ -98,7 +98,7 @@
                             <td>{{ date('Y-m-d',strtotime($booking_request->appointment->date)) }}</td>
                             <td>{{ $booking_request->appointment->start_at }}</td>
                             <td>{{ $booking_request->appointment->end_at }}</td>
-                            <td>{{ timezones()[$booking_request->appointment->timezone].' | '.$booking_request->appointment->timezone }}</td>
+                            <td>{{ timezones()[$booking_request->appointment->timezone] }}</td>
                             <td>
                                 <span class="badge badge-warning" style="width:auto">
                                     <strong class="fs-14">{{ $booking_request->status }}</strong>
@@ -112,9 +112,18 @@
                             <td>{{ $booking_request->created_at }}</td>
                             <td>
                                 @if($booking_request->status == 'accepted')
-                                    <a class="btn btn-success btn-icon btn-circle btn-sm" href="{{route('seller.meetings.appointments.edit', $booking_request->appointment->id)}}" title="{{ translate('Go to Meeting') }}">
-                                        <i class="las la-video"></i>
-                                    </a>
+                                    {{ $booking_request->zoom_meeting_info ? $booking_request->zoom_meeting_info->password : translate('not available') }}
+                                @else
+                                    {{ translate('not available') }}
+                                @endif
+                            </td>
+                            <td>
+                                @if($booking_request->status == 'accepted')
+                                    @if($booking_request->zoom_meeting_info)
+                                        <a class="btn btn-success btn-icon btn-circle btn-sm" target="_blank" href="{{ $booking_request->zoom_meeting_info->start_url }}" title="{{ translate('Go to Meeting') }}">
+                                            <i class="las la-video"></i>
+                                        </a>
+                                    @endif
                                     <a class="btn btn-primary btn-icon btn-circle btn-sm" href="{{route('seller.meetings.appointments.edit', $booking_request->appointment->id)}}" title="{{ translate('copy meeting link') }}">
                                         <i class="las la-copy"></i>
                                     </a>

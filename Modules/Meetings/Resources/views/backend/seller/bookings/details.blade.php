@@ -156,9 +156,19 @@
                                         </div>
                                     @else
                                         <div class="form-group row">
-                                            <strong class="col-md-3 col-from-label">{{translate('Meeting Link')}}</strong>
+                                            <strong class="col-md-3 col-from-label">{{translate('Meeting Start Link')}}</strong>
                                             <div class="col-md-6">
-                                                <p class="">{{ $booking_request->user->name ?: '-' }}</p>
+                                                @if($booking_request->zoom_meeting_info)
+                                                    <p class="">{{ $booking_request->zoom_meeting_info->start_url ?: '-' }}</p>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <strong class="col-md-3 col-from-label">{{translate('Meeting Join Link')}}</strong>
+                                            <div class="col-md-6">
+                                                @if($booking_request->zoom_meeting_info)
+                                                    <p class="">{{ $booking_request->zoom_meeting_info->join_url ?: '-' }}</p>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -168,11 +178,27 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
+                                            <strong class="col-md-3 col-from-label">{{translate('Password Meeting')}}</strong>
+                                            <div class="col-md-6">
+                                                @if($booking_request->zoom_meeting_info)
+                                                    <p class="">
+                                                        {{ $booking_request->zoom_meeting_info->password ?: '-' }}
+                                                    </p>
+                                                @else
+                                                    <p>
+                                                        {{ translate('not available') }}
+                                                    </p>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
                                             <div class="col-md-12">
-                                                <a href="#" class="btn btn-success btn-sm">
-                                                    <i class="las la-video"></i>
-                                                    {{ translate('Join to Meeting') }}
-                                                </a>
+                                                @if($booking_request->zoom_meeting_info)
+                                                    <a target="_blank" href="{{ $booking_request->zoom_meeting_info->start_url }}" class="btn btn-success btn-sm">
+                                                        <i class="las la-video"></i>
+                                                        {{ translate('Join to Meeting') }}
+                                                    </a>
+                                                @endif
                                             </div>
                                         </div>
                                     @endif
