@@ -24,10 +24,7 @@ class AppointmentController extends Controller
         $response = Http::withHeaders([
             'Authorization' => 'Basic '.base64_encode(env('ZOOM_CLIENT_KEY').":".env('ZOOM_CLIENT_SECRET')),
             'Host'          => 'zoom.us'
-        ])->post("https://zoom.us/oauth/token",[
-            "grant_type" => 'account_credentials',
-            "account_id" => "RhaUP7ffRsim-_1WOB9urQ"
-        ]);
+        ])->post("https://zoom.us/oauth/token?grant_type=account_credentials&account_id=RhaUP7ffRsim-_1WOB9urQ");
 
         dd($response->json());
 
