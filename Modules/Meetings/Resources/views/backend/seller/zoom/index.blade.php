@@ -6,13 +6,13 @@
 
 @section('panel_content')
 
-    <div class="aiz-titlebar mt-2 mb-4">
+    {{-- <div class="aiz-titlebar mt-2 mb-4">
       <div class="row align-items-center">
         <div class="col-md-6">
             <h1 class="h3">{{ translate('Install Zoom App') }}</h1>
         </div>
       </div>
-    </div>
+    </div> --}}
     <div class="card-body">
         <div class="row">
             @if(isset($app_zoom_link))
