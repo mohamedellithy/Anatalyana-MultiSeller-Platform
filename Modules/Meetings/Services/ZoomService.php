@@ -4,6 +4,7 @@ use Modules\Meetings\Entities\Appointment;
 use Modules\Meetings\Entities\AppointmentLanguage;
 use Modules\Meetings\Entities\ConfigAppMeet;
 use Modules\Meetings\Entities\BookingAppointment;
+use Modules\Meetings\Entities\ZoomMeetingAppointment;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
@@ -88,16 +89,16 @@ class ZoomService{
         //     endif;
         // endif;
 
-        $appointment = BookingAppointment::where([
+        $booked_appointment = BookingAppointment::where([
             'id' => isset($data['booked_id']) ? $data['booked_id'] : 4
         ])->first();
 
-        $full_date = $appointment->appointment->date .' '.$appointment->appointment->start_at;
-        $time_zone = timezones()[$appointment->appointment->timezone];
+        $full_date = $booked_appointment->appointment->date .' '.$booked_appointment->appointment->start_at;
+        $time_zone = timezones()[$booked_appointment->appointment->timezone];
         $resopnse = Http::withHeaders([
             'Authorization' => 'Bearer '.$host->access_token,
         ])->post(self::$endpoint.'/v2/users/me/meetings',[
-            "topic"      => $appointment->appointment->title ?: 'Anatalyana Meeting',
+            "topic"      => $booked_appointment->appointment->title ?: 'Anatalyana Meeting',
             "type"       => 2,
             "start_time" => self::formate_time_zone($full_date,$time_zone),
             "timezone"   => $time_zone,
@@ -106,6 +107,19 @@ class ZoomService{
                 "mute_upon_entry"  => true
             ]
         ]);
+
+        if($resopnse->successful()):
+            $meet = $resopnse->json();
+            ZoomMeetingAppointment::updateOrCreated([
+                'booked_id' => $booked_appointment->id
+            ],[
+                'start_url'  => $meet["start_url"],
+                'join_url'   => $meet["join_url"],
+                'password'   => $meet["password"],
+                'meeting_id' => $meet["meeting_id"],
+                'host_id'    => $meet["host_id"]
+            ]);
+        endif;
 
         return $resopnse->json();
     }
