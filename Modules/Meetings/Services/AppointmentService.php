@@ -48,7 +48,6 @@ class AppointmentService{
         if($status == 'accepted'):
             $data['shop_id'] = auth()->user()->shop->id;
             $create_meet = ZoomService::schedule_new_meet_appointment($data);
-            dd($create_meet);
         endif;
 
         return $booking_update;
