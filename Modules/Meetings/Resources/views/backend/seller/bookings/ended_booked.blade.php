@@ -92,6 +92,7 @@
                     <th data-breakpoints="lg">{{translate('status') }}</th>
                     <th data-breakpoints="lg">{{translate('Payment status') }}</th>
                     <th data-breakpoints="lg">{{translate('created_at') }}</th>
+                    <th data-breakpoints="lg">{{translate('Password meeting') }}</th>
                     <th data-breakpoints="lg" >{{translate('Options')}}</th>
                 </tr>
             </thead>
