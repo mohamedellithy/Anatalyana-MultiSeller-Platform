@@ -66,7 +66,7 @@ class ZoomService{
             if($resopnse->json()['existed_email'] == false):
                 $resopnse = Http::withHeaders([
                     'Authorization' => 'Bearer '.$host->access_token,
-                ])->post(self::$endpoint.'/v2/user',[
+                ])->post(self::$endpoint.'/v2/users',[
                     "email"      => "mohamedellithyfreelancer@gmail.com",
                     "first_name" => "mohamed",
                     "last_name"  => "ellithy",
