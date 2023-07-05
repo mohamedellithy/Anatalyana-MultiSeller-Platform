@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('shop_id')->required();
+            $table->Integer('shop_id')->unsigned();
             $table->string('title')->required();
             $table->text('description')->nullable();
             $table->string('date')->required();
