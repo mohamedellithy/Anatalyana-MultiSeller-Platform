@@ -116,7 +116,7 @@ class ZoomService{
                 'start_url'  => $meet["start_url"],
                 'join_url'   => $meet["join_url"],
                 'password'   => $meet["password"],
-                'meeting_id' => $meet["meeting_id"],
+                'meeting_id' => $meet["id"] ?: $meet["uuid"],
                 'host_id'    => $meet["host_id"]
             ]);
         endif;
