@@ -34,7 +34,7 @@ class ZoomService{
         endif;
         return $response->json();
 
-    ////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////
         // $response = Http::withHeaders([
         //     'Authorization' => 'Basic '.base64_encode(env('ZOOM_CLIENT_KEY').":".env('ZOOM_CLIENT_SECRET')),
         //     'Host'          => 'zoom.us'
@@ -88,14 +88,19 @@ class ZoomService{
         //     endif;
         // endif;
 
+        $appointment = BookingAppointment::where([
+            'id' => $data['booked_id'] ?: 4
+        ])->first();
+
+        $full_date = $appointment->appointment->date .' '.$appointment->appointment->start_at;
+        $time_zone = timezones()[$appointment->appointment->timezone];
         $resopnse = Http::withHeaders([
             'Authorization' => 'Bearer '.$host->access_token,
         ])->post(self::$endpoint.'/v2/users/me/meetings',[
-            "topic"      => "My Zoom Meeting",
+            "topic"      => $appointment->appointment->title ?: 'Anatalyana Meeting',
             "type"       => 2,
-            "duration"   => 60,
-            "start_time" => "2023-07-06T09:00:00Z",
-            "timezone"   => "America/Los_Angeles",
+            "start_time" => self::formate_time_zone($full_date,$time_zone),
+            "timezone"   => $time_zone,
             "settings"   => [
                 "join_before_host" => true,
                 "mute_upon_entry"  => true
@@ -103,5 +108,18 @@ class ZoomService{
         ]);
 
         return $resopnse->json();
+    }
+
+    public static function formate_time_zone($time,$time_zone){
+        // Create a new DateTime object with the desired date and time
+        $date_time = new \DateTime($time);
+
+        // Set the timezone to UTC
+        $date_time->setTimezone(new \DateTimeZone($time_zone ?: 'UTC'));
+
+        // Format the date and time in the desired format
+        $formatted_time = $date_time->format('Y-m-d\TH:i:s\Z');
+
+        return $formatted_time;
     }
 }
