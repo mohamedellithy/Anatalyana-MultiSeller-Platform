@@ -21,7 +21,7 @@ class AppointmentController extends Controller
     public function index(Request $request)
     {
 
-        $auth_url = 'https://zoom.us/oauth/authorize?response_type=code&client_id=' . env('ZOOM_CLIENT_KEY') . '&redirect_uri=' . "https://abcd.example.com";
+        $auth_url = 'https://zoom.us/oauth/authorize?response_type=code&client_id=' . env('ZOOM_CLIENT_KEY') . '&redirect_uri=https://anatalyana.com/seller/meetings/appointments';
 
         return redirect()->to($auth_url);
         // $response = Http::withHeaders([
