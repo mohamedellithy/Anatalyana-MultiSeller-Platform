@@ -129,7 +129,7 @@
                             <td>{{ $booking_request->created_at }}</td>
                             <td>
                                 @if($booking_request->status == 'accepted')
-                                    {{ $booking_request->zoom_meeting_info->password }}
+                                    {{ $booking_request->zoom_meeting_info ? $booking_request->zoom_meeting_info->password : '' }}
                                 @else
                                     {{ translate('not available') }}
                                 @endif
