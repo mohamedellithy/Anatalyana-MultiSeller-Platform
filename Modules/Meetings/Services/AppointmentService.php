@@ -4,6 +4,7 @@ use Modules\Meetings\Entities\Appointment;
 use Modules\Meetings\Entities\AppointmentLanguage;
 use App\Models\Shop;
 use Modules\Meetings\Entities\BookingAppointment;
+use Modules\Meetings\Services\ZoomService;
 use Illuminate\Database\Eloquent\Builder;
 class AppointmentService{
 
@@ -38,9 +39,16 @@ class AppointmentService{
     public function update_appointments($data){
         $status = $data['status'];
         unset($data['status']);
+
+        
         $booking_update = BookingAppointment::where($data)->update([
             'status' => $status
         ]);
+
+        if($status == 'accepted'):
+            $create_meet = ZoomService::schedule_new_meet_appointment($data);
+        endif;
+
         return $booking_update;
     }
 

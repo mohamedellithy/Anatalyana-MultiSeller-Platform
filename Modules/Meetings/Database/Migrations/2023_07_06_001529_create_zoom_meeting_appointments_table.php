@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('join_url')->nullable();
             $table->string('password')->nullable();
             $table->bigInteger('meeting_id')->nullable();
-            $table->bigInteger('host_id')->nullable();
+            $table->string('host_id')->nullable();
             $table->timestamps();
         });
     }
