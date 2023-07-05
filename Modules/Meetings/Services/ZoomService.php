@@ -110,7 +110,7 @@ class ZoomService{
 
         if($resopnse->successful()):
             $meet = $resopnse->json();
-            ZoomMeetingAppointment::updateOrCreated([
+            ZoomMeetingAppointment::updateOrCreate([
                 'booked_id' => $booked_appointment->id
             ],[
                 'start_url'  => $meet["start_url"],
