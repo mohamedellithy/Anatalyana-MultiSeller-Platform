@@ -21,7 +21,7 @@ class AppointmentController extends Controller
     public function index(Request $request)
     {
 
-        $auth_url = 'https://zoom.us/oauth/authorize?response_type=code&client_id=' . env('ZOOM_CLIENT_KEY') . '&redirect_uri=https://anatalyana.com/seller/meetings/appointments/create';
+        $auth_url = 'https://zoom.us/oauth/authorize?response_type=code&client_id=' . env('ZOOM_CLIENT_KEY') . '&redirect_uri=https://anatalyana.com/';
 
         return redirect()->to($auth_url);
 
@@ -57,7 +57,7 @@ class AppointmentController extends Controller
         ])->post("https://zoom.us/oauth/token",[
             "grant_type" => 'authorization_code',
             "code" => $request->query('code'),
-            "redirect_uri" => 'https://abcd.example.com',
+            "redirect_uri" => 'https://anatalyana.com/',
         ]);
 
         dd($response->json());
