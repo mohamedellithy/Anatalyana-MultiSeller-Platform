@@ -21,18 +21,9 @@ class AppointmentController extends Controller
     public function index(Request $request)
     {
 
-        $auth_url = 'https://zoom.us/oauth/authorize?response_type=code&client_id=' . env('ZOOM_CLIENT_KEY') . '&redirect_uri=https://anatalyana.com/seller/meetings/appointments/lists/booked';
+        $auth_url = 'https://zoom.us/oauth/authorize?response_type=code&client_id=' . env('ZOOM_CLIENT_KEY') . '&redirect_uri=https://anatalyana.com/seller/meetings/appointments/create';
 
         return redirect()->to($auth_url);
-        // $response = Http::withHeaders([
-        //     'Authorization' => 'Basic '.base64_encode(env('ZOOM_CLIENT_KEY').":".env('ZOOM_CLIENT_SECRET'))
-        // ])->post("https://zoom.us/oauth/token",[
-        //     "grant_type" => 'authorization_code',
-        //     "code" => 'B1234558uQ',
-        //     "redirect_uri" => 'https://abcd.example.com',
-        // ]);
-
-        //dd($response->json());
 
         $data = [];
         if($request->has('booked_status')):
@@ -59,8 +50,17 @@ class AppointmentController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function create(Request $request)
     {
+        $response = Http::withHeaders([
+            'Authorization' => 'Basic '.base64_encode(env('ZOOM_CLIENT_KEY').":".env('ZOOM_CLIENT_SECRET'))
+        ])->post("https://zoom.us/oauth/token",[
+            "grant_type" => 'authorization_code',
+            "code" => $request->query('code'),
+            "redirect_uri" => 'https://abcd.example.com',
+        ]);
+
+        dd($response->json());
         return view('meetings::backend.seller.appointments.create');
     }
 
