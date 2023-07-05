@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Meetings\Services\AppointmentService;
 use MacsiDigital\Zoom\Facades\Zoom;
+use Illuminate\Support\Facades\Http;
 class AppointmentController extends Controller
 {
     protected $appointmentService;
@@ -19,25 +20,17 @@ class AppointmentController extends Controller
      */
     public function index(Request $request)
     {
-        $user = Zoom::user()->create([
-            'first_name' => 'John',
-            'last_name' => 'Doe',
-            'email' => 'john.doe@example.com',
-            'password' => 'my_password',
+
+        $response = Http::withHeaders([
+            'Authorization' => 'Basic '.base64_encode(env('ZOOM_CLIENT_KEY').":".env('ZOOM_CLIENT_SECRET'))
+        ])->post("https://zoom.us/oauth/token",[
+            "grant_type" => 'authorization_code',
+            "code" => 'B1234558uQ',
+            "redirect_uri" => 'https://abcd.example.com',
         ]);
 
-        $meeting = Zoom::meeting()->make([
-            'topic' => 'My Meeting',
-            'type' => 2,
-            'start_time' => '2023-07-06T09:00:00',
-            'duration' => 60,
-            'password' => 'my_password',
-        ]);
+        dd($response->json());
 
-        
-        $response =  $user->meetings()->save($meeting);
-
-        dd($response);
         $data = [];
         if($request->has('booked_status')):
             $data['booked_status'] = $request->query('booked_status');
