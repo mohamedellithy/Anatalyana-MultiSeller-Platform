@@ -54,7 +54,7 @@ class AppointmentService{
     }
 
     public function lists_booked_appointments($data,$appointments = [],$user = []){
-        $query = BookingAppointment::with('shop','user','appointment')
+        $query = BookingAppointment::with('shop','user','appointment','zoom_meeting_info')
         ->where($data)->orderBy('created_at','desc');
 
         if(count($user) > 0){
@@ -74,7 +74,7 @@ class AppointmentService{
     }
 
     public function all_booked_appointments($data,$appointments){
-        $all_booked_appointment = BookingAppointment::with('shop','user','appointment')
+        $all_booked_appointment = BookingAppointment::with('shop','user','appointment','zoom_meeting_info')
         ->where($data)->whereHas('appointment',function(Builder $query) use($appointments){
             $query->where($appointments);
         })->paginate(10);
@@ -82,7 +82,7 @@ class AppointmentService{
     }
 
     public function all_ended_booked_appointments($data){
-        $all_booked_appointment = BookingAppointment::with('shop','user','appointment')
+        $all_booked_appointment = BookingAppointment::with('shop','user','appointment','zoom_meeting_info')
         ->where($data)->whereHas('appointment',function(Builder $query){
             $query->where('appointments.date','<',date('Y-m-d'));
         })->paginate(10);
@@ -177,7 +177,7 @@ class AppointmentService{
     }
 
     public function show_booking_request($data){
-        $booking_appointment = BookingAppointment::with('shop','user','appointment')->where($data)->first();
+        $booking_appointment = BookingAppointment::with('shop','user','appointment','zoom_meeting_info')->where($data)->first();
         return $booking_appointment;
     }
 }

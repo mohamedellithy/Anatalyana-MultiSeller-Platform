@@ -101,6 +101,7 @@
                     <th data-breakpoints="lg">{{translate('status') }}</th>
                     <th data-breakpoints="lg">{{translate('Payment status') }}</th>
                     <th data-breakpoints="lg">{{translate('created_at') }}</th>
+                    <th data-breakpoints="lg">{{translate('Password meeting') }}</th>
                     <th data-breakpoints="lg" >{{translate('Options')}}</th>
                 </tr>
             </thead>
@@ -126,9 +127,10 @@
                                 </span>
                             </td>
                             <td>{{ $booking_request->created_at }}</td>
+                            <td>{{ $booking_request->zoom_meeting_info->password }}</td>
                             <td>
                                 @if($booking_request->status == 'accepted')
-                                    <a class="btn btn-success btn-icon btn-circle btn-sm" href="{{route('seller.meetings.appointments.edit', $booking_request->appointment->id)}}" title="{{ translate('Go to Meeting') }}">
+                                    <a class="btn btn-success btn-icon btn-circle btn-sm" href="{{ $booking_request->zoom_meeting_info->start_url }}" title="{{ translate('Go to Meeting') }}">
                                         <i class="las la-video"></i>
                                     </a>
                                     <a class="btn btn-primary btn-icon btn-circle btn-sm" href="{{route('seller.meetings.appointments.edit', $booking_request->appointment->id)}}" title="{{ translate('copy meeting link') }}">

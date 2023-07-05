@@ -33,4 +33,8 @@ class BookingAppointment extends Model
     public function appointment(){
         return $this->belongsTo(Appointment::class,'appointment_id','id');
     }
+
+    public function zoom_meeting_info(){
+        return $this->HasOne(ZoomMeetingAppointment::class,'booked_id','id');
+    }
 }
