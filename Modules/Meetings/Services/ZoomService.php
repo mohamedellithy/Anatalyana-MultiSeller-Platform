@@ -58,6 +58,12 @@ class ZoomService{
 
         $resopnse = Http::withHeaders([
             'Authorization' => 'Bearer '.$host->access_token,
+        ])->get(self::$endpoint.'/v2/users/email?email=mohamedellithyfreelancer@gmail.com');
+
+        dd($resopnse->json());
+
+        $resopnse = Http::withHeaders([
+            'Authorization' => 'Bearer '.$host->access_token,
         ])->post(self::$endpoint.'/v2/users/me/meetings',[
             "topic"      => "My Zoom Meeting",
             "type"       => 2,
