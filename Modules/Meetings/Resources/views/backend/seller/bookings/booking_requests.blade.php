@@ -127,7 +127,13 @@
                                 </span>
                             </td>
                             <td>{{ $booking_request->created_at }}</td>
-                            <td>{{ $booking_request->zoom_meeting_info->password }}</td>
+                            <td>
+                                @if($booking_request->status == 'accepted')
+                                    {{ $booking_request->zoom_meeting_info->password }}
+                                @else
+                                    {{ translate('not available') }}
+                                @endif
+                            </td>
                             <td>
                                 @if($booking_request->status == 'accepted')
                                     <a class="btn btn-success btn-icon btn-circle btn-sm" href="{{ $booking_request->zoom_meeting_info->start_url }}" title="{{ translate('Go to Meeting') }}">
