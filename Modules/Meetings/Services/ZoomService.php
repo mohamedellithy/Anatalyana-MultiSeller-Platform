@@ -11,16 +11,32 @@ class ZoomService{
 
     private static $endpoint = 'https://zoom.us';
     public static function url_to_zoom_app_auth(){
-        $auth_app_url = self::$endpoint.'/oauth/authorize?response_type=code&client_id=' . env('ZOOM_CLIENT_KEY') . '&redirect_uri='.route('seller.meetings.appointments.zoom_app_integration');
-        return $auth_app_url;
+        // $auth_app_url = self::$endpoint.'/oauth/authorize?response_type=code&client_id=' . env('ZOOM_CLIENT_KEY') . '&redirect_uri='.route('seller.meetings.appointments.zoom_app_integration');
+        // return $auth_app_url;
+
+        return route('seller.meetings.appointments.zoom_app_integration');
     }
 
     public static function integrate_zoom_service(Request $request){
-        $response = Http::withHeaders([
-            'Authorization' => 'Basic '.base64_encode(env('ZOOM_CLIENT_KEY').":".env('ZOOM_CLIENT_SECRET'))
-        ])->post(self::$endpoint."/oauth/token?grant_type=authorization_code&code=".$request->query('code')."&redirect_uri=".route('seller.meetings.appointments.zoom_app_integration'));
+    //     $response = Http::withHeaders([
+    //         'Authorization' => 'Basic '.base64_encode(env('ZOOM_CLIENT_KEY').":".env('ZOOM_CLIENT_SECRET'))
+    //     ])->post(self::$endpoint."/oauth/token?grant_type=authorization_code&code=".$request->query('code')."&redirect_uri=".route('seller.meetings.appointments.zoom_app_integration'));
 
-       // dd($response->json());
+    //    // dd($response->json());
+
+    //     if($response->successful()):
+    //         $result = ConfigAppMeet::updateOrCreate([
+    //             'shop_id'       => auth()->user()->shop->id,
+    //             'access_token'  => $response->json()['access_token'],
+    //             'refresh_token' => $response->json()['refresh_token'],
+    //         ]);
+    //         return $result;
+    //     endif;
+    //     return $response->json();
+        $response = Http::withHeaders([
+            'Authorization' => 'Basic '.base64_encode(env('ZOOM_CLIENT_KEY').":".env('ZOOM_CLIENT_SECRET')),
+            'Host'          => 'zoom.us'
+        ])->post(self::$endpoint."/oauth/token?grant_type=account_credentials&account_id=".env('ZOOM_ACCOUNT_ID'));
 
         if($response->successful()):
             $result = ConfigAppMeet::updateOrCreate([
