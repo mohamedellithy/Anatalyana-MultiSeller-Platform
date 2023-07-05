@@ -57,7 +57,9 @@ class ZoomService{
     }
 
     public static function schedule_new_meet_appointment($data = []){
-        $host = self::check_credential_info($data);
+        $host = self::check_credential_info([
+            'shop_id' => $data['shop_id']
+        ]);
 
         // $resopnse = Http::withHeaders([
         //     'Authorization' => 'Bearer '.$host->access_token,
