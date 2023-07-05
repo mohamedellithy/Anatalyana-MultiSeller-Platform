@@ -291,12 +291,20 @@ class AppointmentController extends Controller
     }
 
     public function setting_zoom_app(Request $request){
-        $app_zoom_link = ZoomService::url_to_zoom_app_auth();
-        return view('meetings::backend.seller.zoom.index',compact('app_zoom_link'));
+        $zoom_credential = ZoomService::check_credential_info([
+            'shop_id' => auth()->user()->shop->id
+        ]);
+
+        if($zoom_credential):
+            return view('meetings::backend.seller.zoom.index',compact('zoom_credential'));
+        else:
+            $app_zoom_link   = ZoomService::url_to_zoom_app_auth();
+            return view('meetings::backend.seller.zoom.index',compact('app_zoom_link'));
+        endif;
     }
 
     public function zoom_app_integration(Request $request){
         $app_zoom_credintial = ZoomService::integrate_zoom_service($request);
-        return view('meetings::backend.seller.zoom.index',compact('app_zoom_credintial'));
+        return redirect()->route('seller.meetings.appointments.setting_zoom_app');
     }
 }

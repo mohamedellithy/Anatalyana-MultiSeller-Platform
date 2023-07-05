@@ -32,4 +32,9 @@ class ZoomService{
         endif;
         return $response->json();
     }
+
+    public static function check_credential_info($data){
+        $result = ConfigAppMeet::where($data)->first();
+        return $result;
+    }
 }

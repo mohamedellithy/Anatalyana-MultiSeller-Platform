@@ -20,6 +20,7 @@
                     <div class="container-zoom-app">
                         <img  src="{{ static_asset('assets/img/zoom.png') }}" class="app-config-log">
                     </div>
+                    <br/>
                     <p class="text-center">
                         {{ translate('Install App to Start Create meeting to your clients and customers') }}
                     </p>
@@ -27,8 +28,16 @@
                         Install Application
                     </a>
                 </div>
-            @else
-              {{ translate('Zoom App Integrated') }}
+            @elseif(isset($zoom_credential))
+                <div class="col-md-12 text-center">
+                    <div class="container-zoom-app">
+                        <img  src="{{ static_asset('assets/img/zoom.png') }}" class="app-config-log">
+                    </div>
+                    <br/>
+                    <p class="text-center">
+                        {{ translate('Zoom App Integrated') }}
+                    </p>
+                </div>
             @endif
         </div>
     </div>
