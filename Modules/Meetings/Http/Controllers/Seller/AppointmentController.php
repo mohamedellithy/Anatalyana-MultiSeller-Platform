@@ -296,7 +296,7 @@ class AppointmentController extends Controller
         ]);
 
         if($zoom_credential):
-            $result = $this->schedule_new_meet_appointment([
+            $result = ZoomService::schedule_new_meet_appointment([
                 'shop_id' => auth()->user()->shop->id
             ]);
             dd($result);
