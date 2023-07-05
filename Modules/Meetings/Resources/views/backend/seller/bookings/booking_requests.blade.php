@@ -136,9 +136,11 @@
                             </td>
                             <td>
                                 @if($booking_request->status == 'accepted')
-                                    <a class="btn btn-success btn-icon btn-circle btn-sm" href="{{ $booking_request->zoom_meeting_info->start_url }}" title="{{ translate('Go to Meeting') }}">
-                                        <i class="las la-video"></i>
-                                    </a>
+                                    @if($booking_request->zoom_meeting_info)
+                                        <a class="btn btn-success btn-icon btn-circle btn-sm" href="{{ $booking_request->zoom_meeting_info->start_url }}" title="{{ translate('Go to Meeting') }}">
+                                            <i class="las la-video"></i>
+                                        </a>
+                                    @endif
                                     <a class="btn btn-primary btn-icon btn-circle btn-sm" href="{{route('seller.meetings.appointments.edit', $booking_request->appointment->id)}}" title="{{ translate('copy meeting link') }}">
                                         <i class="las la-copy"></i>
                                     </a>
