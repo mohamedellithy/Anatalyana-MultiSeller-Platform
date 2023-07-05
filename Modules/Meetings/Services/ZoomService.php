@@ -67,10 +67,20 @@ class ZoomService{
                 $resopnse = Http::withHeaders([
                     'Authorization' => 'Bearer '.$host->access_token,
                 ])->post(self::$endpoint.'/v2/users',[
-                    "email"      => "mohamedellithyfreelancer@gmail.com",
-                    "first_name" => "mohamed",
-                    "last_name"  => "ellithy",
-                    "password"   => "25121994moh"
+                    "action" => "create",
+                    "user_info" => [
+                        "email"      => "mohamedellithyfreelancer@gmail.com",
+                        "first_name" => "mohamed",
+                        "last_name"  => "ellithy",
+                        "password"   => "25121994moh",
+                        "display_name" => "mohamed ellithy",
+                        "type" => 1,
+                        "feature" => [
+                            "zoom_phone"=> true,
+                            "zoom_one_type" => 16
+                        ],
+                        "plan_united_type" => "1"
+                    ]
                 ]);
         
                 dd($resopnse->json());
