@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('end_at')->required();
             $table->string('host_name')->nullable();
             $table->integer('status')->default(1);
+            $table->engine = 'InnoDB';
             $table->timestamps();
         });
     }
