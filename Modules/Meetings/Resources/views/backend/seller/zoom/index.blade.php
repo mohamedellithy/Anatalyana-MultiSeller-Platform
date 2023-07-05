@@ -33,9 +33,9 @@
                     <div class="container-zoom-app">
                         <img  src="{{ static_asset('assets/img/zoom.png') }}" class="app-config-log">
                     </div>
-                    <br/>
-                    <p class="text-center">
-                        {{ translate('Zoom App Integrated') }}
+                    <p class="text-center app-installed">
+                        <i class="las la-check-circle icon-app-installed"></i>
+                        {{ translate('Zoom App Activated') }}
                     </p>
                 </div>
             @endif
@@ -106,6 +106,17 @@
     }
     .app-config-log{
         width: 100%;
+    }
+    .app-installed{
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .icon-app-installed
+    {
+        font-size: 25px;
+        color: green;
+        display: block;
+        margin: 15px;
     }
 </style>
 @endsection
