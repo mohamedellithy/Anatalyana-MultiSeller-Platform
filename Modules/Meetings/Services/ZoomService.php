@@ -58,11 +58,10 @@ class ZoomService{
 
         $resopnse = Http::withHeaders([
             'Authorization' => 'Bearer '.$host->access_token,
-        ])->post(self::$endpoint.'/v2/users/me/meetings',[
+        ])->post(self::$endpoint.'/v2/users/mohamedellithyfreelancer@gmail.com/meetings',[
             "topic"      => "My Zoom Meeting",
             "type"       => 2,
             "duration"   => 60,
-            "user_email" => "mohamedellithyfreelancer@gmail.com",
             "schedule_for" =>"mohamedellithyfreelanc@gmail.com",
             "start_time" => "2023-07-06T09:00:00Z",
             "timezone"   => "America/Los_Angeles",
