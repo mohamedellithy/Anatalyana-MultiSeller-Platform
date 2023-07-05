@@ -21,7 +21,8 @@ Route::group(['namespace' => 'Seller', 'prefix' => 'seller', 'middleware' => ['s
         Route::put('appointments/update/booking/{id}', 'AppointmentController@update_booking_requests')->name('appointments.booking.update');
         Route::get('appointments/lists/booked', 'AppointmentController@lists_booked')->name('appointments.lists_booked');
         Route::get('expired/appointments-lists','AppointmentController@lists_expired_booked')->name('appointments.lists_expired_booked');
-
+        Route::get('appointment/setting-zoom-app','AppointmentController@setting_zoom_app')->name('appointments.setting_zoom_app');
+        Route::get('appointment/zoom-app-integration','AppointmentController@zoom_app_integration')->name('appointments.zoom_app_integration');
     });
 });
 

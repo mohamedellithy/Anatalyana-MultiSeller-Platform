@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Meetings\Services\AppointmentService;
+use Modules\Meetings\Services\ZoomService;
 use MacsiDigital\Zoom\Facades\Zoom;
 use Illuminate\Support\Facades\Http;
 class AppointmentController extends Controller
@@ -20,11 +21,6 @@ class AppointmentController extends Controller
      */
     public function index(Request $request)
     {
-
-        // $auth_url = 'https://zoom.us/oauth/authorize?response_type=code&client_id=' . env('ZOOM_CLIENT_KEY') . '&redirect_uri=https://anatalyana.com/seller/meetings/appointments/create';
-
-        // return redirect()->to($auth_url);
-
         $data = [];
         if($request->has('booked_status')):
             $data['booked_status'] = $request->query('booked_status');
@@ -52,11 +48,6 @@ class AppointmentController extends Controller
      */
     public function create(Request $request)
     {
-        // $response = Http::withHeaders([
-        //     'Authorization' => 'Basic '.base64_encode(env('ZOOM_CLIENT_KEY').":".env('ZOOM_CLIENT_SECRET'))
-        // ])->post("https://zoom.us/oauth/token?grant_type=authorization_code&code=".$request->query('code')."&redirect_uri=https://anatalyana.com/seller/meetings/appointments/create");
-
-        // dd($response->json());
         return view('meetings::backend.seller.appointments.create');
     }
 
@@ -297,5 +288,15 @@ class AppointmentController extends Controller
 
         $booking_requests = $this->appointmentService->lists_booked_appointments($data,$appointments,$user);
         return view('meetings::backend.seller.bookings.ended_booked',compact('booking_requests'));
+    }
+
+    public function setting_zoom_app(Request $request){
+        $app_zoom_link = ZoomService::url_to_zoom_app_auth();
+        return view('meetings::backend.seller.zoom.index',compact('app_zoom_link'));
+    }
+
+    public function zoom_app_integration(Request $request){
+        $app_zoom_credintial = ZoomService::integrate_zoom_service($request);
+        return view('meetings::backend.seller.zoom.index',compact('app_zoom_credintial'));
     }
 }

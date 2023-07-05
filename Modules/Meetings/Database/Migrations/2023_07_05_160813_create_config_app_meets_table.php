@@ -13,18 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('appointments', function (Blueprint $table) {
+        Schema::create('config_app_meets', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('shop_id')->unsigned();
+            $table->unsignedBigInteger('shop_id')->required();
             $table->foreign('shop_id')->references('id')->on('shops')->onDelete('cascade');
-            $table->string('title')->required();
-            $table->text('description')->nullable();
-            $table->string('date')->required();
-            $table->string('start_at')->required();
-            $table->string('end_at')->required();
-            $table->string('host_name')->nullable();
-            $table->integer('status')->default(1);
-
+            $table->text('access_token')->nullable();
+            $table->text('refresh_token')->nullable();
+            $table->string('app_name')->nullable();
             $table->timestamps();
         });
     }
@@ -36,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('appointments');
+        Schema::dropIfExists('config_app_meets');
     }
 };
