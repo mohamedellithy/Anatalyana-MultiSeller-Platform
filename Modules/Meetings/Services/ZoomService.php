@@ -76,7 +76,6 @@ class ZoomService{
                         "display_name" => "mohamed ellithy",
                         "type" => 1,
                         "feature" => [
-                            "zoom_phone"=> true,
                             "zoom_one_type" => 16
                         ],
                        "plan_united_type" => "1"
