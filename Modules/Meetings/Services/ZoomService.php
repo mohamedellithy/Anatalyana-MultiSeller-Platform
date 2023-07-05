@@ -89,8 +89,10 @@ class ZoomService{
         //     endif;
         // endif;
 
+        if(!isset($data['booked_id'])) return;
+
         $booked_appointment = BookingAppointment::where([
-            'id' => isset($data['booked_id']) ? $data['booked_id']
+            'id' => $data['booked_id']
         ])->first();
 
         $full_date = $booked_appointment->appointment->date .' '.$booked_appointment->appointment->start_at;
