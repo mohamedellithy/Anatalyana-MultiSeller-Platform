@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('shop_id')->required();
-            $table->foreign('shop_id')->references('id')->on('shops')->onDelete('cascade');
             $table->string('title')->required();
             $table->text('description')->nullable();
             $table->string('date')->required();
@@ -24,7 +23,8 @@ return new class extends Migration
             $table->string('end_at')->required();
             $table->string('host_name')->nullable();
             $table->integer('status')->default(1);
-            $table->engine = 'InnoDB';
+
+            $table->foreign('shop_id')->references('id')->on('shops')->onDelete('cascade');
             $table->timestamps();
         });
     }
