@@ -41,8 +41,7 @@ class ZoomService{
         if($response->successful()):
             $result = ConfigAppMeet::updateOrCreate([
                 'shop_id'       => auth()->user()->shop->id,
-                'access_token'  => $response->json()['access_token'],
-                'refresh_token' => $response->json()['refresh_token'],
+                'access_token'  => $response->json()['access_token']
             ]);
             return $result;
         endif;
