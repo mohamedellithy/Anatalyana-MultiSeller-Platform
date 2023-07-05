@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('shop_id')->required();
+            $table->unsignedBigInteger('shop_id')->required();
             $table->foreign('shop_id')->references('id')->on('shops')->onDelete('cascade');
             $table->string('title')->required();
             $table->text('description')->nullable();
