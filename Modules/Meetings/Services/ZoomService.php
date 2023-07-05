@@ -89,7 +89,7 @@ class ZoomService{
         //     endif;
         // endif;
 
-        if(!isset($data['booked_id'])) return;
+        if(!isset($data['id'])) return;
 
         $booked_appointment = BookingAppointment::where([
             'id' => $data['id']
