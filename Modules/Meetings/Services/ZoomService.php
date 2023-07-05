@@ -60,7 +60,22 @@ class ZoomService{
             'Authorization' => 'Bearer '.$host->access_token,
         ])->get(self::$endpoint.'/v2/users/email?email=mohamedellithyfreelancer@gmail.com');
 
-        dd($resopnse->json());
+        //dd($resopnse->json());
+
+        if($resopnse->successful()):
+            if($resopnse->json()['existed_email'] == false):
+                $resopnse = Http::withHeaders([
+                    'Authorization' => 'Bearer '.$host->access_token,
+                ])->post(self::$endpoint.'/v2/user',[
+                    "email"      => "mohamedellithyfreelancer@gmail.com",
+                    "first_name" => "mohamed",
+                    "last_name"  => "ellithy",
+                    "password"   => "25121994moh"
+                ]);
+        
+                dd($resopnse->json());
+            endif;
+        endif;
 
         $resopnse = Http::withHeaders([
             'Authorization' => 'Bearer '.$host->access_token,
