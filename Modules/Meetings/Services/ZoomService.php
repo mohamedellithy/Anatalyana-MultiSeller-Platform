@@ -62,6 +62,8 @@ class ZoomService{
             "topic"      => "My Zoom Meeting",
             "type"       => 2,
             "duration"   => 60,
+            "user_email" => "mohamedellithyfreelancer@gmail.com",
+            "schedule_for" => 'develomohamed22@gmail.com',
             "start_time" => "2023-07-06T09:00:00Z",
             "timezone"   => "America/Los_Angeles",
             "settings"   => [

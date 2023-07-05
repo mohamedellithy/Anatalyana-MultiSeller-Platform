@@ -296,10 +296,10 @@ class AppointmentController extends Controller
         ]);
 
         if($zoom_credential):
-            // $result = ZoomService::schedule_new_meet_appointment([
-            //     'shop_id' => auth()->user()->shop->id
-            // ]);
-            // dd($result);
+            $result = ZoomService::schedule_new_meet_appointment([
+                'shop_id' => auth()->user()->shop->id
+            ]);
+            dd($result);
             return view('meetings::backend.seller.zoom.index',compact('zoom_credential'));
         else:
             $app_zoom_link   = ZoomService::url_to_zoom_app_auth();
