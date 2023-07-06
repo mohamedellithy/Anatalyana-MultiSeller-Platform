@@ -77,20 +77,12 @@
                         </a>
                     @endif
                     @if($booked_appointment->status == 'accepted')
-                        @if($booked_appointment->payment_status == 'accepted')
-                            <a href="#" class="btn btn-primary btn-sm">
+                        {{-- @if($booked_appointment->payment_status == 'accepted') --}}
+                            <a target="_blank" href="{{ $booked_appointment->zoom_meeting_info->join_url }}" class="btn btn-primary btn-sm">
                                 <i class="las la-video" style="font-weight: bold"></i>
                                 {{ translate('Join Meet Now') }}
                             </a>
-                        @elseif($booked_appointment->payment_status != 'accepted')
-                            {{-- <a href="#" class="btn btn-success btn-sm">
-                                {{ translate('Complete Payment') }}
-                            </a> --}}
-                            <a href="#" class="btn btn-primary btn-sm">
-                                <i class="las la-video" style="font-weight: bold"></i>
-                                {{ translate('Join Meet Now') }}
-                            </a>
-                        @endif
+                        {{-- @endif --}}
                     @endif
                     @if($booked_appointment->status == 'cancelled')
                         <p class="alert fw-900" style="color:red">
