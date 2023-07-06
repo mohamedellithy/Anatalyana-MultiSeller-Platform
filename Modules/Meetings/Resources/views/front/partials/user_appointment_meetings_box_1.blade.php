@@ -76,7 +76,9 @@
                         @if($booked_appointment->zoom_meeting_info)
                             <p>
                                 <strong>{{ translate('Password') }} </strong>
-                                {{  $booked_appointment->zoom_meeting_info ? $booked_appointment->zoom_meeting_info->password : '-'  }}
+                                <code>
+                                    {{  $booked_appointment->zoom_meeting_info ? $booked_appointment->zoom_meeting_info->password : '-'  }}
+                                </code>
                             </p>
                         {{-- @if($booked_appointment->payment_status == 'accepted') --}}
                             <a target="_blank" href="{{ $booked_appointment->zoom_meeting_info->join_url }}" class="btn btn-primary btn-sm">
