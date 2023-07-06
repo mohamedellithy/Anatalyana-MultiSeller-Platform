@@ -71,15 +71,11 @@
                 </label>
                 <br/>
                 @if(strtotime($booked_appointment->appointment->date) >= strtotime(date('Y-m-d')))
-                    @if(in_array($booked_appointment->status,['pending','accepted']))
-                        <a href="#" class="btn btn-danger btn-sm">
-                            Cancel
-                        </a>
-                    @endif
+                    
                     @if($booked_appointment->status == 'accepted')
                         @if($booked_appointment->zoom_meeting_info)
                             <p>
-                                <strong>{{ translate('Password') }}</strong>
+                                <strong>{{ translate('Password') }} </strong>
                                 {{  $booked_appointment->zoom_meeting_info ? $booked_appointment->zoom_meeting_info->password : '-'  }}
                             </p>
                         {{-- @if($booked_appointment->payment_status == 'accepted') --}}
@@ -89,6 +85,11 @@
                             </a>
                         {{-- @endif --}}
                         @endif
+                    @endif
+                    @if(in_array($booked_appointment->status,['pending','accepted']))
+                        <a href="#" class="btn btn-danger btn-sm">
+                            Cancel
+                        </a>
                     @endif
                     @if($booked_appointment->status == 'cancelled')
                         <p class="alert fw-900" style="color:red">
