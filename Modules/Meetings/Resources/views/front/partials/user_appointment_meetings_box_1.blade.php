@@ -77,12 +77,18 @@
                         </a>
                     @endif
                     @if($booked_appointment->status == 'accepted')
+                        @if($booked_appointment->zoom_meeting_info)
+                            <p>
+                                <strong>{{ translate('Password') }}</strong>
+                                {{  $booked_appointment->zoom_meeting_info ? $booked_appointment->zoom_meeting_info->password : '-'  }}
+                            </p>
                         {{-- @if($booked_appointment->payment_status == 'accepted') --}}
                             <a target="_blank" href="{{ $booked_appointment->zoom_meeting_info->join_url }}" class="btn btn-primary btn-sm">
                                 <i class="las la-video" style="font-weight: bold"></i>
                                 {{ translate('Join Meet Now') }}
                             </a>
                         {{-- @endif --}}
+                        @endif
                     @endif
                     @if($booked_appointment->status == 'cancelled')
                         <p class="alert fw-900" style="color:red">
