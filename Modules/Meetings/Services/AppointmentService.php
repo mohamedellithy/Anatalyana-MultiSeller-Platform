@@ -5,6 +5,7 @@ use Modules\Meetings\Entities\AppointmentLanguage;
 use App\Models\Shop;
 use Modules\Meetings\Entities\BookingAppointment;
 use Modules\Meetings\Services\ZoomService;
+use Modules\Meetings\Services\ServerToServerZoomService;
 use Illuminate\Database\Eloquent\Builder;
 class AppointmentService{
 
@@ -22,7 +23,7 @@ class AppointmentService{
             },'appointments.appointment_booked' => function($query) use($appointment_booked){
                 return $query->where($appointment_booked)->select('id','shop_id','appointment_id','status','language');
             }])->whereIn('user_id',verified_sellers_id())->where('slug',$slug_shop)->first();
-            
+
         return $shop;
     }
 
@@ -40,14 +41,15 @@ class AppointmentService{
         $status = $data['status'];
         unset($data['status']);
 
-        
+
         $booking_update = BookingAppointment::where($data)->update([
             'status' => $status
         ]);
 
         if($status == 'accepted'):
             $data['shop_id'] = auth()->user()->shop->id;
-            $create_meet = ZoomService::schedule_new_meet_appointment($data);
+            // $create_meet = ZoomService::schedule_new_meet_appointment($data);
+            $create_meet = ServerToServerZoomService::schedule_new_meet_appointment($data);
         endif;
 
         return $booking_update;
