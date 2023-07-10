@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="card-body">
-        @php 
+        @php
             $sort_payment_status = request()->query('payment_status') ?: null;
             $sort_status         = request()->query('status') ?: null;
             $sort_search         = request()->query('search') ?: null;
