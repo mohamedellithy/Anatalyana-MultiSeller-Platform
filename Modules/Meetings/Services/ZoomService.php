@@ -86,7 +86,7 @@ class ZoomService{
         //                "plan_united_type" => "1"
         //             ]
         //         ]);
-        
+
         //         dd($resopnse->json());
         //     endif;
         // endif;
@@ -111,6 +111,8 @@ class ZoomService{
                 "mute_upon_entry"  => true
             ]
         ]);
+
+        dd($resopnse->json());
 
         if($resopnse->successful()):
             $meet = $resopnse->json();
