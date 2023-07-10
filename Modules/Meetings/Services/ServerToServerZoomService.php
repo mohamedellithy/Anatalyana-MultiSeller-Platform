@@ -63,7 +63,7 @@ class ServerToServerZoomService{
                 "password"     => "if42!LfH@",
                 "type"         => 1,
                 "feature"      => [
-                    "zoom_phone"    => true,
+                    "zoom_phone"    => false,
                     "zoom_one_type" => 16
                 ],
                 "plan_united_type"  => "1"
