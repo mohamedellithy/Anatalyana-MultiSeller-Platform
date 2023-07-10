@@ -45,7 +45,7 @@
                                                 <option value="pending"   {{ $booking_request->status == 'pending' ? 'selected' : ''}} >{{ translate('Pending') }}</option>
                                                 <option value="accepted"  {{ $booking_request->status == 'accepted' ? 'selected' : ''}} >{{ translate('Accepted') }}</option>
                                                 <option value="cancelled" {{ $booking_request->status == 'cancelled' ? 'selected' : ''}} >{{ translate('Cancelled') }}</option>
-                                                <option value="completed" {{ $booking_request->status == 'cancelled' ? 'selected' : ''}} >{{ translate('Completed') }}</option>
+                                                <option value="completed" {{ $booking_request->status == 'completed' ? 'selected' : ''}} >{{ translate('Completed') }}</option>
                                                 <option value="refused"   {{ $booking_request->status == 'refused' ? 'selected' : ''}} >{{ translate('Refused') }}</option>
                                             </select>
                                         </div>
@@ -131,11 +131,11 @@
                                                 <option value="pending"   {{ $booking_request->status == 'pending' ? 'selected' : ''}} >{{ translate('Pending') }}</option>
                                                 <option value="accepted"  {{ $booking_request->status == 'accepted' ? 'selected' : ''}} >{{ translate('Accepted') }}</option>
                                                 <option value="cancelled" {{ $booking_request->status == 'cancelled' ? 'selected' : ''}} >{{ translate('Cancelled') }}</option>
-                                                <option value="completed" {{ $booking_request->status == 'cancelled' ? 'selected' : ''}} >{{ translate('Completed') }}</option>
+                                                <option value="completed" {{ $booking_request->status == 'completed' ? 'selected' : ''}} >{{ translate('Completed') }}</option>
                                                 <option value="refused"   {{ $booking_request->status == 'refused' ? 'selected' : ''}} >{{ translate('Refused') }}</option>
                                             </select>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -145,7 +145,7 @@
                                     <h5 class="mb-0 h6">{{ translate('Meeting Info') }}</h5>
                                 </div>
                                 <div class="card-body">
-                                    
+
                                     @if($booking_request->status != 'accepted')
                                         <div class="form-group row">
                                             <div class="col-md-12">
@@ -295,7 +295,7 @@
                 jQuery('#selected_languages').val(selectedLanguage);
                 jQuery(this).parents('tr').remove();
             });
-        }); 
+        });
     </script>
 @endsection
 
