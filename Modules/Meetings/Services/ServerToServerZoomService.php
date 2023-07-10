@@ -51,7 +51,7 @@ class ServerToServerZoomService{
         $time_zone = timezones()[$booked_appointment->appointment->timezone];
         $resopnse = Http::withHeaders([
             'Authorization' => 'Bearer '.$host->access_token,
-        ])->post(self::$endpoint.'/v2/users/{mh1995mb@gmail.com}/meetings',[
+        ])->post(self::$endpoint.'/v2/users/mh1995mb@gmail.com/meetings',[
             "topic"      => $booked_appointment->appointment->title ?: 'Anatalyana Meeting',
             "type"       => 2,
             "start_time" => self::formate_time_zone($full_date,$time_zone),
@@ -74,6 +74,7 @@ class ServerToServerZoomService{
                 'host_id'    => $meet["host_id"]
             ]);
         endif;
+        dd($resopnse->json());
 
         return $resopnse->json();
     }
