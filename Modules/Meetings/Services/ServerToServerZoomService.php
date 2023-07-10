@@ -49,6 +49,20 @@ class ServerToServerZoomService{
 
         $full_date = $booked_appointment->appointment->date .' '.$booked_appointment->appointment->start_at;
         $time_zone = timezones()[$booked_appointment->appointment->timezone];
+
+        // start create user
+        $resopnse = Http::withHeaders([
+            'Authorization' => 'Bearer '.$host->access_token,
+        ])->post(self::$endpoint.'/v2/users',[
+            "email" => "mh1995mb@gmail.com",
+            "type" => "basic",
+            "first_name" => "New",
+            "last_name" => "User"
+        ]);
+        dd($resopnse->json());
+        // end create user
+
+
         $resopnse = Http::withHeaders([
             'Authorization' => 'Bearer '.$host->access_token,
         ])->post(self::$endpoint.'/v2/users/mh1995mb@gmail.com/meetings',[
