@@ -112,7 +112,7 @@ class ZoomService{
             ]
         ]);
 
-        dd($resopnse->json());
+        //$resopnse->json()
 
         if($resopnse->successful()):
             $meet = $resopnse->json();
