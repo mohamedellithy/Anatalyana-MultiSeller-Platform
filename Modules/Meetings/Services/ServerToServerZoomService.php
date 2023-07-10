@@ -54,10 +54,20 @@ class ServerToServerZoomService{
         $resopnse = Http::withHeaders([
             'Authorization' => 'Bearer '.$host->access_token,
         ])->post(self::$endpoint.'/v2/users',[
-            "email" => "mh1995mb@gmail.com",
-            "type" => "basic",
-            "first_name" => "New",
-            "last_name" => "User"
+            "action"   => "create",
+            "user_info"=> [
+                "email"        => "mh1995mb@gmail.com",
+                "first_name"   => "Jill",
+                "last_name"    => "Chill",
+                "display_name" => "Jill Chill",
+                "password"     => "if42!LfH@",
+                "type"         => 1,
+                "feature"      => [
+                    "zoom_phone"    => true,
+                    "zoom_one_type" => 16
+                ],
+                "plan_united_type"  => "1"
+            ]
         ]);
         dd($resopnse->body());
         // end create user
