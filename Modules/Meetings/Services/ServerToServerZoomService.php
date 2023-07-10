@@ -59,7 +59,7 @@ class ServerToServerZoomService{
             "first_name" => "New",
             "last_name" => "User"
         ]);
-        dd($resopnse->json());
+        dd($resopnse->body());
         // end create user
 
 
