@@ -96,7 +96,7 @@ class AppointmentService{
     }
 
     public function all($data = []){
-        $query = Appointment::where('shop_id',auth()->user()->shop->slug)->with('appointment_languages','appointment_booked');
+        $query = Appointment::where('shop_id',auth()->user()->shop->id)->with('appointment_languages','appointment_booked');
 
         if(isset($data['status'])):
             $query = $query->where('status',$data['status']);
