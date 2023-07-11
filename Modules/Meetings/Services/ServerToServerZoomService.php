@@ -38,11 +38,11 @@ class ServerToServerZoomService{
     }
 
     public static function schedule_new_meet_appointment($data = []){
-        $host = self::check_credential_info([
-            'shop_id' => $data['shop_id']
-        ]);
+        // $host = self::check_credential_info([
+        //     'shop_id' => $data['shop_id']
+        // ]);
 
-        self::integrate_zoom_service();
+        $host = self::integrate_zoom_service();
 
         if(!isset($data['id'])) return;
 
@@ -54,7 +54,7 @@ class ServerToServerZoomService{
         $time_zone = timezones()[$booked_appointment->appointment->timezone];
 
         $resopnse = Http::withHeaders([
-            'Authorization' => 'Bearer '.$host->access_token,
+            'Authorization' => 'Bearer '.$host['access_token'],
         ])->post(self::$endpoint.'/v2/users/me/meetings',[
             "topic"      => $booked_appointment->appointment->title ?: 'Anatalyana Meeting',
             "host_email" => $booked_appointment->shop->user->email ?: null,
