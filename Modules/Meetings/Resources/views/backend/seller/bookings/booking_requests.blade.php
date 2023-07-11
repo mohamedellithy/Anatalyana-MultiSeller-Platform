@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="card-body">
-        @php 
+        @php
             $sort_date           = request()->query('date') ?: null;
             $sort_payment_status = request()->query('payment_status') ?: null;
             $sort_status         = request()->query('status') ?: null;
@@ -96,7 +96,6 @@
                     <th data-breakpoints="lg">{{translate('Language') }}</th>
                     <th data-breakpoints="lg">{{translate('Date') }}</th>
                     <th data-breakpoints="lg">{{translate('Start At')}}</th>
-                    <th data-breakpoints="lg">{{translate('End At')}}</th>
                     <th data-breakpoints="lg">{{translate('Time Zone')}}</th>
                     <th data-breakpoints="lg">{{translate('status') }}</th>
                     <th data-breakpoints="lg">{{translate('Payment status') }}</th>
@@ -114,7 +113,6 @@
                             <td>{{ languages_list()[$booking_request->language] }}</td>
                             <td>{{ date('Y-m-d',strtotime($booking_request->appointment->date)) }}</td>
                             <td>{{ $booking_request->appointment->start_at }}</td>
-                            <td>{{ $booking_request->appointment->end_at }}</td>
                             <td>{{ timezones()[$booking_request->appointment->timezone] }}</td>
                             <td>
                                 <span class="badge badge-warning" style="width:auto">
