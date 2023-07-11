@@ -15,20 +15,21 @@ class ServerToServerZoomService{
         return route('seller.meetings.appointments.zoom_app_integration');
     }
 
-    public static function integrate_zoom_service(Request $request){
+    public static function integrate_zoom_service(){
         $response = Http::withHeaders([
             'Authorization' => 'Basic '.base64_encode(env('ZOOM_CLIENT_KEY').":".env('ZOOM_CLIENT_SECRET')),
             'Host'          => 'zoom.us'
         ])->post(self::$endpoint."/oauth/token?grant_type=account_credentials&account_id=".env('ZOOM_ACCOUNT_ID'));
 
         if($response->successful()):
-            $result = ConfigAppMeet::updateOrCreate([
-                'shop_id'       => auth()->user()->shop->id,
-                'access_token'  => $response->json()['access_token']
-            ]);
-            return $result;
+            return [
+                'access_token' => $response->json()['access_token']
+            ];
+        else:
+            return [
+                'access_token' => null
+            ];
         endif;
-        return $response->json();
     }
 
     public static function check_credential_info($data){
@@ -40,6 +41,8 @@ class ServerToServerZoomService{
         $host = self::check_credential_info([
             'shop_id' => $data['shop_id']
         ]);
+
+        self::integrate_zoom_service();
 
         if(!isset($data['id'])) return;
 
