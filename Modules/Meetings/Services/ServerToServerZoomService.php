@@ -54,8 +54,8 @@ class ServerToServerZoomService{
             'Authorization' => 'Bearer '.$host->access_token,
         ])->post(self::$endpoint.'/v2/users/me/meetings',[
             "topic"      => $booked_appointment->appointment->title ?: 'Anatalyana Meeting',
-            "host_email" => $booked_appointment->shop()->email ?: null,
-            "alternative_hosts" => "$booked_appointment->shop()->email",
+            "host_email" => $booked_appointment->shop->user->email ?: null,
+            "alternative_hosts" => "{$booked_appointment->shop->user->email}",
             "type"       => 2,
             "start_time" => self::formate_time_zone($full_date,$time_zone),
             "timezone"   => $time_zone,
