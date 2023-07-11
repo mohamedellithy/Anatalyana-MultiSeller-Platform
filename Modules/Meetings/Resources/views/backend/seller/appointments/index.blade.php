@@ -121,7 +121,11 @@
                                             <i class="las la-eye"></i>
                                         </a>
                                     @endif
+                                   
                                 @endif
+                                <a class="btn btn-primary btn-icon btn-circle btn-sm" href="{{route('seller.meetings.appointments.duplicate', $appointment->id)}}" title="{{ translate('Duplicate Appointment') }}">
+                                    <i class="las la-copy"></i>
+                                </a>
                             </td>
                             {{-- <td>
                                 <img src="{{ static_asset('assets/img/flags/'.strtolower($agency->country->code).'.png') }}" height="11" class="mr-1">

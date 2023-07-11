@@ -130,9 +130,6 @@
                                             <i class="las la-video"></i>
                                         </a>
                                     @endif
-                                    <a class="btn btn-primary btn-icon btn-circle btn-sm" href="{{route('seller.meetings.appointments.edit', $booking_request->appointment->id)}}" title="{{ translate('copy meeting link') }}">
-                                        <i class="las la-copy"></i>
-                                    </a>
                                 @endif
 
                                 @if(!in_array($booking_request->status,['completed']))

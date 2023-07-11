@@ -234,11 +234,15 @@
             </div>
             <div class="row">
                 @php $count_appointments = count($shop->appointments) @endphp
-                @foreach($shop->appointments as $appointment)
+                @foreach($appointments as $appointment)
                     <div class="col-md-4">
                         @include('meetings::front.partials.shop_appointments_box_1')
                     </div>
                 @endforeach
+            </div>
+            <!-- Pagination -->
+            <div class="aiz-pagination aiz-pagination-center mt-4">
+                {{ $appointments->links() }}
             </div>
         </div>
     </section>

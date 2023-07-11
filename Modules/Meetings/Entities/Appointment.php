@@ -4,7 +4,7 @@ namespace Modules\Meetings\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+use App\Models\Shop;
 class Appointment extends Model
 {
     use HasFactory;
@@ -29,6 +29,10 @@ class Appointment extends Model
 
     public function appointment_languages(){
         return $this->HasMany(AppointmentLanguage::class,'appointment_id','id');
+    }
+
+    public function shop(){
+        return $this->HasOne(Shop::class,'id','shop_id');
     }
 
     public function appointment_booked(){

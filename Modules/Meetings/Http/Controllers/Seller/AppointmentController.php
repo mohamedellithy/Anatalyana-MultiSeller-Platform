@@ -92,6 +92,11 @@ class AppointmentController extends Controller
 
     }
 
+    public function duplicate(Request $request,$appointment_id){
+        $appointment = $this->appointmentService->show($appointment_id);
+        return view('meetings::backend.seller.appointments.create',compact('appointment'));
+    }
+
     /**
      * Show the specified resource.
      * @param int $id

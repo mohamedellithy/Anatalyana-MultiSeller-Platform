@@ -14,14 +14,17 @@ class ShopAppointmentService{
     }
 
     public function shop_with_appointments($slug_shop,$user_id = null){
-        $shop = Shop::with(['appointments'=> function($query){
-                return $query->select('id','shop_id','title','description','start_at','end_at','date','timezone','host_name');
-            },'appointments.appointment_languages'=> function($query){
+        $appointments = Appointment::with([
+            'appointment_languages' => function($query){
                 return $query->select('language','appointment_id');
-            },'appointments.appointment_booked' => function($query) use($user_id){
+            },
+            'appointments.appointment_booked' => function($query) use($user_id){
                 return $query->where('user_id',$user_id)->select('id','shop_id','appointment_id','status','language');
-            }])->whereIn('user_id',verified_sellers_id())->where('slug',$slug_shop)->first();
-        return $shop;
+            }
+        ])->WhereHas('shop',function($query) use($slug_shop) {
+            return $query->whereIn('user_id',verified_sellers_id())->where('slug',$slug_shop);
+        })->paginate(3);
+        return $appointments;
     }
 
     public function booking_appointment($data){

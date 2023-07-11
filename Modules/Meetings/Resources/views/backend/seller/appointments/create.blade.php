@@ -4,6 +4,7 @@
    @include('meetings::sub_menus.seller_meetings')
 @endsection
 
+@php $selected_languages = "" @endphp
 @section('panel_content')
     <div class="aiz-titlebar mt-2 mb-4">
         <div class="row align-items-center">
@@ -28,7 +29,6 @@
                 <form class="" action="{{ route('seller.meetings.appointments.store') }}" method="POST" enctype="multipart/form-data"
                     id="choice_form">
                     @csrf
-                    <input type="hidden" name="selected_languages" id="selected_languages" />
                     <div class="row">
                         <div class="col-md-6">
                             <div class="card">
@@ -40,7 +40,7 @@
                                         <label class="col-md-3 col-from-label">{{translate('Status of Appointment')}}</label>
                                         <div class="col-md-8">
                                             <label class="aiz-switch aiz-switch-success mb-0">
-                                                <input value="1" name="status" type="checkbox">
+                                                <input value="1"  name="status" type="checkbox" @isset($appointment) @if($appointment->status == 1) checked @endif @endisset >
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
@@ -56,19 +56,19 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 col-from-label">{{translate('Title Of Appointment')}}</label>
                                         <div class="col-md-8">
-                                            <input class="form-control" name="title" id="title_of_appointment" data-live-search="true" required />
+                                            <input class="form-control" @isset($appointment) @if($appointment->title) value="{{ $appointment->title }}" @endif @endisset name="title" id="title_of_appointment" data-live-search="true" required />
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-3 col-from-label">{{translate('Title Of Appointment')}}</label>
                                         <div class="col-md-8">
-                                            <textarea class="form-control" name="description" id="title_of_appointment" data-live-search="true"></textarea>
+                                            <textarea class="form-control" name="description" id="title_of_appointment" data-live-search="true">@isset($appointment) @if($appointment->description) {{ $appointment->description }} @endif @endisset </textarea>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-3 col-from-label">{{translate('Host Name')}}</label>
                                         <div class="col-md-8">
-                                            <input class="form-control" name="host_name" data-live-search="true" required />
+                                            <input class="form-control" name="host_name" @isset($appointment) @if($appointment->host_name) value="{{ $appointment->host_name }}" @endif @endisset data-live-search="true" required />
                                         </div>
                                     </div>
                                 </div>
@@ -85,7 +85,7 @@
                                             <select class="form-control aiz-selectpicker" name="timezone" data-live-search="true">
                                                 <option value="">{{ translate('Select TimeZones') }}</option>
                                                 @foreach (timezones() as $code => $timezone)
-                                                <option value="{{ $code }}">
+                                                <option value="{{ $code }}" @isset($appointment) @if($appointment->timezone == $code) selected @endif @endisset>
                                                     {{ $timezone }}
                                                 </option>
                                                 @endforeach
@@ -95,19 +95,19 @@
                                     <div class="form-group row" id="country">
                                         <label class="col-md-3 col-from-label">{{translate('Date')}}</label>
                                         <div class="col-md-8">
-                                            <input type="date" placeholder="{{ translate('Date') }}" name="date" class="form-control" required>
+                                            <input type="date" placeholder="{{ translate('Date') }}" @isset($appointment) @if($appointment->date) value="{{ $appointment->date }}" @endif @endisset  name="date"  class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-3 col-from-label">{{translate('Start At')}} <span class="text-danger">*</span></label>
                                         <div class="col-md-6">
-                                            <input type="time" placeholder="{{ translate('Start At') }}" name="start_at" class="form-control" required>
+                                            <input type="time" placeholder="{{ translate('Start At') }}" @isset($appointment) @if($appointment->start_at) value="{{ $appointment->start_at }}" @endif @endisset  name="start_at" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-3 col-from-label">{{translate('End At')}} <span class="text-danger">*</span></label>
                                         <div class="col-md-6">
-                                            <input type="time" placeholder="{{ translate('End At') }}" name="end_at" class="form-control" required>
+                                            <input type="time" placeholder="{{ translate('End At') }}" @isset($appointment) @if($appointment->end_at) value="{{ $appointment->end_at }}" @endif @endisset  name="end_at" class="form-control" required>
                                         </div>
                                     </div>
                                 </div>
@@ -152,7 +152,21 @@
                                                 <th></th>
                                             </tr>
                                         </thead>
-                                        <tbody id="LanguagesAdded"></tbody>
+                                        <tbody id="LanguagesAdded">
+                                            @isset($appointment)
+                                                @foreach($appointment->appointment_languages as $lang)
+                                                    @php $selected_languages .= $lang->language."|" @endphp
+                                                    <tr>
+                                                        <td>{{ $loop->index + 1 }}</td>
+                                                        <td>{{ $lang->language }}</td>
+                                                        <td>{{ languages_list()[$lang->language] }}</td>
+                                                        <td>
+                                                            <i class="las la-times-circle" data-code="{{  $lang->language }}"></i>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            @endisset
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -167,6 +181,7 @@
                             </div>
                         </div>
                     </div>
+                    <input type="hidden" name="selected_languages" @isset($appointment) value="{{ $selected_languages  }}" @endisset id="selected_languages" />
                 </form>
             </div>
 
@@ -203,7 +218,7 @@
                 jQuery('#selected_languages').val(selectedLanguage);
                 jQuery(this).parents('tr').remove();
             });
-        }); 
+        });
     </script>
 @endsection
 

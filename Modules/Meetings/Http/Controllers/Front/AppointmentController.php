@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Meetings\Services\AppointmentService;
+use App\Models\Shop;
 class AppointmentController extends Controller
 {
     public $shop_appointments;
@@ -83,8 +84,9 @@ class AppointmentController extends Controller
             $appointments[]     = ['date','=',$request->query('date')];
         endif;
 
-        $shop  = $this->shop_appointments->shop_with_appointments($shop_slug,$appointments,$appointment_booked);
-        return view('meetings::front.sellers_appointments.show',compact('shop'));
+        $appointments  = $this->shop_appointments->shop_with_appointments($shop_slug,$appointments,$appointment_booked);
+        $shop         = Shop::whereIn('user_id',verified_sellers_id())->where('slug',$shop_slug)->first();
+        return view('meetings::front.sellers_appointments.show',compact('appointments','shop'));
     }
 
      /**
