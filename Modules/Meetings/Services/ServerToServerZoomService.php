@@ -76,7 +76,6 @@ class ServerToServerZoomService{
                 'host_id'    => $meet["host_id"]
             ]);
         endif;
-        dd($resopnse->json());
 
         return $resopnse->json();
     }
