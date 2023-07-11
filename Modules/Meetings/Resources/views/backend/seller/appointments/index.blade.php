@@ -19,7 +19,7 @@
         </div>
     </div>
     <div class="card-body">
-        @php 
+        @php
             $sort_date          = request()->query('date') ?: null;
             $sort_booked_status = request()->query('booked_status') ?: null;
             $sort_status        = request()->query('status') ?: null;
@@ -73,7 +73,6 @@
                     <th data-breakpoints="lg">Title</th>
                     <th>{{translate('Date')}}</th>
                     <th data-breakpoints="lg">{{translate('Start At')}}</th>
-                    <th data-breakpoints="lg">{{translate('End At')}}</th>
                     <th data-breakpoints="lg">{{translate('Host by')}}</th>
                     <th data-breakpoints="lg">{{translate('Time Zone')}}</th>
                     <th data-breakpoints="lg">{{translate('Booked')}}</th>
@@ -90,7 +89,6 @@
                             <td>{{ $appointment->title }}</td>
                             <td>{{ date('Y-m-d',strtotime($appointment->date)) }}</td>
                             <td>{{ $appointment->start_at }}</td>
-                            <td>{{ $appointment->end_at }}</td>
                             <td>{{ $appointment->host_name }}</td>
                             <td>{{ $appointment->timezone }}</td>
                             <td>
