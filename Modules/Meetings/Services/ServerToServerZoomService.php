@@ -60,8 +60,7 @@ class ServerToServerZoomService{
             "timezone"   => $time_zone,
             "settings"   => [
                 "join_before_host" => true,
-                "mute_upon_entry"  => true,
-                "alternative_hosts" => "{$booked_appointment->shop->user->email}",
+                "mute_upon_entry"  => true
             ]
         ]);
 
