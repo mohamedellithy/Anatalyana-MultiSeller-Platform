@@ -39,7 +39,7 @@ class AppointmentController extends Controller
             $data['date']        = $request->query('date');
         endif;
 
-        $appointments = $this->appointmentService->all($data);
+        $appointments = $this->appointmentService->all();
         return view('meetings::backend.seller.appointments.index',compact('appointments'));
     }
 

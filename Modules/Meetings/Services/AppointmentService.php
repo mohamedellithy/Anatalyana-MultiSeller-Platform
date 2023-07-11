@@ -11,7 +11,7 @@ class AppointmentService{
 
     public function seller_appointments($data = []){
         $seller_appointment = Shop::whereIn('user_id', verified_sellers_id())
-        ->where($data)->paginate(15);
+        ->where($data)->orderBy('created_at','desc')->paginate(15);
         return $seller_appointment;
     }
 
@@ -79,7 +79,7 @@ class AppointmentService{
         $all_booked_appointment = BookingAppointment::with('shop','user','appointment','zoom_meeting_info')
         ->where($data)->whereHas('appointment',function(Builder $query) use($appointments){
             $query->where($appointments);
-        })->paginate(10);
+        })->orderBy('created_at','desc')->paginate(10);
         return $all_booked_appointment;
     }
 
@@ -87,7 +87,7 @@ class AppointmentService{
         $all_booked_appointment = BookingAppointment::with('shop','user','appointment','zoom_meeting_info')
         ->where($data)->whereHas('appointment',function(Builder $query){
             $query->where('appointments.date','<',date('Y-m-d'));
-        })->paginate(10);
+        })->orderBy('created_at','desc')->paginate(10);
         return $all_booked_appointment;
     }
 
@@ -115,7 +115,7 @@ class AppointmentService{
             $query = $query->where('date','=',$data['date']);
         endif;
 
-        $appointment = $query->paginate(10);
+        $appointment = $query->orderBy('created_at','desc')->paginate(10);
 
         return $appointment;
     }
